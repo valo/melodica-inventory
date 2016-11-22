@@ -9,15 +9,15 @@ defmodule MelodicaInventory.AuthController do
   alias Ueberauth.Strategy.Helpers
   alias MelodicaInventory.UserAuth
 
-  def request(conn, _params) do
-    render(conn, "request.html", callback_url: Helpers.callback_url(conn))
+  def index(conn, _params) do
+    render conn, "index.html"
   end
 
   def delete(conn, _params) do
     conn
     |> put_flash(:info, "You have been logged out!")
     |> configure_session(drop: true)
-    |> redirect(to: "/")
+    |> redirect(to: "/auth")
   end
 
   def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
@@ -31,7 +31,7 @@ defmodule MelodicaInventory.AuthController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Successfully authenticated user id #{ user.id }")
-        |> put_session(:current_user, user)
+        |> put_session(:current_user, user.id)
         |> redirect(to: "/")
       {:error, reason} ->
         conn

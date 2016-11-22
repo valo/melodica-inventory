@@ -13,8 +13,12 @@ defmodule MelodicaInventory.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authenticate do
+    plug MelodicaInventory.Plugs.Authenticate
+  end
+
   scope "/", MelodicaInventory do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser, :authenticate]
 
     get "/", PageController, :index
   end
@@ -22,6 +26,8 @@ defmodule MelodicaInventory.Router do
   scope "/auth", MelodicaInventory do
     pipe_through :browser
 
+    get "/", AuthController, :index, as: :login
+    get "/logout", AuthController, :delete
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
   end

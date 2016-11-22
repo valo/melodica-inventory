@@ -8,4 +8,11 @@ $google-red-color: #db3236;
 
 .login-google {
   background-color: $google-red-color;
+  padding: 15px;
+  color: white;
+}
+
+.login-buttons {
+  margin-top: 50px;
+  text-align: center;
 }

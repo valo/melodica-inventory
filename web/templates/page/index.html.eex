@@ -1,4 +1,1 @@
-<button type="button" class="btn login-google">
-  <i class="fa fa-google" aria-hidden="true"></i>
-  Login with Google
-</button>
+<h1>Welcome <%= assigns[:current_user].email %></h1>

@@ -1,0 +1,6 @@
+<div class="login-buttons">
+  <%= link to: "/auth/google", class: "btn login-google", role: "button" do %>
+    <i class="fa fa-google" aria-hidden="true"></i>
+    Login with Google
+  <% end %>
+</div>

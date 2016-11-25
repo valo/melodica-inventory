@@ -28,7 +28,7 @@ defmodule MelodicaInventory.Router do
 
     get "/", AuthController, :index, as: :login
     get "/logout", AuthController, :delete
-    get "/:provider", AuthController, :request
+    get "/:provider", AuthController, :index
     get "/:provider/callback", AuthController, :callback
   end
 

@@ -1,5 +1,5 @@
 defmodule MelodicaInventory.TrelloLane do
-  defstruct [:id, :name, :desc]
+  defstruct [:id, :name]
 
   def get_all(board_id) do
     HTTPoison.get!(get_lanes_url(board_id), %{}, [
@@ -15,7 +15,6 @@ defmodule MelodicaInventory.TrelloLane do
   end
 
   defp decode_response(%HTTPoison.Response{body: body, status_code: 200}) do
-    IO.inspect(body)
     Poison.decode!(body, as: [%MelodicaInventory.TrelloLane{}])
   end
 

@@ -1,1 +1,14 @@
-<h1>Welcome <%= assigns[:current_user].email %></h1>
+<%= for chunk <- chunked_boards(@boards) do %>
+  <div class="row">
+    <%= for board <- chunk do %>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-block">
+            <h4 class="card-title"><%= board.name %></h4>
+            <a href="#" class="btn btn-primary">Open</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

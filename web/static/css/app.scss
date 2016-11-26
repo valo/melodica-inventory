@@ -2,7 +2,7 @@
 @import './bootstrap/scss/bootstrap';
 @import './font-awesome/scss/font-awesome';
 
-@fa-font-path: './font-awesome/scss/font-awesome/font';
+$enable-flex: true;
 
 $google-red-color: #db3236;
 
@@ -15,4 +15,8 @@ $google-red-color: #db3236;
 .login-buttons {
   margin-top: 50px;
   text-align: center;
+}
+
+.card {
+  height: 180px;
 }

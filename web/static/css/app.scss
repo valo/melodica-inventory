@@ -17,6 +17,33 @@ $google-red-color: #db3236;
   text-align: center;
 }
 
-.card {
-  height: 180px;
+a {
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.card-title {
+  font-size: 14px;
+}
+
+@include media-breakpoint-up(md) {
+  .card-title {
+    font-size: 18px;
+  }
+}
+
+.category {
+  height: 150px;
+}
+
+.item {
+  height: 200px;
+
+  img {
+    max-width: 150px;
+    max-height: 100px;
+  }
 }

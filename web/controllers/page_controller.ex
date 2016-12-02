@@ -3,6 +3,6 @@ defmodule MelodicaInventory.PageController do
   alias MelodicaInventory.TrelloBoard
 
   def index(conn, _params) do
-    render conn, "index.html", boards: TrelloBoard.get_all
+    render conn, "index.html", boards: TrelloBoard.all
   end
 end

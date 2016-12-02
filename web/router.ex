@@ -21,6 +21,7 @@ defmodule MelodicaInventory.Router do
     pipe_through [:browser, :authenticate]
 
     get "/", PageController, :index
+    get "/category/:category_id", CategoryController, :show
   end
 
   scope "/auth", MelodicaInventory do

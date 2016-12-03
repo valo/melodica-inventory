@@ -1,18 +1,18 @@
-<%= for {list, cards} <- Enum.zip(@lists, @cards) do %>
+<%= for variation <- @variations do %>
   <div class="row">
     <div class="col-md-12">
-      <h2><%= list.name %></h1>
+      <h2><%= variation.name %></h1>
     </div>
   </div>
   <div class="row">
-    <%= for card <- cards do %>
+    <%= for item <- variation.items do %>
       <div class="col-md-3 col-sm-4 col-xs-6">
         <div class="card item">
           <div class="card-block">
-            <a href="<%= card.url %>" target="_blank">
-              <p class="card-title"><%= card.name %></p>
-              <%= if card.attachmentCover do %>
-                <img src="<%= card.attachmentCover.url %>" class="img-fluid rounded"/>
+            <a href="<%= item.url %>" target="_blank">
+              <p class="card-title"><%= item.name %></p>
+              <%= if cover_url(item) do %>
+                <img src="<%= cover_url(item) %>" class="img-fluid rounded"/>
               <% end %>
             </a>
           </div>

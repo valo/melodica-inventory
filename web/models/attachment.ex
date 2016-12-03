@@ -17,7 +17,7 @@ defmodule MelodicaInventory.Attachment do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:url])
-    |> validate_required([:url])
+    |> cast(params, [:url, :item_id])
+    |> validate_required([:url, :item_id])
   end
 end

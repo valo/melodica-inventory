@@ -1,16 +1,14 @@
 defmodule MelodicaInventory.CategoryController do
   use MelodicaInventory.Web, :controller
-  alias MelodicaInventory.TrelloList
-  alias MelodicaInventory.TrelloCard
+  alias MelodicaInventory.Variation
+  alias MelodicaInventory.Item
 
   def show(conn, %{"category_id" => category_id}) do
-    lists = TrelloList.all(category_id)
-    cards =
-      lists
-      |> Enum.map(&fetch_cards/1)
-      |> Enum.map(&Task.await/1)
+    variations =
+      from(v in Variation, where: v.category_id == ^category_id, preload: [items: :attachments])
+      |> Repo.all
 
-    render conn, "show.html", lists: lists, cards: cards
+    render conn, "show.html", variations: variations
   end
 
   def fetch_cards(list) do

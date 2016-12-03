@@ -6,6 +6,7 @@ defmodule MelodicaInventory.SyncInventory do
   alias MelodicaInventory.Category
   alias MelodicaInventory.Variation
   alias MelodicaInventory.Item
+  alias MelodicaInventory.Attachment
 
   def sync do
     TrelloBoard.all
@@ -29,10 +30,16 @@ defmodule MelodicaInventory.SyncInventory do
 
   defp update_items(%Variation{id: id}) do
     TrelloCard.all(id)
-    |> Enum.map(&find_or_create_item_from_card/1)
+    |> Enum.map(&(find_or_create_item_from_card(&1) && update_attachments(&1)))
   end
 
   defp find_or_create_item_from_card(%TrelloCard{id: id, list_id: list_id, name: name, url: url}=item) do
     Repo.get(Item, id) || Repo.insert!(Item.changeset(%Item{id: id, name: name, variation_id: list_id, url: url}))
+  end
+
+  defp update_attachments(%TrelloCard{idAttachmentCover: nil}), do: nil
+
+  defp update_attachments(%TrelloCard{id: id, idAttachmentCover: attachment_id, attachmentCover: trello_attachment}) do
+    Repo.get(Attachment, attachment_id) || Repo.insert!(Attachment.changeset(%Attachment{id: attachment_id, item_id: id, url: trello_attachment.url}))
   end
 end

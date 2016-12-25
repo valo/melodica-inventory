@@ -1,9 +1,9 @@
 defmodule MelodicaInventory.CategoryController do
   use MelodicaInventory.Web, :controller
   alias MelodicaInventory.Variation
-  alias MelodicaInventory.Item
+  alias MelodicaInventory.TrelloCard
 
-  def show(conn, %{"category_id" => category_id}) do
+  def show(conn, %{"id" => category_id}) do
     variations =
       from(v in Variation, where: v.category_id == ^category_id, preload: [items: :attachments])
       |> Repo.all

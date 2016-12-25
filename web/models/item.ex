@@ -11,6 +11,7 @@ defmodule MelodicaInventory.Item do
     has_many :attachments, Attachment
     field :name, :string
     field :url, :string
+    field :quantity, :integer
 
     timestamps()
   end
@@ -20,7 +21,7 @@ defmodule MelodicaInventory.Item do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :url, :variation_id])
-    |> validate_required([:name, :url, :variation_id])
+    |> cast(params, [:name, :url, :variation_id, :quantity])
+    |> validate_required([:name, :url, :variation_id, :quantity])
   end
 end

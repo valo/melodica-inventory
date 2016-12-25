@@ -9,12 +9,17 @@
       <div class="col-md-3 col-sm-4 col-xs-6">
         <div class="card item">
           <div class="card-block">
-            <a href="<%= item.url %>" target="_blank">
-              <p class="card-title"><%= item.name %></p>
-              <%= if cover_url(item) do %>
-                <img src="<%= cover_url(item) %>" class="img-fluid rounded"/>
-              <% end %>
-            </a>
+            <p>
+              <a href="<%= item.url %>" target="_blank">
+                <p class="card-title"><%= item.name %> - <%= item.quantity %></p>
+                <%= if cover_url(item) do %>
+                  <img src="<%= cover_url(item) %>" class="img-fluid rounded"/>
+                <% end %>
+              </a>
+            </p>
+            <%= if @current_user.admin do %>
+              <a href="<%= item_path(@conn, :edit, item.id) %>" class="btn btn-primary">Edit</a>
+            <% end %>
           </div>
         </div>
       </div>

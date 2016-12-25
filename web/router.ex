@@ -17,11 +17,21 @@ defmodule MelodicaInventory.Router do
     plug MelodicaInventory.Plugs.Authenticate
   end
 
+  pipeline :authenticate_admin do
+    plug MelodicaInventory.Plugs.Authenticate, :admin
+  end
+
   scope "/", MelodicaInventory do
     pipe_through [:browser, :authenticate]
 
     get "/", PageController, :index
-    get "/category/:category_id", CategoryController, :show
+    resources "/categories", CategoryController, only: [:show]
+
+    scope "items" do
+      pipe_through [:authenticate_admin]
+
+      resources "/", ItemController, only: [:edit, :update]
+    end
   end
 
   scope "/auth", MelodicaInventory do

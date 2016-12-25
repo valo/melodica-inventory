@@ -1,0 +1,12 @@
+<h1><%= @changeset.data.name %></h1>
+<%= form_for @changeset, item_path(@conn, :update, @changeset.data.id), fn f -> %>
+  <p>
+    <label>
+      Quantity: <%= text_input f, :quantity %>
+    </label>
+  </p>
+  <p>
+    <%= submit "Submit", class: "btn btn-primary" %>
+    <a href="<%= category_path(@conn, :show, @changeset.data.variation.category_id) %>" class="btn btn-secondary">Back</a>
+  </p>
+<% end %>

@@ -1,13 +1,9 @@
-<div class="row">
+<ul>
   <%= for category <- @categories do %>
-    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
-      <div class="card category">
-        <div class="card-block">
-          <a href="<%= category_path(@conn, :show, category.id) %>">
-            <h4 class="card-title"><%= category.name %></h4>
-          </a>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
+    <li>
+      <a href="<%= category_path(@conn, :show, category.id) %>">
+        <h4 class="card-title"><%= category.name %></h4>
+      </a>
+    </li>
+    <% end %>
+</ul>

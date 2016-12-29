@@ -72,8 +72,76 @@ CREATE TABLE items (
     url character varying(255) NOT NULL,
     inserted_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    quantity integer DEFAULT 0 NOT NULL
+    quantity integer DEFAULT 0 NOT NULL,
+    price numeric DEFAULT 0 NOT NULL
 );
+
+
+--
+-- Name: loans; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE loans (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    item_id character varying(255) NOT NULL,
+    quantity integer NOT NULL,
+    fulfilled boolean DEFAULT false NOT NULL,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: loans_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE loans_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: loans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE loans_id_seq OWNED BY loans.id;
+
+
+--
+-- Name: returns; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE returns (
+    id integer NOT NULL,
+    loan_id integer NOT NULL,
+    quantity integer NOT NULL,
+    type character varying(255) NOT NULL,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: returns_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE returns_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: returns_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE returns_id_seq OWNED BY returns.id;
 
 
 --
@@ -135,6 +203,20 @@ CREATE TABLE variations (
 
 
 --
+-- Name: loans id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans ALTER COLUMN id SET DEFAULT nextval('loans_id_seq'::regclass);
+
+
+--
+-- Name: returns id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY returns ALTER COLUMN id SET DEFAULT nextval('returns_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -163,6 +245,22 @@ ALTER TABLE ONLY categories
 
 ALTER TABLE ONLY items
     ADD CONSTRAINT items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: loans loans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT loans_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: returns returns_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY returns
+    ADD CONSTRAINT returns_pkey PRIMARY KEY (id);
 
 
 --
@@ -213,6 +311,30 @@ ALTER TABLE ONLY items
 
 
 --
+-- Name: loans loans_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT loans_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id);
+
+
+--
+-- Name: loans loans_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT loans_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: returns returns_loan_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY returns
+    ADD CONSTRAINT returns_loan_id_fkey FOREIGN KEY (loan_id) REFERENCES loans(id);
+
+
+--
 -- Name: variations variations_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -224,5 +346,5 @@ ALTER TABLE ONLY variations
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044);
+INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026);
 

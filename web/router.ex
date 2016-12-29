@@ -28,9 +28,8 @@ defmodule MelodicaInventory.Router do
     resources "/categories", CategoryController, only: [:show]
 
     scope "items" do
-      pipe_through [:authenticate_admin]
-
       resources "/", ItemController, only: [:edit, :update]
+      resources "/loans/:item_id", LoanController, only: [:new, :create]
     end
   end
 

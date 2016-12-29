@@ -12,6 +12,7 @@ defmodule MelodicaInventory.Item do
     field :name, :string
     field :url, :string
     field :quantity, :integer
+    field :price, :decimal
 
     timestamps()
   end
@@ -21,7 +22,7 @@ defmodule MelodicaInventory.Item do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :url, :variation_id, :quantity])
-    |> validate_required([:name, :url, :variation_id, :quantity])
+    |> cast(params, [:name, :url, :variation_id, :quantity, :price])
+    |> validate_required([:name, :url, :variation_id, :quantity, :price])
   end
 end

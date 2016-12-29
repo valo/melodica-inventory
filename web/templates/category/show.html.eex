@@ -18,8 +18,9 @@
               </a>
             </p>
             <%= if @current_user.admin do %>
-              <a href="<%= item_path(@conn, :edit, item.id) %>" class="btn btn-primary">Edit</a>
+              <a href="<%= item_path(@conn, :edit, item.id) %>" class="btn btn-secondary">Edit</a>
             <% end %>
+            <a href="<%= loan_path(@conn, :new, item.id) %>" class="btn btn-secondary">Borrow</a>
           </div>
         </div>
       </div>

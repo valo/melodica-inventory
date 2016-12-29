@@ -1,12 +1,14 @@
 <h1><%= @changeset.data.name %></h1>
 <%= form_for @changeset, item_path(@conn, :update, @changeset.data.id), fn f -> %>
-  <p>
-    <label>
-      Quantity: <%= text_input f, :quantity %>
-    </label>
-  </p>
-  <p>
-    <%= submit "Submit", class: "btn btn-primary" %>
-    <a href="<%= category_path(@conn, :show, @changeset.data.variation.category_id) %>" class="btn btn-secondary">Back</a>
-  </p>
+  <div class="form-group">
+    <label for="quantity">Quantity</label>
+    <%= text_input f, :quantity, type: :number, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label for="price">Price</label>
+    <%= text_input f, :price, type: :number, class: "form-control", "aria-describedby": "priceHelp", step: "0.01" %>
+    <small id="priceHelp" class="form-text text-muted">The price of a single <%= @changeset.data.name %></small>
+  </div>
+  <%= submit "Submit", class: "btn btn-primary" %>
+  <a href="<%= category_path(@conn, :show, @changeset.data.variation.category_id) %>" class="btn btn-secondary">Back</a>
 <% end %>

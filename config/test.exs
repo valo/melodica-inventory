@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :melodica_inventory, MelodicaInventory.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "valentin",
+  password: "",
   database: "melodica_inventory_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

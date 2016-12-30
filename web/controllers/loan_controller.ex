@@ -2,6 +2,7 @@ defmodule MelodicaInventory.LoanController do
   use MelodicaInventory.Web, :controller
   alias MelodicaInventory.Item
   alias MelodicaInventory.Loan
+  alias Ecto.Multi
 
   def new(conn, %{"item_id" => item_id}) do
     item = Repo.get!(Item, item_id)
@@ -15,11 +16,11 @@ defmodule MelodicaInventory.LoanController do
     item = Repo.get!(Item, item_id)
     |> Repo.preload(:variation)
 
-    changeset = %Loan{item_id: item_id, user_id: conn.assigns[:current_user].id}
-    |> Loan.changeset(%{quantity: quantity})
+    result = Repo.transaction
+    |> CreateLoan.call(item, conn.assigns[:current_user], quantity)
 
-    case Repo.insert(changeset) do
-      {:ok, loan} ->
+    case result do
+      {:ok, %{loan: loan}} ->
         conn
         |> put_flash(:info, "Loan created successfully.")
         |> redirect(to: category_path(conn, :show, item.variation.category_id))

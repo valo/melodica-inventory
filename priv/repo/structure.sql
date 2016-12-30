@@ -73,7 +73,8 @@ CREATE TABLE items (
     inserted_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     quantity integer DEFAULT 0 NOT NULL,
-    price numeric DEFAULT 0 NOT NULL
+    price numeric DEFAULT 0 NOT NULL,
+    CONSTRAINT quantity_must_be_positive CHECK ((quantity >= 0))
 );
 
 
@@ -88,7 +89,8 @@ CREATE TABLE loans (
     quantity integer NOT NULL,
     fulfilled boolean DEFAULT false NOT NULL,
     inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    CONSTRAINT quantity_must_be_positive CHECK ((quantity >= 0))
 );
 
 
@@ -121,7 +123,8 @@ CREATE TABLE returns (
     quantity integer NOT NULL,
     type character varying(255) NOT NULL,
     inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    CONSTRAINT quantity_must_be_positive CHECK ((quantity >= 0))
 );
 
 
@@ -346,5 +349,5 @@ ALTER TABLE ONLY variations
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026);
+INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240);
 

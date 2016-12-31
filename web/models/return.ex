@@ -2,16 +2,24 @@ defmodule MelodicaInventory.Return do
   use MelodicaInventory.Web, :model
   alias MelodicaInventory.Loan
 
-  schema "loans" do
+  schema "returns" do
     belongs_to :loan, Loan
-    field :quantity, :string
+    field :quantity, :integer
     field :type, :string
 
     timestamps()
   end
 
   def return_types do
-    ["returned", "destroyed"]
+    [returned, destroyed]
+  end
+
+  def returned do
+    "returned"
+  end
+
+  def destroyed do
+    "destroyed"
   end
 
   @doc """

@@ -27,10 +27,18 @@ defmodule MelodicaInventory.Router do
     get "/", PageController, :index
     resources "/categories", CategoryController, only: [:show]
 
-    scope "items" do
-      resources "/", ItemController, only: [:edit, :update]
-      resources "/loans/:item_id", LoanController, only: [:new, :create]
-    end
+    resources "/items", ItemController, only: [:show]
+    resources "/items/loans/:item_id", LoanController, only: [:new, :create]
+
+    resources "/loans", LoanController, only: [:index]
+  end
+
+  scope "/admin", as: :admin, alias: MelodicaInventory.Admin do
+    pipe_through [:browser, :authenticate_admin]
+
+    resources "/items", ItemController, only: [:edit, :update]
+    resources "/loans", LoanController, only: [:index]
+    resources "/loan_returns/:loan_id", LoanReturnsController, only: [:create]
   end
 
   scope "/auth", MelodicaInventory do

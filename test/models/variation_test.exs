@@ -3,7 +3,7 @@ defmodule MelodicaInventory.VariationTest do
 
   alias MelodicaInventory.Variation
 
-  @valid_attrs %{}
+  @valid_attrs %{name: "Test variation", category_id: "1234567890"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

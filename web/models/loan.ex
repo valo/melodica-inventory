@@ -21,6 +21,6 @@ defmodule MelodicaInventory.Loan do
     struct
     |> cast(params, [:user_id, :item_id, :quantity, :fulfilled])
     |> validate_required([:user_id, :item_id, :quantity, :fulfilled])
-    |> validate_number(:quantity, greater_than: 0)
+    |> validate_number(:quantity, greater_than_or_equal_to: 0)
   end
 end

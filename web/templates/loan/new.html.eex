@@ -1,6 +1,10 @@
 <h1>Borrow <%= @item.name %></h1>
 <%= form_for @changeset, loan_path(@conn, :create, @item.id), fn f -> %>
-  <div class="form-group">
+  <div class="<%= error_class_for(f, :loan) %>">
+    <%= error_tag f, :loan %>
+  </div>
+  <% IO.inspect f.data %>
+  <div class="form-group <%= error_class_for(f, :quantity) %>">
     <label for="quantity">Quantity</label>
     <%= text_input f, :quantity, type: :number, class: "form-control" %>
     <%= error_tag f, :quantity %>

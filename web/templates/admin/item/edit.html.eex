@@ -1,8 +1,9 @@
 <h1><%= @changeset.data.name %></h1>
-<%= form_for @changeset, item_path(@conn, :update, @changeset.data.id), fn f -> %>
+<%= form_for @changeset, admin_item_path(@conn, :update, @changeset.data.id), fn f -> %>
   <div class="form-group">
     <label for="quantity">Quantity</label>
     <%= text_input f, :quantity, type: :number, class: "form-control" %>
+    <%= error_tag f, :quantity %>
   </div>
   <div class="form-group">
     <label for="price">Price</label>

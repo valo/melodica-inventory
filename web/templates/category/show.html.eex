@@ -10,17 +10,27 @@
         <div class="card item">
           <div class="card-block">
             <p>
-              <a href="<%= item.url %>" target="_blank">
-                <p class="card-title"><%= item.name %> - <%= item.quantity %></p>
-                <%= if cover_url(item) do %>
-                  <img src="<%= cover_url(item) %>" class="img-fluid rounded"/>
-                <% end %>
-              </a>
+              <%= link to: item_path(@conn, :show, item.id) do %>
+                <p class="card-title"><%= item.name %></p>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <%= if cover_url(item) do %>
+                      <img src="<%= cover_url(item) %>" class="img-fluid rounded"/>
+                    <% end %>
+                  </div>
+                  <div class="col-lg-6">
+                    Available: <%= item.quantity %>
+                  </div>
+                </div>
+              <% end %>
             </p>
-            <%= if @current_user.admin do %>
-              <a href="<%= item_path(@conn, :edit, item.id) %>" class="btn btn-secondary">Edit</a>
-            <% end %>
-            <a href="<%= loan_path(@conn, :new, item.id) %>" class="btn btn-secondary">Borrow</a>
+            <p>
+              <%= link "Trello", to: item.url, class: "btn btn-secondary" %>
+              <%= if @current_user.admin do %>
+                <%= link "Edit", to: admin_item_path(@conn, :edit, item.id), class: "btn btn-secondary" %>
+              <% end %>
+              <%= link "Borrow", to: loan_path(@conn, :new, item.id), class: "btn btn-secondary" %>
+            </p>
           </div>
         </div>
       </div>

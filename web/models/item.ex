@@ -24,5 +24,6 @@ defmodule MelodicaInventory.Item do
     struct
     |> cast(params, [:name, :url, :variation_id, :quantity, :price])
     |> validate_required([:name, :url, :variation_id, :quantity, :price])
+    |> validate_number(:quantity, greater_than_or_equal_to: 0)
   end
 end

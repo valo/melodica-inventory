@@ -10,7 +10,7 @@ defmodule MelodicaInventory.CreateLoanTest do
     user = insert(:user)
     item = insert(:item, quantity: 5)
 
-    {:ok, loan} = CreateLoan.call(item, user, 5)
+    {:ok, %{loan: loan}} = CreateLoan.call(item, user, 5)
 
     item = Repo.get!(Item, item.id)
 
@@ -23,8 +23,9 @@ defmodule MelodicaInventory.CreateLoanTest do
     user = insert(:user)
     item = insert(:item, quantity: 1)
 
-    assert_raise Postgrex.Error, fn ->
-      CreateLoan.call(item, user, 5) == {:error}
-    end
+    {:error, failed_value} = CreateLoan.call(item, user, 5)
+
+    assert Keyword.keys(failed_value.errors) == [:loan]
+    assert failed_value.action == :insert
   end
 end

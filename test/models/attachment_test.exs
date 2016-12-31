@@ -3,7 +3,7 @@ defmodule MelodicaInventory.AttachmentTest do
 
   alias MelodicaInventory.Attachment
 
-  @valid_attrs %{}
+  @valid_attrs %{url: "http://example.com", item_id: "1234567890"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

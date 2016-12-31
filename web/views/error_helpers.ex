@@ -10,7 +10,19 @@ defmodule MelodicaInventory.ErrorHelpers do
   """
   def error_tag(form, field) do
     if error = form.errors[field] do
-      content_tag :span, translate_error(error), class: "help-block"
+      content_tag :div, translate_error(error), class: "form-control-feedback"
+    end
+  end
+
+  def has_error?(form, field) do
+    Keyword.has_key?(form.errors, field)
+  end
+
+  def error_class_for(form, field) do
+    if has_error?(form, field) do
+      "has-danger"
+    else
+      ""
     end
   end
 

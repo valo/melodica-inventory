@@ -1,0 +1,20 @@
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Taken at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for loan <- @loans do %>
+      <tr>
+        <td><%= link loan.item.name, to: item_path(@conn, :show, loan.item_id) %></td>
+        <td><%= loan.quantity %></td>
+        <td><%= Decimal.mult(loan.item.price, Decimal.new(loan.quantity)) %> BGN</td>
+        <td><%= format_loan_date(loan.inserted_at) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

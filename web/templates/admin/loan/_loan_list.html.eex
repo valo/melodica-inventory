@@ -1,0 +1,27 @@
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Taken at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for loan <- @loans do %>
+      <tr>
+        <td><%= loan.user.first_name <> " " <> loan.user.last_name %></td>
+        <td><%= link loan.item.name, to: item_path(@conn, :show, loan.item_id) %></td>
+        <td><%= loan.quantity %></td>
+        <td><%= Decimal.mult(loan.item.price, Decimal.new(loan.quantity)) %> BGN</td>
+        <td><%= format_loan_date(loan.inserted_at) %></td>
+        <td>
+          <%= button "Return", to: admin_loan_returns_path(@conn, :create, loan.id), method: :post, class: "btn btn-secondary" %>
+          <%= button "Return less", to: admin_loan_returns_path(@conn, :create, loan.id), method: :post, class: "btn btn-secondary" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

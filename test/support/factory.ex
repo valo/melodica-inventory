@@ -17,6 +17,7 @@ defmodule MelodicaInventory.Factory do
      id: sequence(:id, &"123456#{&1}"),
      name: "Red table cloths",
      quantity: 10,
+     price: 1,
      url: "http://example.com/image.jpg",
      variation: build(:variation)
    }
@@ -34,6 +35,14 @@ defmodule MelodicaInventory.Factory do
    %MelodicaInventory.Category{
      id: sequence(:id, &"123456#{&1}"),
      name: "Cloths"
+   }
+ end
+
+ def loan_factory do
+   %MelodicaInventory.Loan{
+     item: build(:item, quantity: 10),
+     user: build(:user),
+     quantity: 5
    }
  end
 

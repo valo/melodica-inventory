@@ -19,7 +19,7 @@ defmodule MelodicaInventory.Mixfile do
   def application do
     [mod: {MelodicaInventory, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ueberauth_google]]
+                    :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto]]
   end
 
   # Specifies which paths to compile per environment.
@@ -39,7 +39,11 @@ defmodule MelodicaInventory.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:ueberauth_google, "~> 0.4"},
-     {:ex_machina, "~> 1.0", only: :test}]
+     {:ex_machina, "~> 1.0", only: :test},
+     {:mix_test_watch, "~> 0.2", only: :dev},
+     {:ex_unit_notifier, "~> 0.1", only: :test},
+     {:timex, "~> 3.0"},
+     {:timex_ecto, "~> 3.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

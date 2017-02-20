@@ -20,7 +20,7 @@
           <td><%= format_loan_date(loan.inserted_at) %></td>
           <td>
             <%= button "Return", to: admin_loan_returns_path(@conn, :create, loan.id), method: :post, class: "btn btn-secondary" %>
-            <button type="button" data-toggle="modal" data-target="#returnLessModal" data-loan-id="<%= loan.id %>" data-max-quantity="<%= loan.quantity %>" class="btn btn-secondary">Return less</button>
+            <button type="button" data-toggle="modal" data-target="#returnLessModal" data-loan-return-url="<%= admin_loan_returns_path(@conn, :create, loan.id) %>" data-max-quantity="<%= loan.quantity %>" class="btn btn-secondary">Return less</button>
           </td>
         </tr>
       <% end %>

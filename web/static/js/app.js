@@ -25,14 +25,15 @@ require("bootstrap/dist/js/bootstrap.js");
 
 $(document).ready(function() {
   $("#returnLessModal").on("show.bs.modal", function(event) {
-    console.log("Here");
     var button = $(event.relatedTarget);
-    console.log(button);
-    var loanId = button.data("loan-id");
+    var loanReturnUrl = button.data("loan-return-url");
     var maxQuantity = button.data("max-quantity");
-    console.log(button);
     var modal = $(this);
 
     modal.find("#quantity").val(maxQuantity);
+    modal.find("form").attr("action", loanReturnUrl);
+    modal.find(".modal-footer .btn-primary").click(function() {
+      return modal.find("form").submit();
+    });
   });
 });

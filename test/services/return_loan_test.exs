@@ -34,7 +34,7 @@ defmodule MelodicaInventory.ReturnLoanTest do
     assert return.type == Return.destroyed
     assert return.quantity == 4
     assert !loan.fulfilled
-    assert item_before.quantity + return.quantity == item_after.quantity
+    assert item_before.quantity == item_after.quantity
     assert loan.quantity == 1
   end
 end

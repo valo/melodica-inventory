@@ -10,7 +10,7 @@ defmodule MelodicaInventory.Return do
     timestamps()
   end
 
-  def return_types do
+  def types do
     [returned, destroyed]
   end
 
@@ -29,6 +29,6 @@ defmodule MelodicaInventory.Return do
     struct
     |> cast(params, [:loan_id, :quantity, :type])
     |> validate_required([:loan_id, :quantity, :type])
-    |> validate_inclusion(:type, return_types)
+    |> validate_inclusion(:type, types)
   end
 end

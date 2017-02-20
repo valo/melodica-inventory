@@ -34,7 +34,7 @@ defmodule MelodicaInventory.SyncInventory do
   end
 
   defp find_or_create_item_from_card(%TrelloCard{id: id, list_id: list_id, name: name, url: url}) do
-    Repo.get(Item, id) || Repo.insert!(Item.changeset(%Item{id: id, name: name, variation_id: list_id, url: url}))
+    Repo.get(Item, id) || Repo.insert!(Item.changeset(%Item{id: id, name: name, variation_id: list_id, url: url, price: 0, quantity: 0}))
   end
 
   defp update_attachments(%TrelloCard{idAttachmentCover: nil}), do: nil

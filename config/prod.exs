@@ -28,13 +28,13 @@ config :melodica_inventory, MelodicaInventory.Repo,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
 
-  config :ueberauth, Ueberauth.Strategy.Google.OAuth,
-    client_id: System.get_env("GOOGLE_OAUTH_CLIENT_ID"),
-    client_secret: System.get_env("GOOGLE_OAUTH_CLIENT_SECRET")
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.get_env("GOOGLE_OAUTH_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_OAUTH_CLIENT_SECRET")
 
-  config :melodica_inventory, :api_key, System.get_env("TRELLO_API_KEY")
-  config :melodica_inventory, :token, System.get_env("TRELLO_TOKEN")
-  config :melodica_inventory, :inventory_org_id, System.get_env("TRELLO_ORGANIZATION_ID")
+config :melodica_inventory, :api_key, System.get_env("TRELLO_API_KEY")
+config :melodica_inventory, :token, System.get_env("TRELLO_TOKEN")
+config :melodica_inventory, :inventory_org_id, System.get_env("TRELLO_ORGANIZATION_ID")
 
 
 # ## SSL Support

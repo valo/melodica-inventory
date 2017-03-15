@@ -42,6 +42,7 @@ defmodule MelodicaInventory.SyncInventory do
   end
 
   defp update_attachments(%TrelloCard{idAttachmentCover: nil}), do: nil
+  defp update_attachments(%TrelloCard{idAttachmentCover: ""}), do: nil
 
   defp update_attachments(%TrelloCard{id: id, idAttachmentCover: attachment_id, attachmentCover: trello_attachment}) do
     Repo.get(Attachment, attachment_id) || Repo.insert!(Attachment.changeset(%Attachment{id: attachment_id, item_id: id, url: trello_attachment.url}))

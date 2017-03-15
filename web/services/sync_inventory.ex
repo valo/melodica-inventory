@@ -8,7 +8,9 @@ defmodule MelodicaInventory.SyncInventory do
   alias MelodicaInventory.Item
   alias MelodicaInventory.Attachment
 
-  def sync do
+  require Logger
+
+  def sync() do
     TrelloBoard.all
     |> Enum.map(&find_or_create_category_from_board/1)
     |> Enum.each(&update_variations/1)
@@ -19,6 +21,7 @@ defmodule MelodicaInventory.SyncInventory do
   end
 
   defp update_variations(%Category{id: id}) do
+    Logger.info "Updating the variations of category #{ id }"
     TrelloList.all(id)
     |> Enum.map(&find_or_create_variation_from_list/1)
     |> Enum.map(&update_items/1)
@@ -29,6 +32,7 @@ defmodule MelodicaInventory.SyncInventory do
   end
 
   defp update_items(%Variation{id: id}) do
+    Logger.info "Updating the items of variation #{ id }"
     TrelloCard.all(id)
     |> Enum.map(&(find_or_create_item_from_card(&1) && update_attachments(&1)))
   end

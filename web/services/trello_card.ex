@@ -1,6 +1,8 @@
 defmodule MelodicaInventory.TrelloCard do
   defstruct [:id, :name, :idAttachmentCover, :attachmentCover, :url, :list_id]
 
+  require Logger
+
   def all(list_id) do
     HTTPoison.get!(cards_url(list_id), %{}, [
       params: %{
@@ -25,11 +27,11 @@ defmodule MelodicaInventory.TrelloCard do
     %{card | list_id: list_id}
   end
 
-  defp fetch_cover(%MelodicaInventory.TrelloCard{idAttachmentCover: nil}=trello_card) do
-    trello_card
-  end
+  defp fetch_cover(%MelodicaInventory.TrelloCard{idAttachmentCover: nil}=trello_card), do: trello_card
+  defp fetch_cover(%MelodicaInventory.TrelloCard{idAttachmentCover: ""}=trello_card), do: trello_card
 
   defp fetch_cover(%MelodicaInventory.TrelloCard{id: card_id, idAttachmentCover: attachment_id}=trello_card) do
+    Logger.info("Fetching the cover of #{card_id}: #{attachment_id}")
     %{trello_card | attachmentCover: MelodicaInventory.TrelloAttachment.get(card_id, attachment_id)}
   end
 

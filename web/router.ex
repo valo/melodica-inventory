@@ -36,6 +36,7 @@ defmodule MelodicaInventory.Router do
   scope "/admin", as: :admin, alias: MelodicaInventory.Admin do
     pipe_through [:browser, :authenticate_admin]
 
+    resources "/categories", CategoryController, only: [:edit, :update, :delete]
     resources "/items", ItemController, only: [:edit, :update]
     resources "/loans", LoanController, only: [:index]
     resources "/loan_returns/:loan_id", LoanReturnsController, only: [:create]

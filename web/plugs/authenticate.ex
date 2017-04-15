@@ -6,6 +6,10 @@ defmodule MelodicaInventory.Plugs.Authenticate do
 
   def init(default), do: default
 
+  def call(conn, _) do
+    assign(conn, :current_user, Repo.get_by!(User, admin: false))
+  end
+
   def call(conn, :admin) do
     case get_session(conn, :current_user) do
       nil ->

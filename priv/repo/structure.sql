@@ -39,8 +39,9 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE attachments (
-    id character varying(255) NOT NULL,
-    item_id character varying(255) NOT NULL,
+    id integer NOT NULL,
+    uuid character varying(255) NOT NULL,
+    item_id integer NOT NULL,
     url character varying(1024) NOT NULL,
     previews jsonb,
     inserted_at timestamp without time zone NOT NULL,
@@ -49,11 +50,31 @@ CREATE TABLE attachments (
 
 
 --
+-- Name: attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE attachments_id_seq OWNED BY attachments.id;
+
+
+--
 -- Name: categories; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE categories (
-    id character varying(255) NOT NULL,
+    id integer NOT NULL,
+    uuid character varying(255) NOT NULL,
     name character varying(255) NOT NULL,
     "desc" character varying(255),
     inserted_at timestamp without time zone NOT NULL,
@@ -62,12 +83,32 @@ CREATE TABLE categories (
 
 
 --
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
+
+
+--
 -- Name: items; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE items (
-    id character varying(255) NOT NULL,
-    variation_id character varying(255) NOT NULL,
+    id integer NOT NULL,
+    uuid character varying(255) NOT NULL,
+    variation_id integer NOT NULL,
     name character varying(255) NOT NULL,
     url character varying(255) NOT NULL,
     inserted_at timestamp without time zone NOT NULL,
@@ -79,13 +120,32 @@ CREATE TABLE items (
 
 
 --
+-- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE items_id_seq OWNED BY items.id;
+
+
+--
 -- Name: loans; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE loans (
     id integer NOT NULL,
     user_id integer NOT NULL,
-    item_id character varying(255) NOT NULL,
+    item_id integer NOT NULL,
     quantity integer NOT NULL,
     fulfilled boolean DEFAULT false NOT NULL,
     inserted_at timestamp without time zone NOT NULL,
@@ -197,12 +257,53 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 --
 
 CREATE TABLE variations (
-    id character varying(255) NOT NULL,
-    category_id character varying(255) NOT NULL,
+    id integer NOT NULL,
+    uuid character varying(255) NOT NULL,
+    category_id integer NOT NULL,
     name character varying(255) NOT NULL,
     inserted_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: variations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE variations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: variations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE variations_id_seq OWNED BY variations.id;
+
+
+--
+-- Name: attachments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id_seq'::regclass);
+
+
+--
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
+
+
+--
+-- Name: items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY items ALTER COLUMN id SET DEFAULT nextval('items_id_seq'::regclass);
 
 
 --
@@ -224,6 +325,13 @@ ALTER TABLE ONLY returns ALTER COLUMN id SET DEFAULT nextval('returns_id_seq'::r
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: variations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY variations ALTER COLUMN id SET DEFAULT nextval('variations_id_seq'::regclass);
 
 
 --

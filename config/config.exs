@@ -10,10 +10,10 @@ config :melodica_inventory,
   ecto_repos: [MelodicaInventory.Repo]
 
 # Configures the endpoint
-config :melodica_inventory, MelodicaInventory.Endpoint,
+config :melodica_inventory, MelodicaInventory.Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "TA7wdGLsJXMHMZY3Z+Q6LWGog1jhQbPastd5DlSaDq+LQuhDS6xTKZG5W84Vsbtq",
-  render_errors: [view: MelodicaInventory.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: MelodicaInventory.Web.ErrorView, accepts: ~w(html json)],
   pubsub: [name: MelodicaInventory.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

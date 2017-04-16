@@ -1,5 +1,5 @@
 defmodule MelodicaInventory.ErrorViewTest do
-  use MelodicaInventory.ConnCase, async: true
+  use MelodicaInventory.Web.ConnCase, async: true
 
   # Bring render/3 and render_to_string/3 for testing custom views
   import Phoenix.View

@@ -1,0 +1,32 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Category
+          <%= if @current_user.admin do %>
+            <%= link "Add category", to: admin_category_path(@conn, :new), class: "btn btn-secondary btn-sm" %>
+          <% end %>
+        </th>
+        <%= if @current_user.admin do %>
+          <th>Actions</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for category <- @categories do %>
+        <tr>
+          <td>
+            <a href="<%= category_path(@conn, :show, category) %>">
+              <h4 class="card-title"><%= category.name %></h4>
+            </a>
+          </td>
+          <%= if @current_user.admin do %>
+            <td><%= link "Edit", to: admin_category_path(@conn, :edit, category), class: "btn btn-secondary btn-sm" %></td>
+            <td><%= link "Delete", to: admin_category_path(@conn, :delete, category), method: :delete, class: "btn btn-secondary btn-sm", data: [confirm: ~s(Are you sure you want to delete "#{ category.name }"?)] %></td>
+          <% end %>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>

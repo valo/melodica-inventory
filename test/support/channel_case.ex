@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.ChannelCase do
+defmodule MelodicaInventory.Web.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -27,7 +27,7 @@ defmodule MelodicaInventory.ChannelCase do
 
 
       # The default endpoint for testing
-      @endpoint MelodicaInventory.Endpoint
+      @endpoint MelodicaInventory.Web.Endpoint
     end
   end
 

@@ -1,3 +1,3 @@
 defmodule MelodicaInventory.PageViewTest do
-  use MelodicaInventory.ConnCase, async: true
+  use MelodicaInventory.Web.ConnCase, async: true
 end

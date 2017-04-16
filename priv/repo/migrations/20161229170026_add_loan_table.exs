@@ -4,7 +4,7 @@ defmodule MelodicaInventory.Repo.Migrations.AddLoanTable do
   def change do
     create table(:loans) do
       add :user_id, references(:users), null: false
-      add :item_id, references(:items, type: :string), null: false
+      add :item_id, references(:items), null: false
       add :quantity, :integer, null: false
       add :fulfilled, :boolean, null: false, default: false
 

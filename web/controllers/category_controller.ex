@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.CategoryController do
+defmodule MelodicaInventory.Web.CategoryController do
   use MelodicaInventory.Web, :controller
   alias MelodicaInventory.Variation
   alias MelodicaInventory.TrelloCard

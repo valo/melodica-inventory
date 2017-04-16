@@ -3,7 +3,7 @@
 
 <h2>Currently borrowed:</h2>
 <%= if assigns[:current_user].admin do %>
-  <%= render MelodicaInventory.Admin.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>
+  <%= render MelodicaInventory.Web.Admin.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>
 <% else %>
-  <%= render MelodicaInventory.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>
+  <%= render MelodicaInventory.Web.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>
 <% end %>

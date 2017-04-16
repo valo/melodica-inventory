@@ -22,7 +22,7 @@ exports.config = {
     stylesheets: {
       joinTo: "css/app.css",
       order: {
-        after: ["web/static/css/app.css"] // concat app.css last
+        after: ["static/css/app.css"] // concat app.css last
       }
     },
     templates: {
@@ -43,7 +43,7 @@ exports.config = {
     watched: ["static", "css", "js", "vendor"],
 
     // Where to compile files to
-    public: "priv/static"
+    public: "../priv/static"
   },
 
   // Configure your plugins

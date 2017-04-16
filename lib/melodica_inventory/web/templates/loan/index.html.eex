@@ -1,2 +1,2 @@
 <h1>My loans</h1>
-<%= render MelodicaInventory.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>
+<%= render MelodicaInventory.Web.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>

@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.Admin.ItemController do
+defmodule MelodicaInventory.Web.Admin.ItemController do
   use MelodicaInventory.Web, :controller
   alias MelodicaInventory.Item
 

@@ -14,7 +14,7 @@ defmodule MelodicaInventory.Factory do
 
  def item_factory do
    %MelodicaInventory.Item{
-     id: sequence(:id, &"123456#{&1}"),
+     uuid: sequence(:uuid, &"123456#{&1}"),
      name: "Red table cloths",
      quantity: 10,
      price: 1,
@@ -25,7 +25,7 @@ defmodule MelodicaInventory.Factory do
 
  def variation_factory do
    %MelodicaInventory.Variation{
-     id: sequence(:id, &"123456#{&1}"),
+     uuid: sequence(:uuid, &"123456#{&1}"),
      name: "Table Cloths",
      category: build(:category)
    }
@@ -33,7 +33,7 @@ defmodule MelodicaInventory.Factory do
 
  def category_factory do
    %MelodicaInventory.Category{
-     id: sequence(:id, &"123456#{&1}"),
+     uuid: sequence(:uuid, &"123456#{&1}"),
      name: "Cloths"
    }
  end

@@ -33,7 +33,7 @@ defmodule MelodicaInventory.Web.Router do
     resources "/loans", LoanController, only: [:index]
   end
 
-  scope "/admin", as: :admin, alias: MelodicaInventory.Admin do
+  scope "/admin", as: :admin, alias: MelodicaInventory.Web.Admin do
     pipe_through [:browser, :authenticate_admin]
 
     resources "/categories", CategoryController, only: [:edit, :update, :delete, :new, :create]

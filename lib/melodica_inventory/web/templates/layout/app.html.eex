@@ -18,7 +18,8 @@
         <%= if assigns[:current_user] do %>
           <li class="nav-item active"><a class="nav-link" href="/loans">My loans</a></li>
           <%= if assigns[:current_user].admin do %>
-            <li class="nav-item active"><a class="nav-link" href="/admin/loans">All loans</a></li>
+            <li class="nav-item active"><%= link "All loans", to: admin_loan_path(@conn, :index), class: "nav-link" %></li>
+            <li class="nav-item active"><%= link "Events", to: admin_event_path(@conn, :index), class: "nav-link" %></li>
           <% end %>
           <li class="nav-item float-xs-right"><a class="nav-link" href="/auth/logout">Logout <%= @current_user.email %></a></li>
         <% end %>

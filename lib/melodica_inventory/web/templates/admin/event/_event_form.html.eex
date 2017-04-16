@@ -1,0 +1,25 @@
+<div class="<%= error_class_for(@f, :event) %>">
+  <%= error_tag @f, :event %>
+</div>
+<div class="form-group <%= error_class_for(@f, :name) %>">
+  <label for="name">Name</label>
+  <%= text_input @f, :name, class: "form-control" %>
+  <%= error_tag @f, :name %>
+</div>
+<div class="form-group <%= error_class_for(@f, :place) %>">
+  <label for="name">Place</label>
+  <%= text_input @f, :place, class: "form-control" %>
+  <%= error_tag @f, :place %>
+</div>
+<div class="form-group <%= error_class_for(@f, :user_id) %>">
+  <label for="name">User</label>
+  <%= select @f, :user_id, @users |> Enum.map(&{event_user(&1), &1.id}), class: "form-control" %>
+  <%= error_tag @f, :user_id %>
+</div>
+<label for="start_date">Dates</label>
+<div class="input-group input-daterange <%= error_class_for(@f, :start_date) %> <%= error_class_for(@f, :end_date) %>">
+  <%= text_input @f, :start_date, class: "form-control", data: [provide: "datepicker", date: [format: "yyyy-mm-dd", week: [start: 1]]] %>
+  <span class="input-group-addon">to</span>
+  <%= text_input @f, :end_date, class: "form-control", data: [provide: "datepicker", date: [format: "yyyy-mm-dd", week: [start: 1]]] %>
+  </div>
+</div>

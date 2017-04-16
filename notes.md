@@ -9,7 +9,6 @@ Admin:
 * Delete item
 * Sync data from trello on a regular basis - each day
 
-
 Future:
 
 Booking items:
@@ -35,3 +34,32 @@ Booking items:
   * Red
     * confirmed for the event date
   * Green - free to book
+
+
+  defmodule MelodicaInventory.Event do
+    use MelodicaInventory.Web, :model
+    alias MelodicaInventory.User
+    alias MelodicaInventory.Item
+    alias MelodicaInventory.Return
+
+    schema "loans" do
+      belongs_to :user, User
+      has_many :items, Item
+      field :name
+      field :start_date, :datetime, null: false
+      field :end_date, :datetime, null: false
+      field :place, :string, null: false
+
+      timestamps()
+    end
+
+    @doc """
+    Builds a changeset based on the `struct` and `params`.
+    """
+    def changeset(struct, params \\ %{}) do
+      struct
+      |> cast(params, [:user_id, :item_id, :quantity, :fulfilled])
+      |> validate_required([:user_id, :item_id, :quantity, :fulfilled])
+      |> validate_number(:quantity, greater_than_or_equal_to: 0)
+    end
+  end

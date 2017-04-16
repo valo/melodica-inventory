@@ -3,7 +3,7 @@ defmodule MelodicaInventory.Category do
   alias MelodicaInventory.Variation
 
   schema "categories" do
-    has_many :variations, Variation
+    has_many :variations, Variation, on_delete: :delete_all
     field :uuid, :string
     field :name, :string
     field :desc, :string

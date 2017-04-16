@@ -44,9 +44,9 @@ defmodule MelodicaInventory.Web.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(MelodicaInventory.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(MelodicaInventory.Web.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(MelodicaInventory.Gettext, "errors", msg, opts)
+      Gettext.dgettext(MelodicaInventory.Web.Gettext, "errors", msg, opts)
     end
   end
 end

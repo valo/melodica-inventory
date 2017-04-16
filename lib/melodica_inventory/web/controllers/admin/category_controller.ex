@@ -24,7 +24,8 @@ defmodule MelodicaInventory.Web.Admin.CategoryController do
   end
 
   def delete(conn, %{"id" => id}) do
-    Repo.delete!(Category, id)
+    category = Repo.get!(Category, id)
+    Repo.delete!(category)
 
     redirect(conn, to: page_path(conn, :index))
   end

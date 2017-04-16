@@ -52,6 +52,7 @@ exports.config = {
       // Do not use ES6 compiler in vendor code
       ignore: [/vendor/]
     },
+
     sass: {
       options: {
         includePaths: [ 'node_modules' ]
@@ -61,7 +62,7 @@ exports.config = {
 
   modules: {
     autoRequire: {
-      "js/app.js": ["js/app"]
+      "js/app.js": ["app"]
     }
   },
 

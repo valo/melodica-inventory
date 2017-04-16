@@ -40,6 +40,7 @@ defmodule MelodicaInventory.Web.Router do
     resources "/items", ItemController, only: [:edit, :update]
     resources "/loans", LoanController, only: [:index]
     resources "/loan_returns/:loan_id", LoanReturnsController, only: [:create]
+    resources "/events", EventController
   end
 
   scope "/auth", MelodicaInventory do

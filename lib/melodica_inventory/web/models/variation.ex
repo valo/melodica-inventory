@@ -5,7 +5,7 @@ defmodule MelodicaInventory.Variation do
 
   schema "variations" do
     belongs_to :category, Category
-    has_many :items, Item
+    has_many :items, Item, on_delete: :delete_all
     field :uuid, :string
     field :name, :string
 

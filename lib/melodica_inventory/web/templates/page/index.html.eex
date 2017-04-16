@@ -18,7 +18,7 @@
         <tr>
           <td>
             <a href="<%= category_path(@conn, :show, category) %>">
-              <h4 class="card-title"><%= category.name %></h4>
+              <%= category.name %>
             </a>
           </td>
           <%= if @current_user.admin do %>

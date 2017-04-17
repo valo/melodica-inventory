@@ -23,11 +23,14 @@ defmodule MelodicaInventory.Web.Plugs.SetCurrentEvent do
   defp current_event_id(conn), do: get_session(conn, :current_event_id)
 
   defp current_event(conn) do
-    case Integer.parse(current_event_id(conn)) do
+    case parse_current_event_id(current_event_id(conn)) do
       :error ->
         nil
-      {event_id, ""} ->
+      {event_id, _} ->
         Repo.get(Event, event_id)
     end
   end
+
+  defp parse_current_event_id(nil), do: :error
+  defp parse_current_event_id(current_event_id), do: Integer.parse(current_event_id)
 end

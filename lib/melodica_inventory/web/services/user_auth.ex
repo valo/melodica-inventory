@@ -10,8 +10,7 @@ defmodule MelodicaInventory.UserAuth do
     if email_allowed?(email) do
       {:ok, find_or_create_db_user(%User{email: email, first_name: first_name, last_name: last_name, image_url: image_url}) }
     else
-      {:ok, find_or_create_db_user(%User{email: email, first_name: first_name, last_name: last_name, image_url: image_url}) }
-      # {:error, "Authentication failed"}
+      {:error, "Authentication failed"}
     end
   end
 

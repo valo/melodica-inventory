@@ -57,6 +57,10 @@ exports.config = {
       options: {
         includePaths: [ 'node_modules' ]
       }
+    },
+    copycat: {
+      "fonts": ["node_modules/font-awesome/fonts"],
+      onlyChanged: true
     }
   },
 

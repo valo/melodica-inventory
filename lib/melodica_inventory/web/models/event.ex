@@ -8,6 +8,7 @@ defmodule MelodicaInventory.Event do
     field :place, :string, null: false
     field :start_date, :date, null: false
     field :end_date, :date, null: false
+    field :confirmed, :boolean, null: false, default: false
     timestamps()
   end
 
@@ -16,7 +17,7 @@ defmodule MelodicaInventory.Event do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:user_id, :name, :start_date, :end_date, :place])
-    |> validate_required([:user_id, :name, :start_date, :end_date, :place])
+    |> cast(params, [:user_id, :name, :start_date, :end_date, :place, :confirmed])
+    |> validate_required([:user_id, :name, :start_date, :end_date, :place, :confirmed])
   end
 end

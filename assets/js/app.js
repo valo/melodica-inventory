@@ -23,7 +23,6 @@ window.jQuery = window.$ = require("jquery/dist/jquery.min.js");
 window.Tether = require("tether/dist/js/tether.min.js");
 
 require("bootstrap/dist/js/bootstrap.js");
-require("bootstrap-datepicker/dist/js/bootstrap-datepicker.js");
 
 $(document).ready(function() {
   $("#returnLessModal").on("show.bs.modal", function(event) {

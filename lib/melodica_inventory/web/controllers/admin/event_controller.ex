@@ -32,8 +32,8 @@ defmodule MelodicaInventory.Web.Admin.EventController do
   end
 
   def delete(conn, %{"id" => id}) do
-    Event = Repo.get!(Event, id)
-    Repo.delete!(Event)
+    event = Repo.get!(Event, id)
+    Repo.delete!(event)
 
     redirect(conn, to: admin_event_path(conn, :index))
   end

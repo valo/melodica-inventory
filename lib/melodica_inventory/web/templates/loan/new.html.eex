@@ -4,7 +4,7 @@
     <%= error_tag f, :loan %>
   </div>
   <div class="form-group <%= error_class_for(f, :quantity) %>">
-    <label for="quantity">Quantity</label>
+    <%= label f, :quantity %>
     <%= text_input f, :quantity, type: :number, class: "form-control" %>
     <%= error_tag f, :quantity %>
   </div>

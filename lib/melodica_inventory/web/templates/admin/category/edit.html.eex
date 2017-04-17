@@ -1,7 +1,7 @@
 <h1><%= @changeset.data.name %></h1>
 <%= form_for @changeset, admin_category_path(@conn, :update, @changeset.data.id), fn f -> %>
   <div class="form-group">
-    <label for="name">Name</label>
+    <%= label f, :name %>
     <%= text_input f, :name, class: "form-control" %>
     <%= error_tag f, :name %>
   </div>

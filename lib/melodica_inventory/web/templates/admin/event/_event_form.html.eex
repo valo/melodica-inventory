@@ -2,24 +2,30 @@
   <%= error_tag @f, :event %>
 </div>
 <div class="form-group <%= error_class_for(@f, :name) %>">
-  <label for="name">Name</label>
+  <%= label @f, :name %>
   <%= text_input @f, :name, class: "form-control" %>
   <%= error_tag @f, :name %>
 </div>
 <div class="form-group <%= error_class_for(@f, :place) %>">
-  <label for="name">Place</label>
+  <%= label @f, :place %>
   <%= text_input @f, :place, class: "form-control" %>
   <%= error_tag @f, :place %>
 </div>
 <div class="form-group <%= error_class_for(@f, :user_id) %>">
-  <label for="name">User</label>
+  <%= label @f, :user_id %>
   <%= select @f, :user_id, @users |> Enum.map(&{event_user(&1), &1.id}), class: "form-control" %>
   <%= error_tag @f, :user_id %>
 </div>
-<label for="start_date">Dates</label>
+<%= label @f, :start_date, "From" %>
 <div class="input-group input-daterange <%= error_class_for(@f, :start_date) %> <%= error_class_for(@f, :end_date) %>">
-  <%= text_input @f, :start_date, class: "form-control", data: [provide: "datepicker", date: [format: "yyyy-mm-dd", week: [start: 1]]] %>
+  <%= text_input @f, :start_date, class: "form-control", type: "date" %>
   <span class="input-group-addon">to</span>
-  <%= text_input @f, :end_date, class: "form-control", data: [provide: "datepicker", date: [format: "yyyy-mm-dd", week: [start: 1]]] %>
+  <%= text_input @f, :end_date, class: "form-control", type: "date" %>
   </div>
+</div>
+<div class="form-check">
+  <label class="form-check-label">
+    <%= checkbox @f, :confirmed, class: "form-check-input" %>
+    Confirmed?
+  </label>
 </div>

@@ -7,6 +7,7 @@
       <th>Place</th>
       <th>Start Date</th>
       <th>Event Date</th>
+      <th>Confirmed?</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -18,6 +19,13 @@
         <td><%= event.place %></td>
         <td><%= format_date(event.start_date) %></td>
         <td><%= format_date(event.end_date) %></td>
+        <td>
+          <%= if event.confirmed do %>
+            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+          <% else %>
+            <i class="fa fa-square-o" aria-hidden="true"></i>
+          <% end %>
+        </td>
         <td>
           <%= link "Edit", to: admin_event_path(@conn, :edit, event), class: "btn btn-sm btn-secondary" %>
           <%= link "Delete", to: admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure you want to delete the event?"], class: "btn btn-sm btn-secondary" %>

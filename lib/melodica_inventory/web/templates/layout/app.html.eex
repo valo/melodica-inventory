@@ -14,8 +14,8 @@
   <body>
     <nav class="navbar navbar-dark bg-inverse">
       <ul class="nav navbar-nav">
-        <li class="nav-item active"><a class="nav-link" href="/">Categories</a></li>
         <%= if @current_user do %>
+          <li class="nav-item active"><a class="nav-link" href="/">Categories</a></li>
           <li class="nav-item active"><a class="nav-link" href="/loans">My loans</a></li>
           <%= if @current_user.admin do %>
             <li class="nav-item active"><%= link "All loans", to: admin_loan_path(@conn, :index), class: "nav-link" %></li>

@@ -21,8 +21,12 @@ defmodule MelodicaInventory.Web.Router do
     plug MelodicaInventory.Web.Plugs.Authenticate, :admin
   end
 
+  pipeline :set_current_event do
+    plug MelodicaInventory.Web.Plugs.SetCurrentEvent, :admin
+  end
+
   scope "/", MelodicaInventory.Web do
-    pipe_through [:browser, :authenticate]
+    pipe_through [:browser, :authenticate, :set_current_event]
 
     get "/", CategoryController, :index
     resources "/categories", CategoryController, only: [:show]
@@ -35,6 +39,7 @@ defmodule MelodicaInventory.Web.Router do
     resources "/item_reservations", ItemReservationController, only: [:new, :create, :delete]
 
     resources "/events", EventController, only: [:show]
+    resources "/current_event", CurrentEventController, only: [:create]
   end
 
   scope "/admin", as: :admin, alias: MelodicaInventory.Web.Admin do

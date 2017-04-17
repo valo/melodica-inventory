@@ -6,7 +6,6 @@ defmodule MelodicaInventory.Web.AuthController do
   use MelodicaInventory.Web, :controller
   plug Ueberauth
 
-  alias Ueberauth.Strategy.Helpers
   alias MelodicaInventory.UserAuth
 
   def index(conn, _params) do

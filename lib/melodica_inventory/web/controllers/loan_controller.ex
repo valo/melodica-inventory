@@ -22,7 +22,7 @@ defmodule MelodicaInventory.Web.LoanController do
     result = CreateLoan.call(item, current_user, String.to_integer(quantity))
 
     case result do
-      {:ok, %{loan: loan}} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Loan created successfully.")
         |> redirect(to: category_path(conn, :show, item.variation.category_id))

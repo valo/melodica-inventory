@@ -37,4 +37,8 @@ $(document).ready(function() {
       return modal.find("form").submit();
     });
   });
+
+  $("#currentEvent").on("change", function(event) {
+    $(".current_event").submit();
+  });
 });

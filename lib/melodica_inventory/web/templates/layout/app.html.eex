@@ -15,13 +15,25 @@
     <nav class="navbar navbar-dark bg-inverse">
       <ul class="nav navbar-nav">
         <li class="nav-item active"><a class="nav-link" href="/">Categories</a></li>
-        <%= if assigns[:current_user] do %>
+        <%= if @current_user do %>
           <li class="nav-item active"><a class="nav-link" href="/loans">My loans</a></li>
-          <%= if assigns[:current_user].admin do %>
+          <%= if @current_user.admin do %>
             <li class="nav-item active"><%= link "All loans", to: admin_loan_path(@conn, :index), class: "nav-link" %></li>
             <li class="nav-item active"><%= link "Events", to: admin_event_path(@conn, :index), class: "nav-link" %></li>
           <% end %>
           <li class="nav-item float-xs-right"><a class="nav-link" href="/auth/logout">Logout <%= @current_user.email %></a></li>
+          <%= if @current_user do %>
+            <%= form_tag current_event_path(@conn, :create), class: "form-inline current_event" %>
+              <select class="form-control-sm mr-sm-2" id="currentEvent" name="current_event_id">
+                <option value="">Select current event</option>
+                <%= for event <- @events do %>
+                  <option value="<%= event.id %>" <%= selected_event_attr(@current_event, event) %>>
+                    <%= event_name(event) %>
+                  </option>
+                <% end %>
+              </select>
+            </form>
+          <% end %>
         <% end %>
       </ul>
     </nav>

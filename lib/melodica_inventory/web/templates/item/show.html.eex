@@ -2,7 +2,7 @@
 <img src="<%= cover_url(@item) %>" alt="Item picture" class="img-fluid">
 
 <h2>Currently borrowed:</h2>
-<%= if assigns[:current_user].admin do %>
+<%= if @current_user.admin do %>
   <%= render MelodicaInventory.Web.Admin.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>
 <% else %>
   <%= render MelodicaInventory.Web.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>

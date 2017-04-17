@@ -15,18 +15,16 @@ defmodule MelodicaInventory.Web.Router do
 
   pipeline :authenticate do
     plug MelodicaInventory.Web.Plugs.Authenticate
+    plug MelodicaInventory.Web.Plugs.SetCurrentEvent
   end
 
   pipeline :authenticate_admin do
     plug MelodicaInventory.Web.Plugs.Authenticate, :admin
-  end
-
-  pipeline :set_current_event do
-    plug MelodicaInventory.Web.Plugs.SetCurrentEvent, :admin
+    plug MelodicaInventory.Web.Plugs.SetCurrentEvent
   end
 
   scope "/", MelodicaInventory.Web do
-    pipe_through [:browser, :authenticate, :set_current_event]
+    pipe_through [:browser, :authenticate]
 
     get "/", CategoryController, :index
     resources "/categories", CategoryController, only: [:show]

@@ -29,7 +29,9 @@
                 <%= link "Edit", to: admin_item_path(@conn, :edit, item.id), class: "btn btn-secondary btn-sm" %>
               <% end %>
               <%= link "Borrow", to: loan_path(@conn, :new, item.id), class: "btn btn-secondary btn-sm" %>
-              <%= link "Reserve", to: item_reservation_path(@conn, :new, item_id: item.id), class: "btn btn-secondary btn-sm" %>
+              <%= if @current_event do %>
+                <%= link "Reserve", to: item_reservation_path(@conn, :new, item_id: item.id), class: "btn btn-secondary btn-sm" %>
+              <% end %>
             </p>
           </div>
         </div>

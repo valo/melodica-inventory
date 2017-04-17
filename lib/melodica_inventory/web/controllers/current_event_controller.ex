@@ -9,7 +9,6 @@ defmodule MelodicaInventory.Web.CurrentEventController do
 
   defp referrer(conn) do
     conn
-    |> IO.inspect()
     |> get_req_header("referer")
     |> hd
   end

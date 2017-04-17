@@ -5,13 +5,13 @@ defmodule MelodicaInventory.Web.ItemReservationView do
 
   @date_format "{YYYY} {Mshort} {D}"
 
-  def event_name(%Event{place: place, start_date: start_date, end_date: end_date}) do
+  def event_name(%Event{name: name, place: place, start_date: start_date, end_date: end_date}) do
     [
+      name,
+      " ",
       place,
       " ",
       Timex.format!(start_date, @date_format),
-      " - ",
-      Timex.format!(end_date, @date_format),
     ]
   end
 end

@@ -102,6 +102,42 @@ ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
 
 
 --
+-- Name: events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE events (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    place character varying(255) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    confirmed boolean DEFAULT false NOT NULL,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE events_id_seq OWNED BY events.id;
+
+
+--
 -- Name: items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -300,6 +336,13 @@ ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_s
 
 
 --
+-- Name: events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
+
+
+--
 -- Name: items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -351,6 +394,14 @@ ALTER TABLE ONLY categories
 
 
 --
+-- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: items items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -399,6 +450,20 @@ ALTER TABLE ONLY variations
 
 
 --
+-- Name: categories_uuid_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX categories_uuid_index ON categories USING btree (uuid);
+
+
+--
+-- Name: events_user_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX events_user_id_index ON events USING btree (user_id);
+
+
+--
 -- Name: users_email_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -411,6 +476,14 @@ CREATE UNIQUE INDEX users_email_index ON users USING btree (email);
 
 ALTER TABLE ONLY attachments
     ADD CONSTRAINT attachments_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id);
+
+
+--
+-- Name: events events_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT events_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -457,5 +530,5 @@ ALTER TABLE ONLY variations
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240);
+INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240), (20170416213841);
 

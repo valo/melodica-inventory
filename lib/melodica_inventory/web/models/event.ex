@@ -1,9 +1,11 @@
 defmodule MelodicaInventory.Event do
   use MelodicaInventory.Web, :model
   alias MelodicaInventory.User
+  alias MelodicaInventory.ItemReservation
 
   schema "events" do
     belongs_to :user, User
+    has_many :item_reservations, ItemReservation
     field :name, :string, null: false
     field :place, :string, null: false
     field :start_date, :date, null: false

@@ -1,7 +1,12 @@
 defmodule MelodicaInventory.Web.CategoryController do
   use MelodicaInventory.Web, :controller
   alias MelodicaInventory.Variation
+  alias MelodicaInventory.Category
   alias MelodicaInventory.TrelloCard
+
+  def index(conn, _params) do
+    render conn, "index.html", categories: Repo.all(Category)
+  end
 
   def show(conn, %{"id" => category_id}) do
     variations =

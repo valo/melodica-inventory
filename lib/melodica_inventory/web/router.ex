@@ -24,13 +24,17 @@ defmodule MelodicaInventory.Web.Router do
   scope "/", MelodicaInventory.Web do
     pipe_through [:browser, :authenticate]
 
-    get "/", PageController, :index
+    get "/", CategoryController, :index
     resources "/categories", CategoryController, only: [:show]
 
     resources "/items", ItemController, only: [:show]
     resources "/items/loans/:item_id", LoanController, only: [:new, :create]
 
     resources "/loans", LoanController, only: [:index]
+
+    resources "/item_reservations", ItemReservationController, only: [:new, :create, :delete]
+
+    resources "/events", EventController, only: [:show]
   end
 
   scope "/admin", as: :admin, alias: MelodicaInventory.Web.Admin do
@@ -43,7 +47,7 @@ defmodule MelodicaInventory.Web.Router do
     resources "/events", EventController
   end
 
-  scope "/auth", MelodicaInventory do
+  scope "/auth", MelodicaInventory.Web do
     pipe_through :browser
 
     get "/", AuthController, :index, as: :login

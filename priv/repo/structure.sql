@@ -138,6 +138,39 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
+-- Name: item_reservations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE item_reservations (
+    id integer NOT NULL,
+    event_id integer NOT NULL,
+    item_id integer NOT NULL,
+    quantity integer NOT NULL,
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: item_reservations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE item_reservations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: item_reservations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE item_reservations_id_seq OWNED BY item_reservations.id;
+
+
+--
 -- Name: items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -343,6 +376,13 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 
 
 --
+-- Name: item_reservations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY item_reservations ALTER COLUMN id SET DEFAULT nextval('item_reservations_id_seq'::regclass);
+
+
+--
 -- Name: items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -399,6 +439,14 @@ ALTER TABLE ONLY categories
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: item_reservations item_reservations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY item_reservations
+    ADD CONSTRAINT item_reservations_pkey PRIMARY KEY (id);
 
 
 --
@@ -464,6 +512,20 @@ CREATE INDEX events_user_id_index ON events USING btree (user_id);
 
 
 --
+-- Name: item_reservations_event_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX item_reservations_event_id_index ON item_reservations USING btree (event_id);
+
+
+--
+-- Name: item_reservations_item_id_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX item_reservations_item_id_index ON item_reservations USING btree (item_id);
+
+
+--
 -- Name: users_email_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -484,6 +546,22 @@ ALTER TABLE ONLY attachments
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT events_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: item_reservations item_reservations_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY item_reservations
+    ADD CONSTRAINT item_reservations_event_id_fkey FOREIGN KEY (event_id) REFERENCES events(id);
+
+
+--
+-- Name: item_reservations item_reservations_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY item_reservations
+    ADD CONSTRAINT item_reservations_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id);
 
 
 --
@@ -530,5 +608,5 @@ ALTER TABLE ONLY variations
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240), (20170416213841);
+INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240), (20170416213841), (20170417092444);
 

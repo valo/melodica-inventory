@@ -17,7 +17,7 @@ defmodule MelodicaInventory.Web.Admin.CategoryController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Category updated successfully.")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: category_path(conn, :index))
       {:error, changeset} ->
         render(conn, "edit.html", changeset: changeset)
     end
@@ -27,7 +27,7 @@ defmodule MelodicaInventory.Web.Admin.CategoryController do
     category = Repo.get!(Category, id)
     Repo.delete!(category)
 
-    redirect(conn, to: page_path(conn, :index))
+    redirect(conn, to: category_path(conn, :index))
   end
 
   def new(conn, _) do
@@ -43,7 +43,7 @@ defmodule MelodicaInventory.Web.Admin.CategoryController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Category created successfully.")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: category_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

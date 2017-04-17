@@ -14,7 +14,7 @@
   <tbody>
     <%= for event <- @events do %>
       <tr>
-        <td><%= link event.name, to: admin_event_path(@conn, :show, event.id) %></td>
+        <td><%= link event.name, to: event_path(@conn, :show, event.id) %></td>
         <td><%= event_user(event.user) %></td>
         <td><%= event.place %></td>
         <td><%= format_date(event.start_date) %></td>

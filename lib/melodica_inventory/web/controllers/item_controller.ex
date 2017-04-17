@@ -2,6 +2,7 @@ defmodule MelodicaInventory.Web.ItemController do
   use MelodicaInventory.Web, :controller
   alias MelodicaInventory.Item
   alias MelodicaInventory.Loan
+  alias MelodicaInventory.ItemReservation
 
   def show(conn, %{"id" => id}) do
     item = Repo.get!(Item, id)
@@ -11,6 +12,10 @@ defmodule MelodicaInventory.Web.ItemController do
     |> Repo.all
     |> Repo.preload([:item, :user])
 
-    render conn, "show.html", item: item, loans: loans
+    item_reservations = (from r in ItemReservation, where: r.item_id == ^id)
+    |> Repo.all
+    |> Repo.preload([:event])
+
+    render conn, "show.html", item: item, loans: loans, item_reservations: item_reservations
   end
 end

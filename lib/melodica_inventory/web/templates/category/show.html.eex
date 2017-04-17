@@ -25,12 +25,11 @@
               <% end %>
             </p>
             <p>
-              <%= link "Trello", to: item.url, class: "btn btn-secondary" %>
               <%= if @current_user.admin do %>
-                <%= link "Edit", to: admin_item_path(@conn, :edit, item.id), class: "btn btn-secondary" %>
+                <%= link "Edit", to: admin_item_path(@conn, :edit, item.id), class: "btn btn-secondary btn-sm" %>
               <% end %>
-              <%= link "Borrow", to: loan_path(@conn, :new, item.id), class: "btn btn-secondary" %>
-              <%= link "Reserve", to: item_reservation_path(@conn, :new, item_id: item.id), class: "btn btn-secondary" %>
+              <%= link "Borrow", to: loan_path(@conn, :new, item.id), class: "btn btn-secondary btn-sm" %>
+              <%= link "Reserve", to: item_reservation_path(@conn, :new, item_id: item.id), class: "btn btn-secondary btn-sm" %>
             </p>
           </div>
         </div>

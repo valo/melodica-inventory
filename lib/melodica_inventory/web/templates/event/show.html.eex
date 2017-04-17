@@ -1,24 +1,24 @@
 <h1><%= @event.place %> <%= @event.start_date %> - <%= @event.end_date %></h1>
 
 <%= if length(@event.item_reservations) > 0 do %>
-<table class="table table-responsive">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Quantity</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <%= for item_reservation <- @event.item_reservations do %>
-    <tr>
-      <td><%= item_reservation.item.name %></td>
-      <td><%= item_reservation.quantity %></td>
-      <td>
-        <%= link "Delete", to: item_reservation_path(@conn, :delete, item_reservation.id), method: :delete, class: "btn btn-secondary btn-sm" %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+  <table class="table table-responsive">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <%= for item_reservation <- @event.item_reservations do %>
+      <tr>
+        <td><%= link item_reservation.item.name, to: item_path(@conn, :show, item_reservation.item_id) %></td>
+        <td><%= item_reservation.quantity %></td>
+        <td>
+          <%= link "Delete", to: item_reservation_path(@conn, :delete, item_reservation.id), method: :delete, class: "btn btn-secondary btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 <% else %>
 <p>No reservations</p>
 <% end %>

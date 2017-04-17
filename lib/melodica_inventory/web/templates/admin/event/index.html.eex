@@ -1,36 +1,38 @@
 <h1>Events <%= link "Add event", to: admin_event_path(@conn, :new), class: "btn btn-secondary btn-sm" %></h1>
-<table class="table table-responsive">
-  <thead class="thead-default">
-    <tr>
-      <th>Name</th>
-      <th>Manager</th>
-      <th>Place</th>
-      <th>Start Date</th>
-      <th>Event Date</th>
-      <th>Confirmed?</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for event <- @events do %>
+<div class="table-responsive">
+  <table class="table">
+    <thead class="thead-default">
       <tr>
-        <td><%= link event.name, to: event_path(@conn, :show, event.id) %></td>
-        <td><%= event_user(event.user) %></td>
-        <td><%= event.place %></td>
-        <td><%= format_date(event.start_date) %></td>
-        <td><%= format_date(event.end_date) %></td>
-        <td>
-          <%= if event.confirmed do %>
-            <i class="fa fa-check-square-o" aria-hidden="true"></i>
-          <% else %>
-            <i class="fa fa-square-o" aria-hidden="true"></i>
-          <% end %>
-        </td>
-        <td>
-          <%= link "Edit", to: admin_event_path(@conn, :edit, event), class: "btn btn-sm btn-secondary" %>
-          <%= link "Delete", to: admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure you want to delete the event?"], class: "btn btn-sm btn-secondary" %>
-        </td>
+        <th>Name</th>
+        <th>Manager</th>
+        <th>Place</th>
+        <th>Start Date</th>
+        <th>Event Date</th>
+        <th>Confirmed?</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <%= for event <- @events do %>
+        <tr>
+          <td><%= link event.name, to: event_path(@conn, :show, event.id) %></td>
+          <td><%= event_user(event.user) %></td>
+          <td><%= event.place %></td>
+          <td><%= format_date(event.start_date) %></td>
+          <td><%= format_date(event.end_date) %></td>
+          <td>
+            <%= if event.confirmed do %>
+              <i class="fa fa-check-square-o" aria-hidden="true"></i>
+            <% else %>
+              <i class="fa fa-square-o" aria-hidden="true"></i>
+            <% end %>
+          </td>
+          <td>
+            <%= link "Edit", to: admin_event_path(@conn, :edit, event), class: "btn btn-sm btn-secondary" %>
+            <%= link "Delete", to: admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure you want to delete the event?"], class: "btn btn-sm btn-secondary" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

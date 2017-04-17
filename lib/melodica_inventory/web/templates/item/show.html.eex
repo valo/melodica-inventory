@@ -9,21 +9,23 @@
 <% end %>
 
 <h2>Currently reserved:</h2>
-<table class="table table-responsive">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Quantity</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <%= for item_reservation <- @item_reservations do %>
-    <tr>
-      <td><%= link event_name(item_reservation.event), to: event_path(@conn, :show, item_reservation.event.id) %></td>
-      <td><%= item_reservation.quantity %></td>
-      <td>
-        <%= link "Delete", to: item_reservation_path(@conn, :delete, item_reservation.id), method: :delete, class: "btn btn-secondary btn-sm" %>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <%= for item_reservation <- @item_reservations do %>
+      <tr>
+        <td><%= link event_name(item_reservation.event), to: event_path(@conn, :show, item_reservation.event.id) %></td>
+        <td><%= item_reservation.quantity %></td>
+        <td>
+          <%= link "Delete", to: item_reservation_path(@conn, :delete, item_reservation.id), method: :delete, class: "btn btn-secondary btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

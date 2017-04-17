@@ -25,6 +25,7 @@ defmodule MelodicaInventory.CategoryControllerTest do
   describe "when a user is authorized" do
     setup do
       current_user = insert(:user)
+      category = insert(:category)
 
       conn = build_conn()
 
@@ -33,14 +34,15 @@ defmodule MelodicaInventory.CategoryControllerTest do
       |> fetch_session
       |> put_session(:current_user, current_user.id)
 
-      {:ok, conn: conn, current_user: current_user}
+      {:ok, conn: conn, current_user: current_user, category: category}
     end
 
-    test "index renders the categories", %{conn: conn} do
+    test "index renders the categories", %{conn: conn, category: category} do
       response = conn
       |> get(category_path(conn, :index))
 
       assert response.resp_body =~ "Categories"
+      assert response.resp_body =~ category.name
       refute response.resp_body =~ "Events"
     end
   end
@@ -48,6 +50,7 @@ defmodule MelodicaInventory.CategoryControllerTest do
   describe "when an admin user is authorized" do
     setup do
       current_user = insert(:user, admin: true)
+      category = insert(:category)
 
       conn = build_conn()
 
@@ -56,14 +59,15 @@ defmodule MelodicaInventory.CategoryControllerTest do
       |> fetch_session
       |> put_session(:current_user, current_user.id)
 
-      {:ok, conn: conn, current_user: current_user}
+      {:ok, conn: conn, current_user: current_user, category: category}
     end
 
-    test "index renders the categories", %{conn: conn} do
+    test "index renders the categories", %{conn: conn, category: category} do
       response = conn
       |> get(category_path(conn, :index))
 
       assert response.resp_body =~ "Categories"
+      assert response.resp_body =~ category.name
       assert response.resp_body =~ "Events"
     end
   end

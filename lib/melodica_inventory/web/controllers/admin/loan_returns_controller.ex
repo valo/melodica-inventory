@@ -9,7 +9,7 @@ defmodule MelodicaInventory.Web.Admin.LoanReturnsController do
 
     case ReturnLoan.call(loan, String.to_integer(quantity), return_type) do
       {:ok} ->
-        put_flash(conn, :notice, "Loan returned successfully")
+        put_flash(conn, :info, "Loan returned successfully")
       _ ->
         put_flash(conn, :error, "Can't return loan")
     end
@@ -21,7 +21,7 @@ defmodule MelodicaInventory.Web.Admin.LoanReturnsController do
 
     case ReturnLoan.call(loan, loan.quantity, Return.returned) do
       {:ok} ->
-        put_flash(conn, :notice, "Loan returned successfully")
+        put_flash(conn, :info, "Loan returned successfully")
       _ ->
         put_flash(conn, :error, "Can't return loan")
     end

@@ -29,7 +29,7 @@ defmodule MelodicaInventory.Web.AuthController do
     case UserAuth.find_or_create(auth) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "Successfully authenticated user id #{ user.id }")
+        |> put_flash(:info, "Welcome, #{ user.first_name } #{ user.last_name }")
         |> put_session(:current_user, user.id)
         |> redirect(to: "/")
       {:error, reason} ->

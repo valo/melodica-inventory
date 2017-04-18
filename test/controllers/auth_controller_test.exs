@@ -1,7 +1,7 @@
 defmodule MelodicaInventory.AuthControllerTest do
   use MelodicaInventory.Web.ConnCase, async: true
 
-  test "index renders inde.html", %{conn: conn} do
+  test "index renders index.html", %{conn: conn} do
     response = conn
     |> get(login_path(conn, :index))
 

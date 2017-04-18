@@ -3,13 +3,6 @@ defmodule MelodicaInventory.Web.Admin.EventController do
   alias MelodicaInventory.Event
   alias MelodicaInventory.User
 
-  def index(conn, _) do
-    events = Repo.all(Event)
-    |> Repo.preload([:user])
-
-    render conn, "index.html", events: events
-  end
-
   def edit(conn, %{"id" => id}) do
     changeset = Repo.get!(Event, id)
     |> Event.changeset
@@ -25,7 +18,7 @@ defmodule MelodicaInventory.Web.Admin.EventController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Event updated successfully.")
-        |> redirect(to: admin_event_path(conn, :index))
+        |> redirect(to: event_path(conn, :index))
       {:error, changeset} ->
         render(conn, "edit.html", changeset: changeset)
     end
@@ -51,7 +44,7 @@ defmodule MelodicaInventory.Web.Admin.EventController do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Event created successfully.")
-        |> redirect(to: admin_event_path(conn, :index))
+        |> redirect(to: event_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset, users: Repo.all(User))
     end

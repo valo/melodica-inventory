@@ -8,6 +8,7 @@ defmodule MelodicaInventory.Web.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug MelodicaInventory.Web.Plugs.SetCurrentUser
+    plug MelodicaInventory.Web.Plugs.SetCurrentEvent
   end
 
   pipeline :api do
@@ -16,12 +17,10 @@ defmodule MelodicaInventory.Web.Router do
 
   pipeline :authenticate do
     plug MelodicaInventory.Web.Plugs.Authenticate
-    plug MelodicaInventory.Web.Plugs.SetCurrentEvent
   end
 
   pipeline :authenticate_admin do
     plug MelodicaInventory.Web.Plugs.Authenticate, :admin
-    plug MelodicaInventory.Web.Plugs.SetCurrentEvent
   end
 
   scope "/", MelodicaInventory.Web do
@@ -37,7 +36,7 @@ defmodule MelodicaInventory.Web.Router do
 
     resources "/item_reservations", ItemReservationController, only: [:new, :create, :delete]
 
-    resources "/events", EventController, only: [:show]
+    resources "/events", EventController, only: [:show, :index]
     resources "/current_event", CurrentEventController, only: [:create]
   end
 
@@ -48,7 +47,7 @@ defmodule MelodicaInventory.Web.Router do
     resources "/items", ItemController, only: [:edit, :update]
     resources "/loans", LoanController, only: [:index]
     resources "/loan_returns/:loan_id", LoanReturnsController, only: [:create]
-    resources "/events", EventController
+    resources "/events", EventController, only: [:new, :create, :edit, :update, :delete]
   end
 
   scope "/auth", MelodicaInventory.Web do

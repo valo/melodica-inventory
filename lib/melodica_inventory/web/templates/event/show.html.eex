@@ -1,5 +1,9 @@
-<h1><%= @event.place %> <%= @event.start_date %> - <%= @event.end_date %></h1>
+<h1><%= @event.name %></h1>
 
+<p><%= @event.place %></p>
+<p><%= format_date(@event.start_date) %> - <%= format_date(@event.end_date) %></h1></p>
+
+<h2>Reservations:</h2>
 <%= if length(@event.item_reservations) > 0 do %>
   <div class="table-responsive">
     <table class="table">

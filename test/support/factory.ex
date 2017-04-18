@@ -46,4 +46,14 @@ defmodule MelodicaInventory.Factory do
    }
  end
 
+ def event_factory do
+   %MelodicaInventory.Event{
+     name: "Rob Stark Wedding",
+     place: "Winterfell",
+     user: build(:user),
+     start_date: Ecto.Date.cast!("2017-03-10"),
+     end_date: Ecto.Date.cast!("2017-03-13"),
+     confirmed: false
+   }
+ end
 end

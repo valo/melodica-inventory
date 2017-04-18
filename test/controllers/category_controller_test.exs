@@ -1,5 +1,5 @@
 defmodule MelodicaInventory.CategoryControllerTest do
-  use MelodicaInventory.Web.ConnCase, async: true
+  use MelodicaInventory.Web.ConnCase, async: false
 
   import MelodicaInventory.Factory
   import Plug.Test
@@ -30,7 +30,6 @@ defmodule MelodicaInventory.CategoryControllerTest do
 
       assert response.resp_body =~ "Categories"
       assert response.resp_body =~ category.name
-      refute response.resp_body =~ "Events"
     end
   end
 
@@ -51,7 +50,6 @@ defmodule MelodicaInventory.CategoryControllerTest do
 
       assert response.resp_body =~ "Categories"
       assert response.resp_body =~ category.name
-      assert response.resp_body =~ "Events"
     end
   end
 end

@@ -8,4 +8,11 @@ defmodule MelodicaInventory.Web.EventController do
 
     render conn, "show.html", event: event
   end
+
+  def index(conn, _) do
+    events = Repo.all(Event)
+    |> Repo.preload([:user])
+
+    render conn, "index.html", events: events
+  end
 end

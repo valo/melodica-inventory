@@ -8,6 +8,8 @@ defmodule MelodicaInventory.Web.Plugs.Authenticate do
     case current_user && current_user.admin do
       false ->
         conn
+        |> put_flash(:info, "Access denied!")
+        |> configure_session(drop: true)
         |> redirect(to: "/auth/login")
         |> halt
       true ->

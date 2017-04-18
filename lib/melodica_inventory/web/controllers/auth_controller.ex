@@ -9,7 +9,8 @@ defmodule MelodicaInventory.Web.AuthController do
   alias MelodicaInventory.UserAuth
 
   def index(conn, _params) do
-    render conn, "index.html"
+    conn
+    |> render "index.html"
   end
 
   def delete(conn, _params) do

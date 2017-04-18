@@ -1,4 +1,9 @@
-<h1>Events <%= link "Add event", to: admin_event_path(@conn, :new), class: "btn btn-secondary btn-sm" %></h1>
+<h1>
+  Events
+  <%= if @current_user.admin do %>
+    <%= link "Add event", to: admin_event_path(@conn, :new), class: "btn btn-secondary btn-sm" %>
+  <% end %>
+</h1>
 <div class="table-responsive">
   <table class="table">
     <thead class="thead-default">
@@ -9,7 +14,9 @@
         <th>Start Date</th>
         <th>Event Date</th>
         <th>Confirmed?</th>
-        <th>Actions</th>
+        <%= if @current_user.admin do %>
+          <th>Actions</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -27,10 +34,12 @@
               <i class="fa fa-square-o" aria-hidden="true"></i>
             <% end %>
           </td>
-          <td>
-            <%= link "Edit", to: admin_event_path(@conn, :edit, event), class: "btn btn-sm btn-secondary" %>
-            <%= link "Delete", to: admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure you want to delete the event?"], class: "btn btn-sm btn-secondary" %>
-          </td>
+          <%= if @current_user.admin do %>
+            <td>
+              <%= link "Edit", to: admin_event_path(@conn, :edit, event), class: "btn btn-sm btn-secondary" %>
+              <%= link "Delete", to: admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure you want to delete the event?"], class: "btn btn-sm btn-secondary" %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

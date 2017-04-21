@@ -19,6 +19,6 @@ defmodule MelodicaInventory.UserAuth do
   end
 
   defp email_allowed?(email) do
-    String.ends_with?(email, "@melodica-events.com")
+    String.ends_with?(email, "@melodica-events.com") or String.ends_with?(email, "@melodica-corporate.com")
   end
 end

@@ -23,6 +23,7 @@ window.jQuery = window.$ = require("jquery/dist/jquery.min.js");
 window.Tether = require("tether/dist/js/tether.min.js");
 
 require("bootstrap/dist/js/bootstrap.js");
+require("bootstrap-year-calendar/js/bootstrap-year-calendar.js");
 
 $(document).ready(function() {
   $("#returnLessModal").on("show.bs.modal", function(event) {
@@ -40,5 +41,35 @@ $(document).ready(function() {
 
   $("#currentEvent").on("change", function(event) {
     $(".current_event").submit();
+  });
+
+  $("#calendar").calendar({
+    dataSource: calendarDataSource,
+    mouseOnDay: function(e) {
+      if(e.events.length > 0) {
+        var content = '';
+
+        for(var i in e.events) {
+          content += '<div class="event-tooltip-content">'
+                     + '<div class="event-name" style="color:' + e.events[i].color + '">' + e.events[i].name + '</div>'
+                     + '<div class="event-location">Quantity: ' + e.events[i].quantity + '</div>'
+                   + '</div>';
+        }
+
+        $(e.element).popover({
+          trigger: 'manual',
+          container: 'body',
+          html:true,
+          content: content
+        });
+
+        $(e.element).popover('show');
+      }
+    },
+    mouseOutDay: function(e) {
+      if(e.events.length > 0) {
+        $(e.element).popover('hide');
+      }
+    },
   });
 });

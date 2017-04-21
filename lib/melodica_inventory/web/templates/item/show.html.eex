@@ -23,9 +23,10 @@
 var calendarDataSource = [
   <%= for item_reservation <- @item_reservations do %>
     {
-      startDate: new Date('<%= item_reservation.event.start_date %>'),
+      startDate: new Date('<%= Timex.subtract(item_reservation.event.start_date, Timex.Duration.from_days(1)) %>'),
       endDate: new Date('<%= item_reservation.event.end_date %>'),
-      name: '<%= event_name(item_reservation.event) %>'
+      name: '<%= event_name(item_reservation.event) %>',
+      quantity: <%= item_reservation.quantity %>
     },
   <% end %>
 ];

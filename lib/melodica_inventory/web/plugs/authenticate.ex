@@ -5,7 +5,7 @@ defmodule MelodicaInventory.Web.Plugs.Authenticate do
   def init(default), do: default
 
   def call(%Plug.Conn{assigns: %{current_user: current_user}} = conn, :admin) do
-    case current_user && current_user.admin do
+    case !!current_user and current_user.admin do
       false ->
         conn
         |> put_flash(:info, "Access denied!")

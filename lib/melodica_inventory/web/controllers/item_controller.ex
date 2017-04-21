@@ -16,6 +16,8 @@ defmodule MelodicaInventory.Web.ItemController do
     |> Repo.all
     |> Repo.preload([:event])
 
-    render conn, "show.html", item: item, loans: loans, item_reservations: item_reservations
+    changeset = ItemReservation.changeset(%ItemReservation{item_id: id, quantity: item.quantity}, %{})
+
+    render conn, "show.html", item: item, loans: loans, item_reservations: item_reservations, changeset: changeset
   end
 end

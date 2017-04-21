@@ -10,7 +10,7 @@ defmodule MelodicaInventory.Web.AuthController do
 
   def index(conn, _params) do
     conn
-    |> render "index.html"
+    |> render("index.html")
   end
 
   def delete(conn, _params) do

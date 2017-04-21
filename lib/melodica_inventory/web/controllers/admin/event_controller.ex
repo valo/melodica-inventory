@@ -28,7 +28,7 @@ defmodule MelodicaInventory.Web.Admin.EventController do
     event = Repo.get!(Event, id)
     Repo.delete!(event)
 
-    redirect(conn, to: admin_event_path(conn, :index))
+    redirect(conn, to: event_path(conn, :index))
   end
 
   def new(%Plug.Conn{assigns: %{current_user: current_user}} = conn, _) do

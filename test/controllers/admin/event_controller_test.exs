@@ -1,6 +1,8 @@
 defmodule MelodicaInventory.Admin.EventControllerTest do
   use MelodicaInventory.Web.ConnCase, async: false
 
+  alias MelodicaInventory.Event
+
   import MelodicaInventory.Factory
   import Plug.Test
 
@@ -41,6 +43,17 @@ defmodule MelodicaInventory.Admin.EventControllerTest do
 
       assert response.resp_body =~ admin_event_path(conn, :create)
       assert response.resp_body =~ event_path(conn, :index)
+    end
+
+    test "deleting an event removes it from the DB", %{conn: conn} do
+      event = insert(:event)
+      _item_reservation = insert(:item_reservation, event: event)
+
+      response = conn
+      |> delete(admin_event_path(conn, :delete, event.id))
+
+      assert redirected_to(response) =~ event_path(conn, :index)
+      assert Repo.get(Event, event.id) == nil
     end
   end
 end

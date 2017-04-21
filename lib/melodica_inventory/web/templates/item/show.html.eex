@@ -8,7 +8,29 @@
   <%= render MelodicaInventory.Web.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>
 <% end %>
 
+<%= if @current_event do %>
+  <h2>Reserve for <%= event_name(@current_event) %></h2>
+  <%= form_for @changeset, item_reservation_path(@conn, :create), fn f -> %>
+    <%= render MelodicaInventory.Web.ItemReservationView, "_item_reservation_form.html", changeset: @changeset, f: f, events: @events %>
+    <%= submit "Reserve", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+
 <h2>Currently reserved:</h2>
+
+<div id="calendar"></div>
+<script type="text/javascript">
+var calendarDataSource = [
+  <%= for item_reservation <- @item_reservations do %>
+    {
+      startDate: new Date('<%= item_reservation.event.start_date %>'),
+      endDate: new Date('<%= item_reservation.event.end_date %>'),
+      name: '<%= event_name(item_reservation.event) %>'
+    },
+  <% end %>
+];
+</script>
+
 <div class="table-responsive">
   <table class="table">
     <thead>

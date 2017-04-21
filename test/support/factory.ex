@@ -56,4 +56,12 @@ defmodule MelodicaInventory.Factory do
      confirmed: false
    }
  end
+
+ def item_reservation_factory do
+   %MelodicaInventory.ItemReservation{
+     quantity: 10,
+     item: build(:item),
+     event: build(:event)
+   }
+ end
 end

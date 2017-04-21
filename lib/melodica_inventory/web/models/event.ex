@@ -5,7 +5,7 @@ defmodule MelodicaInventory.Event do
 
   schema "events" do
     belongs_to :user, User
-    has_many :item_reservations, ItemReservation
+    has_many :item_reservations, ItemReservation, on_delete: :delete_all
     field :name, :string, null: false
     field :place, :string, null: false
     field :start_date, :date, null: false

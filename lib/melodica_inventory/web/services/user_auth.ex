@@ -16,12 +16,12 @@ defmodule MelodicaInventory.UserAuth do
 
   defp find_or_create_db_user(%{email: email} = user_attrs) do
     case Repo.get_by(User, email: email) do
+      nil ->
+        User.changeset(%User{admin: false}, user_attrs)
+        |> Repo.insert!
       db_user ->
         User.changeset(db_user, user_attrs)
         |> Repo.update!
-      nil ->
-        User.changeset(%User{}, user_attrs)
-        |> Repo.insert!
     end
   end
 

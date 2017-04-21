@@ -8,14 +8,21 @@ defmodule MelodicaInventory.UserAuth do
         email: email, first_name: first_name, last_name: last_name, image: image_url
       }}) do
     if email_allowed?(email) do
-      {:ok, find_or_create_db_user(%User{email: email, first_name: first_name, last_name: last_name, image_url: image_url}) }
+      {:ok, find_or_create_db_user(%{email: email, first_name: first_name, last_name: last_name, image_url: image_url}) }
     else
       {:error, "Authentication failed"}
     end
   end
 
-  defp find_or_create_db_user(%User{email: email} = user) do
-    Repo.get_by(User, email: email) || Repo.insert!(user)
+  defp find_or_create_db_user(%{email: email} = user_attrs) do
+    case Repo.get_by(User, email: email) do
+      db_user ->
+        User.changeset(db_user, user_attrs)
+        |> Repo.update!
+      nil ->
+        User.changeset(%User{}, user_attrs)
+        |> Repo.insert!
+    end
   end
 
   defp email_allowed?(email) do

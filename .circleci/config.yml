@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/cci-demo-phoenix
+    docker:
+      - image: elixir:1.4.2
+      - image: postgres:9.6.2
+        environment:
+          POSTGRES_USER: ubuntu
+    steps:
+      - checkout
+      - run: mix deps.get
+      - run: mix ecto.create
+      - run: mix test

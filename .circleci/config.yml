@@ -7,9 +7,12 @@ jobs:
       - image: postgres:9.6.2
         environment:
           POSTGRES_USER: ubuntu
+    environment:
+      MIX_ENV: test
     steps:
       - checkout
       - run: mix local.hex --force
       - run: mix local.rebar --force
       - run: mix deps.get
+      - run: mix deps.compile
       - run: mix test

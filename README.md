@@ -1,6 +1,4 @@
-# Melodica Inventory System
-
-[![CircleCI](https://circleci.com/gh/valo/melodica-inventory.svg?style=svg&circle-token=b6d313d74859df4446c299443694f121ef37c5ba)](https://circleci.com/gh/valo/melodica-inventory)
+# Melodica Inventory System [![CircleCI](https://circleci.com/gh/valo/melodica-inventory.svg?style=svg&circle-token=b6d313d74859df4446c299443694f121ef37c5ba)](https://circleci.com/gh/valo/melodica-inventory)
 
 To start the app:
 

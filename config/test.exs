@@ -18,4 +18,6 @@ config :melodica_inventory, MelodicaInventory.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-import_config "test.secret.exs"
+if File.exists?("config/test.secret.exs") do
+  import_config "test.secret.exs"
+end

@@ -1,7 +1,8 @@
+<h1><%= @category.name %> <%= if @current_user.admin, do: link "Add variation", to: admin_variation_path(@conn, :new, category_id: @category.id), class: "btn btn-secondary btn-sm" %></h1>
 <%= for variation <- @variations do %>
   <div class="row">
     <div class="col-md-12">
-      <h2><%= variation.name %></h1>
+      <h2><%= variation.name %> <%= if @current_user.admin, do: link "Add item", to: admin_item_path(@conn, :new, variation_id: variation.id), class: "btn btn-secondary btn-sm" %></h1>
     </div>
   </div>
   <div class="row">

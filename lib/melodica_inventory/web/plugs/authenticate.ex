@@ -1,6 +1,7 @@
 defmodule MelodicaInventory.Web.Plugs.Authenticate do
   import Plug.Conn
   import Phoenix.Controller
+  alias MelodicaInventory.Web.Router.Helpers, as: RouterHelpers
 
   def init(default), do: default
 
@@ -10,7 +11,7 @@ defmodule MelodicaInventory.Web.Plugs.Authenticate do
         conn
         |> put_flash(:info, "Access denied!")
         |> configure_session(drop: true)
-        |> redirect(to: "/auth/login")
+        |> redirect(to: RouterHelpers.login_path(conn, :index))
         |> halt
       true ->
         conn
@@ -21,7 +22,7 @@ defmodule MelodicaInventory.Web.Plugs.Authenticate do
     case current_user do
       nil ->
         conn
-        |> redirect(to: "/auth/login")
+        |> redirect(to: RouterHelpers.login_path(conn, :index))
         |> halt
       _ ->
         conn

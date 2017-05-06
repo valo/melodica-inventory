@@ -44,7 +44,8 @@ defmodule MelodicaInventory.Web.Router do
     pipe_through [:browser, :authenticate_admin]
 
     resources "/categories", CategoryController, only: [:edit, :update, :delete, :new, :create]
-    resources "/items", ItemController, only: [:edit, :update]
+    resources "/variations", VariationController, only: [:edit, :update, :delete, :new, :create]
+    resources "/items", ItemController, only: [:edit, :update, :delete, :new, :create]
     resources "/loans", LoanController, only: [:index]
     resources "/loan_returns/:loan_id", LoanReturnsController, only: [:create]
     resources "/events", EventController, only: [:new, :create, :edit, :update, :delete]

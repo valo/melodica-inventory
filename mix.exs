@@ -9,7 +9,7 @@ defmodule MelodicaInventory.Mixfile do
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     aliases: aliases(),
+     aliases: aliases(Mix.env),
      deps: deps()]
   end
 
@@ -70,7 +70,11 @@ defmodule MelodicaInventory.Mixfile do
   #     $ mix ecto.setup
   #
   # See the documentation for `Mix` for more info on aliases.
-  defp aliases do
+  defp aliases(:test) do
+    ["test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+  end
+
+  defp aliases(_) do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
      "ecto.migrate": ["ecto.migrate", "ecto.dump"],

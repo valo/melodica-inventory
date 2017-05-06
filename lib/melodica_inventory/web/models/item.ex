@@ -1,11 +1,13 @@
 defmodule MelodicaInventory.Item do
   use MelodicaInventory.Web, :model
-  alias MelodicaInventory.{Variation, Attachment, Image}
+  alias MelodicaInventory.{Variation, Attachment, Image, ItemReservation, Loan}
 
   schema "items" do
     belongs_to :variation, Variation
     has_many :attachments, Attachment, on_delete: :delete_all
     has_many :images, Image, on_delete: :delete_all
+    has_many :item_reservations, ItemReservation, on_delete: :delete_all
+    has_many :loans, Loan, on_delete: :delete_all
     field :uuid, :string
     field :name, :string
     field :url, :string

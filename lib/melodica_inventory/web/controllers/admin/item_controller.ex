@@ -25,37 +25,31 @@ defmodule MelodicaInventory.Web.Admin.ItemController do
     end
   end
 
-  def new(conn, %{"variation_id" => variation_id}) do
-    variation = Repo.get(Variation, variation_id)
-    changeset = Item.changeset(%Item{variation_id: variation_id}, %{})
+  def delete(conn, %{"id" => id}) do
+    item = Repo.get!(Item, id)
+    |> Repo.preload([:attachments, :images, :variation])
 
-    render(conn, "new.html", variation: variation, changeset: changeset)
-  end
-
-  def create(conn, %{"item" => item_params}) do
-    variation = Repo.get(Variation, item_params["variation_id"])
-
-    case Repo.transaction(add_new_item(item_params)) do
-      {:ok, %{item: item}} ->
-        redirect(conn, to: item_path(conn, :show, item.id))
-      {:error, :item, failed_changeset, _changes_so_far} ->
-        IO.inspect(failed_changeset)
-        render(conn, "new.html", variation: variation, changeset: failed_changeset)
-      {:error, :upload_image, error, changes_so_far} ->
-        changeset = changes_so_far[:item]
-        |> Item.changeset
-        |> Ecto.Changeset.add_error(:image, "cannot be uploaded! #{ error }")
-        render(conn, "new.html", variation: variation, changeset: %{changeset | action: :insert})
+    Ecto.Multi.new
+    |> Ecto.Multi.run(:delete_images, fn _ -> delete_images(item.images) end)
+    |> Ecto.Multi.delete(:delete_item, item)
+    |> Repo.transaction
+    |> case do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "#{item.name} delete successfully")
+        |> redirect(to: category_path(conn, :show, item.variation.category_id))
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "#{item.name} could not be deleted")
+        |> redirect(to: category_path(conn, :show, item.variation.category_id))
     end
   end
 
-  defp add_new_item(item_params) do
-    Ecto.Multi.new
-    |> Ecto.Multi.insert(:item, Item.changeset(%Item{}, item_params))
-    |> Ecto.Multi.run(:upload_image, fn _multi -> upload_image(item_params["image"]) end)
-  end
-
-  defp upload_image(image_upload) do
-    {:error, "Cannot upload image"}
+  def delete_images(images) do
+    images
+    |> Enum.map(&(&1.public_id))
+    |> Cloudex.delete()
+    |> IO.inspect
+    |> Enum.reduce(fn [ok: _], _ -> {:ok, true} end)
   end
 end

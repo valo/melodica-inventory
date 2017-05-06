@@ -2,7 +2,7 @@
 <%= for variation <- @variations do %>
   <div class="row">
     <div class="col-md-12">
-      <h2><%= variation.name %> <%= if @current_user.admin, do: link "Add item", to: admin_item_path(@conn, :new, variation_id: variation.id), class: "btn btn-secondary btn-sm" %></h1>
+      <h2><%= variation.name %> <%= if @current_user.admin, do: link "Add item", to: item_path(@conn, :new, variation_id: variation.id), class: "btn btn-secondary btn-sm" %></h1>
     </div>
   </div>
   <div class="row">
@@ -32,6 +32,16 @@
               <%= link "Borrow", to: loan_path(@conn, :new, item.id), class: "btn btn-secondary btn-sm" %>
               <%= if @current_event do %>
                 <%= link "Reserve", to: item_reservation_path(@conn, :new, item_id: item.id), class: "btn btn-secondary btn-sm" %>
+              <% end %>
+              <%= if @current_user.admin do %>
+                <%= link "Delete",
+                  to: admin_item_path(@conn, :delete, item.id),
+                  method: :delete,
+                  data: [
+                    confirm: "Are you sure you want to delete #{item.name}?"
+                  ],
+                  class: "btn btn-danger btn-sm"
+                %>
               <% end %>
             </p>
           </div>

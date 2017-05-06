@@ -18,8 +18,23 @@ defmodule MelodicaInventory.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {MelodicaInventory, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto]]
+     applications: applications(Mix.env)]
+  end
+
+  def applications(:test) do
+    [
+      :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+      :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto,
+      :httpoison
+    ]
+  end
+
+  def applications(_) do
+    [
+      :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+      :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto,
+      :cloudex, :httpoison
+    ]
   end
 
   # Specifies which paths to compile per environment.
@@ -37,7 +52,7 @@ defmodule MelodicaInventory.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.6"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:gettext, "~> 0.11"},
+      {:gettext, "~> 0.11.0"},
       {:cowboy, "~> 1.0"},
       {:ueberauth_google, "~> 0.4"},
       {:ex_machina, "~> 1.0", only: :test},
@@ -59,6 +74,6 @@ defmodule MelodicaInventory.Mixfile do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
      "ecto.migrate": ["ecto.migrate", "ecto.dump"],
-     "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+     "test": ["ecto.create --quiet", "ecto.load", "test"]]
   end
 end

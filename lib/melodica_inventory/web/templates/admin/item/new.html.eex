@@ -1,5 +1,5 @@
 <h1>New item</h1>
-<%= form_for @changeset, admin_item_path(@conn, :create), [multipart: true, method: "create"], fn f -> %>
+<%= form_for @changeset, item_path(@conn, :create), [multipart: true, method: "create"], fn f -> %>
   <%= hidden_input f, :variation_id %>
   <div class="form-group">
     <%= label f, :name %>

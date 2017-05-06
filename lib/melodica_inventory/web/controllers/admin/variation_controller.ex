@@ -30,6 +30,12 @@ defmodule MelodicaInventory.Web.Admin.VariationController do
   end
 
   def delete(conn, %{"id" => id}) do
+    variation = Repo.get!(Variation, id)
 
+    Repo.delete!(variation)
+
+    conn
+    |> put_flash(:info, "#{variation.name} delete successfully!")
+    |> redirect(to: category_path(conn, :show, variation.category_id))
   end
 end

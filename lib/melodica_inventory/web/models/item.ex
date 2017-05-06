@@ -4,8 +4,8 @@ defmodule MelodicaInventory.Item do
 
   schema "items" do
     belongs_to :variation, Variation
-    has_many :attachments, Attachment
-    has_many :images, Image
+    has_many :attachments, Attachment, on_delete: :delete_all
+    has_many :images, Image, on_delete: :delete_all
     field :uuid, :string
     field :name, :string
     field :url, :string

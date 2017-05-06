@@ -3,11 +3,15 @@ defmodule MelodicaInventory.Web.ItemView do
   alias MelodicaInventory.Item
   import MelodicaInventory.Web.ItemReservationView, only: [event_name: 1]
 
-  def cover_url(%Item{attachments: []}) do
+  def cover_url(%Item{images: [], attachments: []}) do
     nil
   end
 
-  def cover_url(%Item{attachments: attachments}) do
+  def cover_url(%Item{images: [], attachments: attachments}) do
     List.first(attachments).url
+  end
+
+  def cover_url(%Item{images: images}) do
+    Cloudex.Url.for(hd(images).public_id, %{width: 400, height: 400, crop: "limit"})
   end
 end

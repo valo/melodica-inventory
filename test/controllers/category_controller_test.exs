@@ -30,6 +30,7 @@ defmodule MelodicaInventory.CategoryControllerTest do
 
       assert response.resp_body =~ "Categories"
       assert response.resp_body =~ category.name
+      refute response.resp_body =~ "Delete"
     end
   end
 

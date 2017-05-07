@@ -8,12 +8,12 @@
   </div>
   <div class="form-group">
     <%= label f, :quantity %>
-    <%= text_input f, :quantity, type: :number, class: "form-control" %>
+    <%= text_input f, :quantity, type: :number, class: "form-control", pattern: "\d*" %>
     <%= error_tag f, :quantity %>
   </div>
   <div class="form-group">
     <%= label f, :price %>
-    <%= text_input f, :price, type: :number, class: "form-control", "aria-describedby": "priceHelp", step: "0.01" %>
+    <%= text_input f, :price, type: :number, class: "form-control", "aria-describedby": "priceHelp", step: "0.01", pattern: "\d*" %>
     <%= error_tag f, :price %>
     <small id="priceHelp" class="form-text text-muted">The price of a single <%= @changeset.data.name %></small>
   </div>

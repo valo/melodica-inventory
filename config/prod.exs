@@ -36,6 +36,17 @@ config :melodica_inventory, :api_key, System.get_env("TRELLO_API_KEY")
 config :melodica_inventory, :token, System.get_env("TRELLO_TOKEN")
 config :melodica_inventory, :inventory_org_id, System.get_env("TRELLO_ORGANIZATION_ID")
 
+config :melodica_inventory, MelodicaInventory.Repo,
+  loggers: [{Ecto.LogEntry, :log, []},
+            {ScoutApm.Instruments.EctoLogger, :log, []}]
+
+config :scout_apm,
+  name: "MelodicaInventory", # The app name that will appear within the Scout UI
+  key: System.get_env("SCOUT_APM_SECRET_KEY")
+
+config :phoenix, :template_engines,
+  eex: ScoutApm.Instruments.EExEngine,
+  exs: ScoutApm.Instruments.ExsEngine
 
 # ## SSL Support
 #

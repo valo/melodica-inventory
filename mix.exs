@@ -18,23 +18,23 @@ defmodule MelodicaInventory.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {MelodicaInventory, []},
-     applications: applications(Mix.env)]
+     applications: [
+       :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+       :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto,
+       :httpoison
+     ] ++ applications(Mix.env)]
   end
 
   def applications(:test) do
-    [
-      :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-      :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto,
-      :httpoison
-    ]
+    []
+  end
+
+  def applications(:prod) do
+    [:cloudex, :scout_apm]
   end
 
   def applications(_) do
-    [
-      :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-      :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto,
-      :cloudex, :httpoison
-    ]
+    [:cloudex]
   end
 
   # Specifies which paths to compile per environment.
@@ -61,6 +61,7 @@ defmodule MelodicaInventory.Mixfile do
       {:timex, "~> 3.0"},
       {:timex_ecto, "~> 3.0"},
       {:cloudex, "~> 0.1.10"},
+      {:scout_apm, "~> 0.0"},
    ]
   end
 

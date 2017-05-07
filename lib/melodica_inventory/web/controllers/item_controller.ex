@@ -50,6 +50,8 @@ defmodule MelodicaInventory.Web.ItemController do
     |> Ecto.Multi.run(:image, fn state -> upload_image(state, item_params["image"]) end)
   end
 
+  defp upload_image(%{item: %Item{id: item_id}}, nil), do: {:error, "You need to upload an image"}
+
   defp upload_image(%{item: %Item{id: item_id}}, %Plug.Upload{path: filename}) do
     case Cloudex.upload(filename) do
       [error: error] ->

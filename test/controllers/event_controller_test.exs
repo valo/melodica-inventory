@@ -43,7 +43,7 @@ defmodule MelodicaInventory.EventControllerTest do
       response = conn
       |> get(event_path(conn, :index))
 
-      refute response.resp_body =~ event_path(conn, :new)
+      assert response.resp_body =~ event_path(conn, :new)
       refute response.resp_body =~ admin_event_path(conn, :edit, event.id)
       refute response.resp_body =~ admin_event_path(conn, :delete, event.id)
       assert response.resp_body =~ event.name

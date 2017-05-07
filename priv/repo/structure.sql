@@ -138,6 +138,38 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
+-- Name: images; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE images (
+    id integer NOT NULL,
+    item_id integer,
+    public_id character varying(255),
+    inserted_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE images_id_seq OWNED BY images.id;
+
+
+--
 -- Name: item_reservations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -176,10 +208,10 @@ ALTER SEQUENCE item_reservations_id_seq OWNED BY item_reservations.id;
 
 CREATE TABLE items (
     id integer NOT NULL,
-    uuid character varying(255) NOT NULL,
+    uuid character varying(255),
     variation_id integer NOT NULL,
     name character varying(255) NOT NULL,
-    url character varying(255) NOT NULL,
+    url character varying(255),
     inserted_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     quantity integer DEFAULT 0 NOT NULL,
@@ -376,6 +408,13 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 
 
 --
+-- Name: images id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::regclass);
+
+
+--
 -- Name: item_reservations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -439,6 +478,14 @@ ALTER TABLE ONLY categories
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: images images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY images
+    ADD CONSTRAINT images_pkey PRIMARY KEY (id);
 
 
 --
@@ -549,6 +596,14 @@ ALTER TABLE ONLY events
 
 
 --
+-- Name: images images_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY images
+    ADD CONSTRAINT images_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id);
+
+
+--
 -- Name: item_reservations item_reservations_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -608,5 +663,5 @@ ALTER TABLE ONLY variations
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240), (20170416213841), (20170417092444);
+INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240), (20170416213841), (20170417092444), (20170504211926), (20170504215324);
 

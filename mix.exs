@@ -9,7 +9,7 @@ defmodule MelodicaInventory.Mixfile do
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     aliases: aliases(),
+     aliases: aliases(Mix.env),
      deps: deps()]
   end
 
@@ -18,8 +18,23 @@ defmodule MelodicaInventory.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {MelodicaInventory, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto]]
+     applications: applications(Mix.env)]
+  end
+
+  def applications(:test) do
+    [
+      :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+      :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto,
+      :httpoison
+    ]
+  end
+
+  def applications(_) do
+    [
+      :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+      :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto,
+      :cloudex, :httpoison
+    ]
   end
 
   # Specifies which paths to compile per environment.
@@ -30,20 +45,23 @@ defmodule MelodicaInventory.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.3.0-rc"},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.6"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"},
-     {:ueberauth_google, "~> 0.4"},
-     {:ex_machina, "~> 1.0", only: :test},
-     {:mix_test_watch, "~> 0.2", only: :dev},
-     {:ex_unit_notifier, "~> 0.1", only: :test},
-     {:timex, "~> 3.0"},
-     {:timex_ecto, "~> 3.0"}]
+    [
+      {:phoenix, "~> 1.3.0-rc"},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix_ecto, "~> 3.0"},
+      {:postgrex, ">= 0.0.0"},
+      {:phoenix_html, "~> 2.6"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:gettext, "~> 0.11.0"},
+      {:cowboy, "~> 1.0"},
+      {:ueberauth_google, "~> 0.4"},
+      {:ex_machina, "~> 1.0", only: :test},
+      {:mix_test_watch, "~> 0.2", only: :dev},
+      {:ex_unit_notifier, "~> 0.1", only: :test},
+      {:timex, "~> 3.0"},
+      {:timex_ecto, "~> 3.0"},
+      {:cloudex, "~> 0.1.10"},
+   ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
@@ -52,9 +70,14 @@ defmodule MelodicaInventory.Mixfile do
   #     $ mix ecto.setup
   #
   # See the documentation for `Mix` for more info on aliases.
-  defp aliases do
+  defp aliases(:test) do
+    ["test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+  end
+
+  defp aliases(_) do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
+     "ecto.migrate": ["ecto.migrate", "ecto.dump"],
      "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 end

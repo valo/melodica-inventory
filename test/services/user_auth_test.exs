@@ -11,7 +11,7 @@ defmodule MelodicaInventory.UserAuthTest do
   end
 
   test "should create a new user if the email is allowed" do
-    params = auth_hash(email: "test@melodica-events.com", first_name: "Joe", last_name: "Dow", image: "http://test.com")
+    params = auth_hash(email: "test@melodica-events.com")
     {:ok, %User{}} = UserAuth.find_or_create(params)
   end
 
@@ -25,6 +25,12 @@ defmodule MelodicaInventory.UserAuthTest do
   end
 
   defp auth_hash(attrs) do
-    %Ueberauth.Auth{info: struct!(%Ueberauth.Auth.Info{}, attrs)}
+    %Ueberauth.Auth{
+      info: struct!(%Ueberauth.Auth.Info{
+        first_name: "Joe",
+        last_name: "Dow",
+        image: "http://test.com"
+      }, attrs)
+    }
   end
 end

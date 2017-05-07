@@ -1,0 +1,27 @@
+<h1>New item</h1>
+<%= form_for @changeset, item_path(@conn, :create), [multipart: true, method: "create"], fn f -> %>
+  <%= hidden_input f, :variation_id %>
+  <div class="form-group">
+    <%= label f, :name %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
+  <div class="form-group">
+    <%= label f, :quantity %>
+    <%= text_input f, :quantity, type: :number, class: "form-control" %>
+    <%= error_tag f, :quantity %>
+  </div>
+  <div class="form-group">
+    <%= label f, :price %>
+    <%= text_input f, :price, type: :number, class: "form-control", "aria-describedby": "priceHelp", step: "0.01" %>
+    <%= error_tag f, :price %>
+    <small id="priceHelp" class="form-text text-muted">The price of a single <%= @changeset.data.name %></small>
+  </div>
+  <div class="form-group">
+    <%= label f, :image %>
+    <%= file_input f, :image, class: "form-control" %>
+    <%= error_tag f, :image %>
+  </div>
+  <%= submit "Submit", class: "btn btn-primary" %>
+  <a href="<%= category_path(@conn, :show, @variation.category_id) %>" class="btn btn-secondary">Back</a>
+<% end %>

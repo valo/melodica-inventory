@@ -1,0 +1,9 @@
+<%= hidden_input @f, :category_id %>
+<div class="<%= error_class_for(@f, :variation) %>">
+  <%= error_tag @f, :variation %>
+</div>
+<div class="form-group <%= error_class_for(@f, :name) %>">
+  <%= label @f, :name %>
+  <%= text_input @f, :name, class: "form-control" %>
+  <%= error_tag @f, :name %>
+</div>

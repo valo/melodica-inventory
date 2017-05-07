@@ -9,11 +9,12 @@ defmodule MelodicaInventory.Web.CategoryController do
   end
 
   def show(conn, %{"id" => category_id}) do
+    category = Repo.get!(Category, category_id)
     variations =
-      from(v in Variation, where: v.category_id == ^category_id, preload: [items: :attachments])
+      from(v in Variation, where: v.category_id == ^category_id, preload: [items: [:attachments, :images]])
       |> Repo.all
 
-    render conn, "show.html", variations: variations
+    render conn, "show.html", variations: variations, category: category
   end
 
   def fetch_cards(list) do

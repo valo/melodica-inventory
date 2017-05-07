@@ -34,7 +34,6 @@ defmodule MelodicaInventory.Web.ItemController do
       {:ok, %{item: item}} ->
         redirect(conn, to: item_path(conn, :show, item.id))
       {:error, :item, failed_changeset, _changes_so_far} ->
-        IO.inspect(failed_changeset)
         render(conn, "new.html", variation: variation, changeset: failed_changeset)
       {:error, :image, error, changes_so_far} ->
         changeset = changes_so_far[:item]

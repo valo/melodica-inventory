@@ -12,6 +12,6 @@ defmodule MelodicaInventory.Web.ItemView do
   end
 
   def cover_url(%Item{images: images}) do
-    Cloudex.Url.for(hd(images).public_id, %{width: 400, height: 400, crop: "limit"})
+    Cloudex.Url.for(hd(images).public_id, %{width: 600, height: 600, crop: "limit"})
   end
 end

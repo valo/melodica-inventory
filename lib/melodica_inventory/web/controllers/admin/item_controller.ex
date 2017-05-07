@@ -49,7 +49,6 @@ defmodule MelodicaInventory.Web.Admin.ItemController do
     images
     |> Enum.map(&(&1.public_id))
     |> Cloudex.delete()
-    |> IO.inspect
     |> Enum.reduce(fn [ok: _], _ -> {:ok, true} end)
   end
 end

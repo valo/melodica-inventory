@@ -1,8 +1,6 @@
 <h1>
   Events
-  <%= if @current_user.admin do %>
-    <%= link "Add event", to: admin_event_path(@conn, :new), class: "btn btn-secondary btn-sm" %>
-  <% end %>
+  <%= link "Add event", to: event_path(@conn, :new), class: "btn btn-secondary btn-sm" %>
 </h1>
 <div class="table-responsive">
   <table class="table">

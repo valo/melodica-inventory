@@ -36,7 +36,7 @@ defmodule MelodicaInventory.Web.Router do
 
     resources "/item_reservations", ItemReservationController, only: [:new, :create, :delete]
 
-    resources "/events", EventController, only: [:show, :index]
+    resources "/events", EventController, only: [:new, :create, :show, :index]
     resources "/current_event", CurrentEventController, only: [:create]
   end
 
@@ -48,7 +48,7 @@ defmodule MelodicaInventory.Web.Router do
     resources "/items", ItemController, only: [:edit, :update, :delete]
     resources "/loans", LoanController, only: [:index]
     resources "/loan_returns/:loan_id", LoanReturnsController, only: [:create]
-    resources "/events", EventController, only: [:new, :create, :edit, :update, :delete]
+    resources "/events", EventController, only: [:edit, :update, :delete]
   end
 
   scope "/auth", MelodicaInventory.Web do

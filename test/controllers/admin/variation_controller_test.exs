@@ -55,15 +55,27 @@ defmodule MelodicaInventory.Admin.VariationControllerTest do
       {:ok, %{current_user: current_user, conn: conn}}
     end
 
-    # test "the edit page renders the edit template", %{conn: conn} do
-    #   variation = insert(:variation)
-    #
-    #   response = conn
-    #   |> get(admin_variation_path(conn, :edit, variation))
-    #
-    #   assert response.resp_body =~ "Edit variation"
-    #   assert response.resp_body =~ admin_variation_path(conn, :update)
-    # end
+    test "the edit page renders the edit template", %{conn: conn} do
+      variation = insert(:variation)
+
+      response = conn
+      |> get(admin_variation_path(conn, :edit, variation))
+
+      assert response.resp_body =~ "Edit #{variation.name}"
+      assert response.resp_body =~ admin_variation_path(conn, :update, variation.id)
+    end
+
+    test "the update action changes the variation", %{conn: conn} do
+      variation = insert(:variation)
+
+      response = conn
+      |> put(
+        admin_variation_path(conn, :update, variation.id),
+        %{"variation" => %{"name" => "Updated name"}}
+      )
+
+      assert redirected_to(response) == category_path(conn, :show, variation.category_id)
+    end
 
     test "the new page renders the new template", %{conn: conn} do
       category = insert(:category)
@@ -77,6 +89,8 @@ defmodule MelodicaInventory.Admin.VariationControllerTest do
 
     test "delete deletes the variation and redirect to the category", %{conn: conn} do
       variation = insert(:variation)
+      item = insert(:item, variation: variation, quantity: 1)
+      loan = insert(:loan, item: item, quantity: 1)
 
       response = conn
       |> delete(admin_variation_path(conn, :delete, variation.id))

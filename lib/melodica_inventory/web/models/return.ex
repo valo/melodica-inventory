@@ -11,7 +11,7 @@ defmodule MelodicaInventory.Return do
   end
 
   def types do
-    [returned, destroyed]
+    [returned(), destroyed()]
   end
 
   def returned do

@@ -1,12 +1,27 @@
 defmodule MelodicaInventory.Web.Admin.VariationController do
   use MelodicaInventory.Web, :controller
-  alias MelodicaInventory.Variation
+  alias MelodicaInventory.{Variation, Item}
 
   def edit(conn, %{"id" => id}) do
     variation = Repo.get!(Variation, id)
     changeset = Variation.changeset(variation)
 
     render conn, "edit.html", changeset: changeset
+  end
+
+  def update(conn, %{"id" => id, "variation" => variation_params}) do
+    variation = Repo.get!(Variation, id)
+
+    changeset = Variation.changeset(variation, variation_params)
+
+    case Repo.update(changeset) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Variation updated successfully")
+        |> redirect(to: category_path(conn, :show, variation.category_id))
+      {:error, changeset} ->
+        render(conn, "edit.html", changeset: changeset)
+    end
   end
 
   def new(conn, %{"category_id" => category_id}) do
@@ -18,7 +33,6 @@ defmodule MelodicaInventory.Web.Admin.VariationController do
   def create(conn, %{"variation" => variation_params}) do
     changeset = Variation.changeset(%Variation{uuid: Ecto.UUID.generate()}, variation_params)
 
-    IO.inspect changeset
     case Repo.insert(changeset) do
       {:ok, variation} ->
         conn
@@ -31,11 +45,28 @@ defmodule MelodicaInventory.Web.Admin.VariationController do
 
   def delete(conn, %{"id" => id}) do
     variation = Repo.get!(Variation, id)
+    |> Repo.preload(items: [:loans])
 
-    Repo.delete!(variation)
+    Ecto.Multi.new
+    |> delete_items(variation.items)
+    |> Ecto.Multi.delete(:delete_variation, variation)
+    |> Repo.transaction
+    |> case do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "#{variation.name} delete successfully!")
+        |> redirect(to: category_path(conn, :show, variation.category_id))
+      {:error, error} ->
+        conn
+        |> put_flash(:danger, "Can't delete variation! Error: #{ error }")
+        |> redirect(to: category_path(conn, :show, variation.category_id))
+    end
+  end
 
-    conn
-    |> put_flash(:info, "#{variation.name} delete successfully!")
-    |> redirect(to: category_path(conn, :show, variation.category_id))
+  defp delete_items(multi, items) do
+    items
+    |> Enum.reduce(multi, fn item, m ->
+      Ecto.Multi.delete(m, :delete_item, item)
+    end)
   end
 end

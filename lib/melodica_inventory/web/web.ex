@@ -30,7 +30,7 @@ defmodule MelodicaInventory.Web do
   def controller do
     quote do
       use Phoenix.Controller, namespace: MelodicaInventory.Web
-      use ScoutApm.Instrumentation
+      if Mix.env == :prod, do: use ScoutApm.Instrumentation
 
       alias MelodicaInventory.Repo
       import Ecto

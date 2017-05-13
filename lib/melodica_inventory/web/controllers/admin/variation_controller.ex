@@ -1,6 +1,6 @@
 defmodule MelodicaInventory.Web.Admin.VariationController do
   use MelodicaInventory.Web, :controller
-  alias MelodicaInventory.{Variation, Item}
+  alias MelodicaInventory.{Variation}
 
   def edit(conn, %{"id" => id}) do
     variation = Repo.get!(Variation, id)

@@ -19,9 +19,7 @@ defmodule MelodicaInventory.Web.LoanController do
     item = Repo.get!(Item, item_id)
     |> Repo.preload(:variation)
 
-    result = CreateLoan.call(item, current_user, String.to_integer(quantity))
-
-    case result do
+    case CreateLoan.call(item, current_user, String.to_integer(quantity)) do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Loan created successfully.")

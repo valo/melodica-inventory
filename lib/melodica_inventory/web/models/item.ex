@@ -26,4 +26,15 @@ defmodule MelodicaInventory.Item do
     |> validate_required([:name, :variation_id, :quantity, :price])
     |> validate_number(:quantity, greater_than_or_equal_to: 0)
   end
+
+  def total_quantity(item) do
+    item.quantity + loaned_quantity(item)
+  end
+
+  defp loaned_quantity(item) do
+    item.loans
+    |> Enum.filter(&(not &1.fulfilled))
+    |> Enum.map(&(&1.quantity))
+    |> Enum.reduce(0, &Kernel.+/2)
+  end
 end

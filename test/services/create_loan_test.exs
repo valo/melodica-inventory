@@ -25,7 +25,7 @@ defmodule MelodicaInventory.CreateLoanTest do
 
     {:error, failed_value} = CreateLoan.call(item, user, 5)
 
-    assert Keyword.keys(failed_value.errors) == [:loan]
+    assert Keyword.keys(failed_value.errors) == [:quantity]
     assert failed_value.action == :insert
   end
 end

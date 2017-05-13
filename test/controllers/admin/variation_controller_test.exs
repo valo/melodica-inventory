@@ -90,7 +90,7 @@ defmodule MelodicaInventory.Admin.VariationControllerTest do
     test "delete deletes the variation and redirect to the category", %{conn: conn} do
       variation = insert(:variation)
       item = insert(:item, variation: variation, quantity: 1)
-      loan = insert(:loan, item: item, quantity: 1)
+      insert(:loan, item: item, quantity: 1)
 
       response = conn
       |> delete(admin_variation_path(conn, :delete, variation.id))

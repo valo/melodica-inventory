@@ -19,7 +19,9 @@ defmodule MelodicaInventory.CreateLoan do
     case Repo.transaction(changes) do
       {:ok, values} ->
         {:ok, values}
-      {:error, failed_key, failed_value, changes_so_far} ->
+      {:error, :item, _failed_value, _changes_so_far} ->
+        {:error, %{loan_changeset | action: :insert} |> Ecto.Changeset.add_error(:quantity, "Not enough items available. You can borrow at most #{item.quantity}")}
+      {:error, _failed_key, _failed_value, _changes_so_far} ->
         {:error, %{loan_changeset | action: :insert} |> Ecto.Changeset.add_error(:loan, "Can't create loan. Check your values")}
     end
   end

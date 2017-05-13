@@ -42,7 +42,7 @@ defmodule MelodicaInventory.ReturnLoan do
     Multi.update(multi, :item, item_changeset)
   end
 
-  defp update_item(multi, loan, quantity, "destroyed") do
+  defp update_item(multi, loan, _quantity, "destroyed") do
     item = Repo.get!(Item, loan.item_id)
     item_changeset = item
     |> Item.changeset(%{quantity: item.quantity})

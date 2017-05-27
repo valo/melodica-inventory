@@ -29,9 +29,7 @@ defmodule MelodicaInventory.Web.Admin.ItemController do
     item = Repo.get!(Item, id)
     |> Repo.preload([:attachments, :images, :variation])
 
-    Ecto.Multi.new
-    |> Ecto.Multi.run(:delete_images, fn _ -> delete_images(item.images) end)
-    |> Ecto.Multi.delete(:delete_item, item)
+    ItemDestroy.build_item_destroy(item)
     |> Repo.transaction
     |> case do
       {:ok, _} ->
@@ -43,12 +41,5 @@ defmodule MelodicaInventory.Web.Admin.ItemController do
         |> put_flash(:error, "#{item.name} could not be deleted")
         |> redirect(to: category_path(conn, :show, item.variation.category_id))
     end
-  end
-
-  def delete_images(images) do
-    images
-    |> Enum.map(&(&1.public_id))
-    |> Cloudex.delete()
-    |> Enum.reduce(fn [ok: _], _ -> {:ok, true} end)
   end
 end

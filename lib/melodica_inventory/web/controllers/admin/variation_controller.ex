@@ -1,6 +1,6 @@
 defmodule MelodicaInventory.Web.Admin.VariationController do
   use MelodicaInventory.Web, :controller
-  alias MelodicaInventory.{Variation}
+  alias MelodicaInventory.{Variation, VariationDestroy}
 
   def edit(conn, %{"id" => id}) do
     variation = Repo.get!(Variation, id)
@@ -45,11 +45,9 @@ defmodule MelodicaInventory.Web.Admin.VariationController do
 
   def delete(conn, %{"id" => id}) do
     variation = Repo.get!(Variation, id)
-    |> Repo.preload(items: [:loans])
+    |> Repo.preload(items: [:loans, :images])
 
-    Ecto.Multi.new
-    |> delete_items(variation.items)
-    |> Ecto.Multi.delete(:delete_variation, variation)
+    VariationDestroy.build_destroy_action(variation)
     |> Repo.transaction
     |> case do
       {:ok, _} ->
@@ -63,10 +61,4 @@ defmodule MelodicaInventory.Web.Admin.VariationController do
     end
   end
 
-  defp delete_items(multi, items) do
-    items
-    |> Enum.reduce(multi, fn item, m ->
-      Ecto.Multi.delete(m, :delete_item, item)
-    end)
-  end
 end

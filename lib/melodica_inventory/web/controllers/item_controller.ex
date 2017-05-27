@@ -12,7 +12,7 @@ defmodule MelodicaInventory.Web.ItemController do
 
     item_reservations = (from r in ItemReservation, where: r.item_id == ^id)
     |> Repo.all
-    |> Repo.preload([:event])
+    |> Repo.preload([event: :user])
 
     changeset = ItemReservation.changeset(%ItemReservation{item_id: id, quantity: item.quantity}, %{})
 

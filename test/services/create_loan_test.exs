@@ -25,7 +25,21 @@ defmodule MelodicaInventory.CreateLoanTest do
 
     {:error, failed_value} = CreateLoan.call(item, user, 5)
 
-    assert Keyword.keys(failed_value.errors) == [:loan]
+    assert Keyword.keys(failed_value.errors) == [:quantity]
     assert failed_value.action == :insert
+  end
+
+  test "building the loan from a reservation" do
+    user = insert(:user)
+    item = insert(:item, quantity: 10)
+    reservation = insert(:item_reservation, quantity: 10, item: item)
+
+    {:ok, %{loan: loan}} = Repo.transaction(CreateLoan.build_from_reservation(reservation, user))
+
+    item = Repo.get!(Item, item.id)
+
+    assert item.quantity == 0
+    assert loan.quantity == 10
+    assert loan.user_id == user.id
   end
 end

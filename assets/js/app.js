@@ -44,6 +44,7 @@ $(document).ready(function() {
   });
 
   $("#calendar").calendar({
+    style: 'background',
     dataSource: calendarDataSource,
     mouseOnDay: function(e) {
       if(e.events.length > 0) {

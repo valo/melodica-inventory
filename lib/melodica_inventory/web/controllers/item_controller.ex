@@ -4,8 +4,7 @@ defmodule MelodicaInventory.Web.ItemController do
 
   def show(conn, %{"id" => id}) do
     item = Repo.get!(Item, id)
-    |> Repo.preload(:attachments)
-    |> Repo.preload(:images)
+    |> Repo.preload([:attachments, :images, :loans])
 
     loans = (from l in Loan, where: l.item_id == ^id and not l.fulfilled)
     |> Repo.all
@@ -49,7 +48,7 @@ defmodule MelodicaInventory.Web.ItemController do
     |> Ecto.Multi.run(:image, fn state -> upload_image(state, item_params["image"]) end)
   end
 
-  defp upload_image(%{item: %Item{id: item_id}}, nil), do: {:error, "You need to upload an image"}
+  defp upload_image(%{item: %Item{}}, nil), do: {:error, "You need to upload an image"}
 
   defp upload_image(%{item: %Item{id: item_id}}, %Plug.Upload{path: filename}) do
     case Cloudex.upload(filename) do

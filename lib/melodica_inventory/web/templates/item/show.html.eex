@@ -1,4 +1,15 @@
-<h1><%= @item.name %></h1>
+<h1>
+  <%= @item.name %>
+  <%= link "Borrow", to: loan_path(@conn, :new, @item.id), class: "btn btn-secondary btn-sm" %>
+  <%= if @current_user.admin do %>
+    <%= link "Edit", to: admin_item_path(@conn, :edit, @item.id), class: "btn btn-secondary btn-sm" %>
+  <% end %>
+</h1>
+<ul>
+  <li>Цена: <%= @item.price %></li>
+  <li>Обща бройка: <%= Item.total_quantity(@item) %></li>
+  <li>Текущо налични: <%= @item.quantity %></li>
+</ul>
 <img src="<%= cover_url(@item) %>" alt="Item picture" class="img-fluid">
 
 <h2>Currently borrowed:</h2>

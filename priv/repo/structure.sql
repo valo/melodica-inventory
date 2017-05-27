@@ -584,7 +584,7 @@ CREATE UNIQUE INDEX users_email_index ON users USING btree (email);
 --
 
 ALTER TABLE ONLY attachments
-    ADD CONSTRAINT attachments_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id);
+    ADD CONSTRAINT attachments_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE;
 
 
 --
@@ -600,7 +600,7 @@ ALTER TABLE ONLY events
 --
 
 ALTER TABLE ONLY images
-    ADD CONSTRAINT images_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id);
+    ADD CONSTRAINT images_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE;
 
 
 --
@@ -616,7 +616,7 @@ ALTER TABLE ONLY item_reservations
 --
 
 ALTER TABLE ONLY item_reservations
-    ADD CONSTRAINT item_reservations_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id);
+    ADD CONSTRAINT item_reservations_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE;
 
 
 --
@@ -624,7 +624,7 @@ ALTER TABLE ONLY item_reservations
 --
 
 ALTER TABLE ONLY items
-    ADD CONSTRAINT items_variation_id_fkey FOREIGN KEY (variation_id) REFERENCES variations(id);
+    ADD CONSTRAINT items_variation_id_fkey FOREIGN KEY (variation_id) REFERENCES variations(id) ON DELETE CASCADE;
 
 
 --
@@ -632,7 +632,7 @@ ALTER TABLE ONLY items
 --
 
 ALTER TABLE ONLY loans
-    ADD CONSTRAINT loans_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id);
+    ADD CONSTRAINT loans_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE;
 
 
 --
@@ -663,5 +663,5 @@ ALTER TABLE ONLY variations
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240), (20170416213841), (20170417092444), (20170504211926), (20170504215324);
+INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240), (20170416213841), (20170417092444), (20170504211926), (20170504215324), (20170527133428);
 

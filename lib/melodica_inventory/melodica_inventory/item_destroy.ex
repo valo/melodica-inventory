@@ -5,9 +5,9 @@ defmodule ItemDestroy do
     |> Ecto.Multi.delete(:delete_item, item)
   end
 
-  defp delete_images([]), do: {:ok, true}
+  def delete_images([]), do: {:ok, true}
 
-  defp delete_images(images) do
+  def delete_images(images) do
     images
     |> Enum.map(&(&1.public_id))
     |> Cloudex.delete()

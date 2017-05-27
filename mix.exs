@@ -62,6 +62,7 @@ defmodule MelodicaInventory.Mixfile do
       {:timex_ecto, "~> 3.0"},
       {:cloudex, "~> 0.1.10"},
       {:scout_apm, "~> 0.0"},
+      {:mock, "~> 0.2.0", only: :test},
    ]
   end
 

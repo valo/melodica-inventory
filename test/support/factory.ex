@@ -23,6 +23,13 @@ defmodule MelodicaInventory.Factory do
    }
  end
 
+ def image_factory do
+   %MelodicaInventory.Image{
+     item: build(:item),
+     public_id: sequence(:pubic_id, &"123456#{&1}"),
+   }
+ end
+
  def variation_factory do
    %MelodicaInventory.Variation{
      uuid: sequence(:uuid, &"123456#{&1}"),

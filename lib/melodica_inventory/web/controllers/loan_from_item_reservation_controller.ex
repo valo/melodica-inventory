@@ -8,9 +8,7 @@ defmodule MelodicaInventory.Web.LoanFromItemReservationController do
     reservation = Repo.get(ItemReservation, item_reservation_id)
     |> Repo.preload(:item)
 
-    Ecto.Multi.new()
-    |> Ecto.Multi.append(CreateLoan.build_loan(reservation.item, current_user, reservation.quantity))
-    |> Ecto.Multi.delete(:delete_reservation, reservation)
+    CreateLoan.build_from_reservation(reservation, current_user)
     |> Repo.transaction
     |> case do
       {:ok, _} ->

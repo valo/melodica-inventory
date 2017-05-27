@@ -1,7 +1,7 @@
 <h1><%= @event.name %></h1>
 
-<p><%= @event.place %></p>
-<p><%= format_date(@event.start_date) %> - <%= format_date(@event.end_date) %></h1></p>
+<p><%= @event.place %></span></p>
+<p><%= format_date(@event.start_date) %></span> - <%= format_date(@event.end_date) %></p>
 
 <h2>Reservations:</h2>
 <%= if length(@event.item_reservations) > 0 do %>
@@ -11,6 +11,7 @@
         <tr>
           <th>Name</th>
           <th>Quantity</th>
+          <th>Currently Available</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -18,8 +19,28 @@
         <tr>
           <td><%= link item_reservation.item.name, to: item_path(@conn, :show, item_reservation.item_id) %></td>
           <td><%= item_reservation.quantity %></td>
+          <td><%= item_reservation.item.quantity %></td>
           <td>
-            <%= link "Delete", to: item_reservation_path(@conn, :delete, item_reservation.id), method: :delete, class: "btn btn-secondary btn-sm" %>
+            <%= if Item.can_borrow?(item_reservation.item, item_reservation.quantity) do %>
+              <%= link "Borrow",
+                to: loan_from_item_reservation_path(@conn, :create, item_reservation.id),
+                method: :post,
+                data: [
+                  confirm: "Are you sure you want to borrow #{item_reservation.quantity} #{item_reservation.item.name}?"
+                ],
+                class: "btn btn-sm btn-secondary"
+              %>
+            <% else %>
+              <span class="tag tag-warning">Can't borrow</span>
+            <% end %>
+            <%= link "Delete",
+              to: item_reservation_path(@conn, :delete, item_reservation.id),
+              method: :delete,
+              class: "btn btn-secondary btn-sm",
+              data: [
+                confirm: "Are you sure you want to delete the reservation for #{item_reservation.item.name}?"
+              ]
+            %>
           </td>
         </tr>
       <% end %>

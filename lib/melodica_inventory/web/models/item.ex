@@ -31,6 +31,10 @@ defmodule MelodicaInventory.Item do
     item.quantity + loaned_quantity(item)
   end
 
+  def can_borrow?(item, quantity) do
+    item.quantity >= quantity
+  end
+
   defp loaned_quantity(item) do
     item.loans
     |> Enum.filter(&(not &1.fulfilled))

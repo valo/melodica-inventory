@@ -54,6 +54,7 @@ $(document).ready(function() {
           content += '<div class="event-tooltip-content">'
                      + '<div class="event-name" style="color:' + e.events[i].color + '">' + e.events[i].name + '</div>'
                      + '<div class="event-location">Quantity: ' + e.events[i].quantity + '</div>'
+                     + '<div class="event-manager">Manager: ' + e.events[i].manager + '</div>'
                    + '</div>';
         }
 

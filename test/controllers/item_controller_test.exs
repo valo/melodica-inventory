@@ -15,7 +15,7 @@ defmodule MelodicaInventory.ItemControllerTest do
 
     test "new redirects to login", %{conn: conn} do
       response = conn
-      |> get(item_path(conn, :new, %{}))
+      |> get(item_path(conn, :new))
 
       assert redirected_to(response) =~ login_path(conn, :index)
     end

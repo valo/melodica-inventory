@@ -5,7 +5,7 @@ defmodule MelodicaInventory.ItemControllerTest do
   import Plug.Test
   import Mock
 
-  describe "show item when not authorized" do
+  describe "when not authorized" do
     test "show redirects to login", %{conn: conn} do
       response = conn
       |> get(item_path(conn, :show, 1))
@@ -28,7 +28,7 @@ defmodule MelodicaInventory.ItemControllerTest do
     end
   end
 
-  describe "show item when a user is authorized" do
+  describe "when a user is authorized" do
     setup [:login_user]
 
     test "show renders the show item template", %{conn: conn} do

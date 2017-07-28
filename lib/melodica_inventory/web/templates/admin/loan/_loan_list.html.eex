@@ -19,8 +19,8 @@
           <td><%= Decimal.mult(loan.item.price, Decimal.new(loan.quantity)) %> BGN</td>
           <td><%= format_loan_date(loan.inserted_at) %></td>
           <td>
-            <%= button "Return", to: admin_loan_returns_path(@conn, :create, loan.id), method: :post, class: "btn btn-secondary" %>
-            <button type="button" data-toggle="modal" data-target="#returnLessModal" data-loan-return-url="<%= admin_loan_returns_path(@conn, :create, loan.id) %>" data-max-quantity="<%= loan.quantity %>" class="btn btn-secondary">Return less</button>
+            <%= button "Return", to: admin_loan_return_path(@conn, :create, loan.id), method: :post, class: "btn btn-sm btn-secondary" %>
+            <button type="button" data-toggle="modal" data-target="#returnLessModal" data-loan-return-url="<%= admin_loan_return_path(@conn, :create, loan.id) %>" data-max-quantity="<%= loan.quantity %>" class="btn btn-sm btn-secondary">Return less</button>
           </td>
         </tr>
       <% end %>
@@ -37,7 +37,7 @@
         <h4 class="modal-title" id="returnLessModalLabel">Return less</h4>
       </div>
       <div class="modal-body">
-        <%= form_for MelodicaInventory.Return.changeset(%MelodicaInventory.Return{}), admin_loan_returns_path(@conn, :create, 1), fn f -> %>
+        <%= form_for MelodicaInventory.Return.changeset(%MelodicaInventory.Return{}), admin_loan_return_path(@conn, :create, 1), fn f -> %>
           <div class="form-group">
             <%= label f, :quantity, class: "form-control-label" %>
             <%= text_input f, :quantity, id: "quantity", type: "number", class: "form-control" %>

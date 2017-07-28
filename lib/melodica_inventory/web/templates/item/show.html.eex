@@ -1,4 +1,7 @@
 <h1>
+  <%= link to: category_path(@conn, :show, @item.variation.category_id) do %>
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  <% end %>
   <%= @item.name %>
   <%= link "Borrow", to: loan_path(@conn, :new, @item.id), class: "btn btn-secondary btn-sm" %>
   <%= if @current_user.admin do %>

@@ -4,7 +4,7 @@ defmodule MelodicaInventory.Web.ItemController do
 
   def show(conn, %{"id" => id}) do
     item = Repo.get!(Item, id)
-    |> Repo.preload([:attachments, :images, :loans])
+    |> Repo.preload([:attachments, :images, :loans, :variation])
 
     loans = (from l in Loan, where: l.item_id == ^id and not l.fulfilled)
     |> Repo.all

@@ -3,7 +3,7 @@ defmodule MelodicaInventory.ItemDestroyTest do
 
   import Mock
 
-  alias MelodicaInventory.ItemDestroyTest
+  alias MelodicaInventory.ItemDestroy
   alias MelodicaInventory.Item
   import MelodicaInventory.Factory
 

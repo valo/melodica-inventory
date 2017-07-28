@@ -29,6 +29,36 @@ defmodule MelodicaInventory.Admin.LoanControllerTest do
 
       assert response.resp_body =~ item.name
     end
+
+    test "index filters the loans by name", %{conn: conn} do
+      loan = insert(:loan)
+      item = Repo.get!(Item, loan.item_id)
+
+      response = conn
+      |> get(admin_loan_path(conn, :index), %{"filters" => %{"name" => item.name, "user_id" => ""}})
+
+      assert response.resp_body =~ item.name
+
+      response = conn
+      |> get(admin_loan_path(conn, :index), %{"filters" => %{"name" => "Random non-existing name", "user_id" => ""}})
+
+      refute response.resp_body =~ item.name
+    end
+
+    test "index filters the loans by user_id", %{conn: conn} do
+      loan = insert(:loan)
+      item = Repo.get!(Item, loan.item_id)
+
+      response = conn
+      |> get(admin_loan_path(conn, :index), %{"filters" => %{"name" => "", "user_id" => Integer.to_string(loan.user_id)}})
+
+      assert response.resp_body =~ item.name
+
+      response = conn
+      |> get(admin_loan_path(conn, :index), %{"filters" => %{"name" => "", "user_id" => "99999"}})
+
+      refute response.resp_body =~ item.name
+    end
   end
 
   def login_user(context) do

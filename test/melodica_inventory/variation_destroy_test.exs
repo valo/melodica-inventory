@@ -23,7 +23,7 @@ defmodule MelodicaInventory.VariationDestroyTest do
     item = Repo.get!(Item, image.item_id)
     |> Repo.preload([:variation])
 
-    second_item = insert(:item, variation: item.variation)
+    _second_item = insert(:item, variation: item.variation)
 
     variation = Repo.get!(Variation, item.variation_id)
     |> Repo.preload(items: :images)

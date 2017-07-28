@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.VariationDestroy do
+  alias MelodicaInventory.ItemDestroy
+
   def build_destroy_action(variation) do
     Ecto.Multi.new
     |> Ecto.Multi.run(:delete_images, fn _ -> delete_images(variation.items) end)

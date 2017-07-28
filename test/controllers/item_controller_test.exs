@@ -87,7 +87,7 @@ defmodule MelodicaInventory.ItemControllerTest do
     end
   end
 
-  def login_user(context) do
+  def login_user(_context) do
     current_user = insert(:user, admin: false)
 
     conn = build_conn()

@@ -25,24 +25,7 @@ window.Tether = require("tether/dist/js/tether.min.js");
 require("bootstrap/dist/js/bootstrap.js");
 require("bootstrap-year-calendar/js/bootstrap-year-calendar.js");
 
-$(document).ready(function() {
-  $("#returnLessModal").on("show.bs.modal", function(event) {
-    var button = $(event.relatedTarget);
-    var loanReturnUrl = button.data("loan-return-url");
-    var maxQuantity = button.data("max-quantity");
-    var modal = $(this);
-
-    modal.find("#quantity").val(maxQuantity);
-    modal.find("form").attr("action", loanReturnUrl);
-    modal.find(".modal-footer .btn-primary").click(function() {
-      return modal.find("form").submit();
-    });
-  });
-
-  $("#currentEvent").on("change", function(event) {
-    $(".current_event").submit();
-  });
-
+function setup_calendar() {
   $("#calendar").calendar({
     style: 'background',
     dataSource: calendarDataSource,
@@ -74,4 +57,35 @@ $(document).ready(function() {
       }
     },
   });
+}
+
+$(document).ready(function() {
+  $("#returnLessModal").on("show.bs.modal", function(event) {
+    var button = $(event.relatedTarget);
+    var loanReturnUrl = button.data("loan-return-url");
+    var maxQuantity = button.data("max-quantity");
+    var modal = $(this);
+
+    modal.find("#quantity").val(maxQuantity);
+    modal.find("form").attr("action", loanReturnUrl);
+    modal.find(".modal-footer .btn-primary").click(function() {
+      return modal.find("form").submit();
+    });
+  });
+
+  $("#currentEvent").on("change", function(event) {
+    $(".current_event").submit();
+  });
+
+  if (typeof calendarDataSource != 'undefined') {
+    setup_calendar();
+  }
+
+  $('.loan_filtering select').on('change', function(event) {
+    $('.loan_filtering').submit();
+  });
+
+  $('.loan_filtering #filters_name').on('blur', function(event) {
+    $('.loan_filtering').submit();
+  })
 });

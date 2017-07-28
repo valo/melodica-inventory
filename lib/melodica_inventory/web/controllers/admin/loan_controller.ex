@@ -4,7 +4,7 @@ defmodule MelodicaInventory.Web.Admin.LoanController do
 
   def index(conn, params) do
     users = Repo.all(User)
-    |> Enum.map(&({user_name(&1), &1.id}))
+    |> Enum.map(&user_for_select/1)
 
     loans = (from l in Loan, where: not l.fulfilled)
     |> Repo.all
@@ -23,7 +23,7 @@ defmodule MelodicaInventory.Web.Admin.LoanController do
     end)
   end
 
-  defp user_name(user) do
-    "#{user.first_name} #{user.last_name}"
+  defp user_for_select(user) do
+    {"#{user.first_name} #{user.last_name}", user.id}
   end
 end

@@ -11,7 +11,7 @@ defmodule MelodicaInventory do
       # Start the Ecto repository
       supervisor(MelodicaInventory.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(MelodicaInventory.Web.Endpoint, []),
+      supervisor(MelodicaInventoryWeb.Endpoint, []),
       # Start your own worker by calling: MelodicaInventory.Worker.start_link(arg1, arg2, arg3)
       # worker(MelodicaInventory.Worker, [arg1, arg2, arg3]),
     ]

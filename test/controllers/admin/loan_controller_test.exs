@@ -1,5 +1,5 @@
 defmodule MelodicaInventory.Admin.LoanControllerTest do
-  use MelodicaInventory.Web.ConnCase, async: false
+  use MelodicaInventoryWeb.ConnCase, async: false
 
   import MelodicaInventory.Factory
   import Plug.Test

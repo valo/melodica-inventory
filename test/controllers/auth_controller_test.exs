@@ -1,5 +1,5 @@
 defmodule MelodicaInventory.AuthControllerTest do
-  use MelodicaInventory.Web.ConnCase, async: true
+  use MelodicaInventoryWeb.ConnCase, async: true
 
   test "index renders index.html", %{conn: conn} do
     response = conn

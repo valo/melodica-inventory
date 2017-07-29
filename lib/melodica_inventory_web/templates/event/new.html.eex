@@ -1,0 +1,6 @@
+<h1>New Event</h1>
+<%= form_for @changeset, event_path(@conn, :create), fn f -> %>
+  <%= render MelodicaInventoryWeb.Admin.EventView, "_event_form.html", changeset: @changeset, users: @users, f: f %>
+  <%= submit "Create", class: "btn btn-primary" %>
+  <a href="<%= event_path(@conn, :index) %>" class="btn btn-secondary">Back</a>
+<% end %>

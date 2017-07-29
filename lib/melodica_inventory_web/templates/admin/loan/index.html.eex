@@ -1,0 +1,11 @@
+<h1>All loans</h1>
+<%= form_for @conn, admin_loan_path(@conn, :index), [as: :filters, method: :get, class: "form-inline loan_filtering"], fn f -> %>
+  <div class="form-group">
+    Filters:
+    <%= text_input f, :name, type: :text, class: "form-control form-control-sm", placeholder: "Item name" %>
+  </div>
+  <div class="form-group">
+    <%= select f, :user_id, @users, prompt: "Agent name" %>
+  </div>
+<% end %>
+<%= render MelodicaInventoryWeb.Admin.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>

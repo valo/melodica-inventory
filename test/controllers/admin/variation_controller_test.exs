@@ -1,5 +1,5 @@
 defmodule MelodicaInventory.Admin.VariationControllerTest do
-  use MelodicaInventory.Web.ConnCase, async: false
+  use MelodicaInventoryWeb.ConnCase, async: false
 
   alias MelodicaInventory.Variation
   alias MelodicaInventory.Repo

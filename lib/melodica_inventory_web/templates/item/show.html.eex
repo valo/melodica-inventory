@@ -1,0 +1,69 @@
+<h1>
+  <%= link to: category_path(@conn, :show, @item.variation.category_id) do %>
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  <% end %>
+  <%= @item.name %>
+  <%= link "Borrow", to: loan_path(@conn, :new, @item.id), class: "btn btn-secondary btn-sm" %>
+  <%= if @current_user.admin do %>
+    <%= link "Edit", to: admin_item_path(@conn, :edit, @item.id), class: "btn btn-secondary btn-sm" %>
+  <% end %>
+</h1>
+<ul>
+  <li>Цена: <%= @item.price %></li>
+  <li>Обща бройка: <%= Item.total_quantity(@item) %></li>
+  <li>Текущо налични: <%= @item.quantity %></li>
+</ul>
+<img src="<%= cover_url(@item) %>" alt="Item picture" class="img-fluid">
+
+<h2>Currently borrowed:</h2>
+<%= if @current_user.admin do %>
+  <%= render MelodicaInventoryWeb.Admin.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>
+<% else %>
+  <%= render MelodicaInventoryWeb.LoanView, "_loan_list.html", loans: @loans, conn: @conn %>
+<% end %>
+
+<%= if @current_event do %>
+  <h2>Reserve for <%= event_name(@current_event) %></h2>
+  <%= form_for @changeset, item_reservation_path(@conn, :create), fn f -> %>
+    <%= render MelodicaInventoryWeb.ItemReservationView, "_item_reservation_form.html", changeset: @changeset, f: f, events: @events %>
+    <%= submit "Reserve", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+
+<h2>Currently reserved:</h2>
+
+<div id="calendar"></div>
+<script type="text/javascript">
+var calendarDataSource = [
+  <%= for item_reservation <- @item_reservations do %>
+    {
+      startDate: new Date('<%= Timex.subtract(item_reservation.event.start_date, Timex.Duration.from_days(1)) %>'),
+      endDate: new Date('<%= item_reservation.event.end_date %>'),
+      name: '<%= event_name(item_reservation.event) %>',
+      quantity: <%= item_reservation.quantity %>,
+      manager: '<%= event_user(item_reservation.event.user) %>',
+    },
+  <% end %>
+];
+</script>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <%= for item_reservation <- @item_reservations do %>
+      <tr>
+        <td><%= link event_name(item_reservation.event), to: event_path(@conn, :show, item_reservation.event.id) %></td>
+        <td><%= item_reservation.quantity %></td>
+        <td>
+          <%= link "Delete", to: item_reservation_path(@conn, :delete, item_reservation.id), method: :delete, class: "btn btn-secondary btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

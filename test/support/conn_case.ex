@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.Web.ConnCase do
+defmodule MelodicaInventoryWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -25,10 +25,10 @@ defmodule MelodicaInventory.Web.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
-      import MelodicaInventory.Web.Router.Helpers
+      import MelodicaInventoryWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint MelodicaInventory.Web.Endpoint
+      @endpoint MelodicaInventoryWeb.Endpoint
     end
   end
 

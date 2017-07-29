@@ -1,6 +1,0 @@
-<h1>New Reservation</h1>
-<%= form_for @changeset, item_reservation_path(@conn, :create), fn f -> %>
-  <%= render MelodicaInventory.Web.ItemReservationView, "_item_reservation_form.html", changeset: @changeset, f: f, events: @events %>
-  <%= submit "Reserve", class: "btn btn-primary" %>
-  <a href="<%= category_path(@conn, :show, @item.variation.category_id) %>" class="btn btn-secondary">Back</a>
-<% end %>

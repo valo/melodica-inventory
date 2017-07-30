@@ -1,8 +1,8 @@
-defmodule MelodicaInventory.Loan do
+defmodule MelodicaInventory.Loans.Loan do
   use MelodicaInventoryWeb, :model
-  alias MelodicaInventory.User
-  alias MelodicaInventory.Item
-  alias MelodicaInventory.Return
+  alias MelodicaInventory.Accounts.User
+  alias MelodicaInventory.Goods.Item
+  alias MelodicaInventory.Loans.Return
 
   schema "loans" do
     belongs_to :user, User

@@ -4,7 +4,7 @@ defmodule MelodicaInventory.Admin.ItemControllerTest do
   import MelodicaInventory.Factory
   import Plug.Test
 
-  alias MelodicaInventory.{Variation, Item}
+  alias MelodicaInventory.Goods.{Variation, Item}
 
   describe "when not authorized" do
     setup [:login_user]

@@ -1,6 +1,6 @@
 defmodule MelodicaInventoryWeb.Admin.CategoryController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.Category
+  alias MelodicaInventory.Goods.Category
 
   def edit(conn, %{"id" => id}) do
     changeset = Repo.get!(Category, id)

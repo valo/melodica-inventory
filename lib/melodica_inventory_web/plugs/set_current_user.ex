@@ -1,6 +1,6 @@
 defmodule MelodicaInventoryWeb.Plugs.SetCurrentUser do
   import Plug.Conn
-  alias MelodicaInventory.User
+  alias MelodicaInventory.Accounts.User
   alias MelodicaInventory.Repo
 
   def init(default), do: default

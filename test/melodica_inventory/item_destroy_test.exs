@@ -1,10 +1,10 @@
-defmodule MelodicaInventory.ItemDestroyTest do
+defmodule MelodicaInventory.Goods.ItemDestroyTest do
   use MelodicaInventory.ModelCase
 
   import Mock
 
-  alias MelodicaInventory.ItemDestroy
-  alias MelodicaInventory.Item
+  alias MelodicaInventory.Goods.ItemDestroy
+  alias MelodicaInventory.Goods.Item
   import MelodicaInventory.Factory
 
   test "deleting item without images" do

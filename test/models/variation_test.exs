@@ -1,7 +1,7 @@
-defmodule MelodicaInventory.VariationTest do
+defmodule MelodicaInventory.Goods.VariationTest do
   use MelodicaInventory.ModelCase
 
-  alias MelodicaInventory.Variation
+  alias MelodicaInventory.Goods.Variation
 
   @valid_attrs %{name: "Test variation", category_id: 1, uuid: "12345678"}
   @invalid_attrs %{}

@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.ItemControllerTest do
+defmodule MelodicaInventory.Goods.ItemControllerTest do
   use MelodicaInventoryWeb.ConnCase, async: false
 
   import MelodicaInventory.Factory

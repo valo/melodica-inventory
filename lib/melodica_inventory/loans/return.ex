@@ -1,6 +1,6 @@
-defmodule MelodicaInventory.Return do
+defmodule MelodicaInventory.Loans.Return do
   use MelodicaInventoryWeb, :model
-  alias MelodicaInventory.Loan
+  alias MelodicaInventory.Loans.Loan
 
   schema "returns" do
     belongs_to :loan, Loan

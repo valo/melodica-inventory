@@ -1,6 +1,6 @@
 defmodule MelodicaInventoryWeb.Admin.ItemController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.{Item, ItemDestroy}
+  alias MelodicaInventory.Goods.{Item, ItemDestroy}
 
   def edit(conn, %{"id" => id}) do
     changeset = Repo.get!(Item, id, preload: [:variation])

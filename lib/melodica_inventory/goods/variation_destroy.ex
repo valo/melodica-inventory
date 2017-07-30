@@ -1,5 +1,5 @@
-defmodule MelodicaInventory.VariationDestroy do
-  alias MelodicaInventory.ItemDestroy
+defmodule MelodicaInventory.Goods.VariationDestroy do
+  alias MelodicaInventory.Goods.ItemDestroy
 
   def build_destroy_action(variation) do
     Ecto.Multi.new

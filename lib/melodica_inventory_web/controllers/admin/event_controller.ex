@@ -1,7 +1,7 @@
 defmodule MelodicaInventoryWeb.Admin.EventController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.Event
-  alias MelodicaInventory.User
+  alias MelodicaInventory.Goods.Event
+  alias MelodicaInventory.Accounts.User
 
   def edit(conn, %{"id" => id}) do
     changeset = Repo.get!(Event, id)

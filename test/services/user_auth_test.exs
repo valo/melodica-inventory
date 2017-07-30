@@ -1,8 +1,8 @@
-defmodule MelodicaInventory.UserAuthTest do
+defmodule MelodicaInventory.Accounts.UserAuthTest do
   use MelodicaInventory.ModelCase
 
-  alias MelodicaInventory.UserAuth
-  alias MelodicaInventory.User
+  alias MelodicaInventory.Accounts.UserAuth
+  alias MelodicaInventory.Accounts.User
 
   import MelodicaInventory.Factory
 

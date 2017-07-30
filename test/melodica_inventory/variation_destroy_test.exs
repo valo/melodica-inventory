@@ -1,10 +1,9 @@
-defmodule MelodicaInventory.VariationDestroyTest do
+defmodule MelodicaInventory.Goods.VariationDestroyTest do
   use MelodicaInventory.ModelCase
 
   import Mock
 
-  alias MelodicaInventory.VariationDestroy
-  alias MelodicaInventory.{Variation, Item}
+  alias MelodicaInventory.Goods.{Variation, Item, VariationDestroy}
   import MelodicaInventory.Factory
 
   test "deleting variaion without items" do

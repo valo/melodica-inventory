@@ -1,7 +1,7 @@
-defmodule MelodicaInventory.Image do
+defmodule MelodicaInventory.Goods.Image do
   use MelodicaInventoryWeb, :model
 
-  alias MelodicaInventory.Item
+  alias MelodicaInventory.Goods.Item
 
   schema "images" do
     belongs_to :item, Item

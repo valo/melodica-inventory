@@ -1,6 +1,7 @@
 defmodule MelodicaInventoryWeb.EventController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.{Event, User}
+  alias MelodicaInventory.Goods.Event
+  alias MelodicaInventory.Accounts.User
 
   def show(conn, %{"id" => id}) do
     event = Repo.get!(Event, id)

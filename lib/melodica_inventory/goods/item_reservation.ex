@@ -1,7 +1,7 @@
-defmodule MelodicaInventory.ItemReservation do
+defmodule MelodicaInventory.Goods.ItemReservation do
   use MelodicaInventoryWeb, :model
-  alias MelodicaInventory.Item
-  alias MelodicaInventory.Event
+  alias MelodicaInventory.Goods.Item
+  alias MelodicaInventory.Goods.Event
 
   schema "item_reservations" do
     belongs_to :event, Event

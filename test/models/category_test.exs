@@ -1,7 +1,7 @@
-defmodule MelodicaInventory.CategoryTest do
+defmodule MelodicaInventory.Goods.CategoryTest do
   use MelodicaInventory.ModelCase
 
-  alias MelodicaInventory.Category
+  alias MelodicaInventory.Goods.Category
 
   @valid_attrs %{name: "Test category", desc: "Test description", uuid: "12345678"}
   @invalid_attrs %{}

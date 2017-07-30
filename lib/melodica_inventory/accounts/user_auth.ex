@@ -1,6 +1,6 @@
-defmodule MelodicaInventory.UserAuth do
+defmodule MelodicaInventory.Accounts.UserAuth do
   alias MelodicaInventory.Repo
-  alias MelodicaInventory.User
+  alias MelodicaInventory.Accounts.User
 
   def find_or_create(
     %Ueberauth.Auth{

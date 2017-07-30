@@ -1,7 +1,7 @@
 defmodule MelodicaInventory.Admin.VariationControllerTest do
   use MelodicaInventoryWeb.ConnCase, async: false
 
-  alias MelodicaInventory.Variation
+  alias MelodicaInventory.Goods.Variation
   alias MelodicaInventory.Repo
 
   import MelodicaInventory.Factory

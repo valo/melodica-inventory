@@ -1,6 +1,7 @@
 defmodule MelodicaInventoryWeb.ItemController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.{Item, Variation, Image, Loan, ItemReservation}
+  alias MelodicaInventory.Loans.Loan
+  alias MelodicaInventory.Goods.{Item, Variation, Image, ItemReservation}
 
   def show(conn, %{"id" => id}) do
     item = Repo.get!(Item, id)

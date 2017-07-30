@@ -1,6 +1,6 @@
-defmodule MelodicaInventory.Category do
+defmodule MelodicaInventory.Goods.Category do
   use MelodicaInventoryWeb, :model
-  alias MelodicaInventory.Variation
+  alias MelodicaInventory.Goods.Variation
 
   schema "categories" do
     has_many :variations, Variation, on_delete: :delete_all

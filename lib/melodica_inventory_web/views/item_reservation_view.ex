@@ -1,7 +1,7 @@
 defmodule MelodicaInventoryWeb.ItemReservationView do
   use MelodicaInventoryWeb, :view
 
-  alias MelodicaInventory.Event
+  alias MelodicaInventory.Goods.Event
 
   @date_format "{YYYY} {Mshort} {D}"
 

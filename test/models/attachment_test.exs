@@ -1,7 +1,7 @@
-defmodule MelodicaInventory.AttachmentTest do
+defmodule MelodicaInventory.Goods.AttachmentTest do
   use MelodicaInventory.ModelCase
 
-  alias MelodicaInventory.Attachment
+  alias MelodicaInventory.Goods.Attachment
 
   @valid_attrs %{url: "http://example.com", item_id: 1, uuid: "1234567890"}
   @invalid_attrs %{}

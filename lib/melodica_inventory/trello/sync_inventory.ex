@@ -3,10 +3,10 @@ defmodule MelodicaInventory.Trello.SyncInventory do
   alias MelodicaInventory.Trello.Board
   alias MelodicaInventory.Trello.List
   alias MelodicaInventory.Trello.Card
-  alias MelodicaInventory.Category
-  alias MelodicaInventory.Variation
-  alias MelodicaInventory.Item
-  alias MelodicaInventory.Attachment
+  alias MelodicaInventory.Goods.Category
+  alias MelodicaInventory.Goods.Variation
+  alias MelodicaInventory.Goods.Item
+  alias MelodicaInventory.Goods.Attachment
 
   require Logger
 

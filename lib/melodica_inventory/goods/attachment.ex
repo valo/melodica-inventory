@@ -1,6 +1,6 @@
-defmodule MelodicaInventory.Attachment do
+defmodule MelodicaInventory.Goods.Attachment do
   use MelodicaInventoryWeb, :model
-  alias MelodicaInventory.Item
+  alias MelodicaInventory.Goods.Item
 
   schema "attachments" do
     belongs_to :item, Item

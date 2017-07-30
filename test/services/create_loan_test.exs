@@ -1,8 +1,8 @@
-defmodule MelodicaInventory.CreateLoanTest do
+defmodule MelodicaInventory.Loans.Loans.CreateLoanTest do
   use MelodicaInventory.ModelCase
 
-  alias MelodicaInventory.Item
-  alias MelodicaInventory.CreateLoan
+  alias MelodicaInventory.Goods.Item
+  alias MelodicaInventory.Loans.Loans.CreateLoan
 
   import MelodicaInventory.Factory
 

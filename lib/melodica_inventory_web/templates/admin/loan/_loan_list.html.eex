@@ -37,14 +37,14 @@
         <h4 class="modal-title" id="returnLessModalLabel">Return less</h4>
       </div>
       <div class="modal-body">
-        <%= form_for MelodicaInventory.Return.changeset(%MelodicaInventory.Return{}), admin_loan_return_path(@conn, :create, 1), fn f -> %>
+        <%= form_for MelodicaInventory.Loans.Return.changeset(%MelodicaInventory.Loans.Return{}), admin_loan_return_path(@conn, :create, 1), fn f -> %>
           <div class="form-group">
             <%= label f, :quantity, class: "form-control-label" %>
             <%= text_input f, :quantity, id: "quantity", type: "number", class: "form-control" %>
           </div>
           <div class="form-group">
             <%= label f, :type, class: "form-control-label" %>
-            <%= select f, :type, MelodicaInventory.Return.types, class: "form-control" %>
+            <%= select f, :type, MelodicaInventory.Loans.Return.types, class: "form-control" %>
           </div>
         <% end %>
       </div>

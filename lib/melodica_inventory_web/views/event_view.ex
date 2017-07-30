@@ -1,6 +1,6 @@
 defmodule MelodicaInventoryWeb.EventView do
   use MelodicaInventoryWeb, :view
-  alias MelodicaInventory.Item
+  alias MelodicaInventory.Goods.Item
 
   def event_user(user) do
     user.first_name <> " " <> user.last_name

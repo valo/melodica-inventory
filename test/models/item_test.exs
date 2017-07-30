@@ -1,7 +1,7 @@
-defmodule MelodicaInventory.ItemTest do
+defmodule MelodicaInventory.Goods.ItemTest do
   use MelodicaInventory.ModelCase
 
-  alias MelodicaInventory.Item
+  alias MelodicaInventory.Goods.Item
   import MelodicaInventory.Factory
 
   @valid_attrs %{name: "Test item", url: "http://example.com", quantity: 1, price: 1, variation_id: 1, uuid: "12345678"}

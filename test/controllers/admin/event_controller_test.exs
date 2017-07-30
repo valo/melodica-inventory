@@ -1,7 +1,7 @@
 defmodule MelodicaInventory.Admin.EventControllerTest do
   use MelodicaInventoryWeb.ConnCase, async: false
 
-  alias MelodicaInventory.Event
+  alias MelodicaInventory.Goods.Event
 
   import MelodicaInventory.Factory
   import Plug.Test

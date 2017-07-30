@@ -1,9 +1,9 @@
 defmodule MelodicaInventoryWeb.ItemReservationController do
   use MelodicaInventoryWeb, :controller
 
-  alias MelodicaInventory.ItemReservation
-  alias MelodicaInventory.Item
-  alias MelodicaInventory.Event
+  alias MelodicaInventory.Goods.ItemReservation
+  alias MelodicaInventory.Goods.Item
+  alias MelodicaInventory.Goods.Event
 
   def new(conn, %{"item_id" => item_id}) do
     item = Repo.get!(Item, item_id)

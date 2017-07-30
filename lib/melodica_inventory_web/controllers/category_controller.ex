@@ -1,7 +1,7 @@
 defmodule MelodicaInventoryWeb.CategoryController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.Variation
-  alias MelodicaInventory.Category
+  alias MelodicaInventory.Goods.Variation
+  alias MelodicaInventory.Goods.Category
   alias MelodicaInventory.Trello.Card
 
   def index(conn, _params) do

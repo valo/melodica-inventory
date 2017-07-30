@@ -4,7 +4,7 @@ defmodule MelodicaInventory.Admin.LoanControllerTest do
   import MelodicaInventory.Factory
   import Plug.Test
 
-  alias MelodicaInventory.Item
+  alias MelodicaInventory.Goods.Item
 
   describe "when not authorized" do
     setup [:login_user]

@@ -1,9 +1,9 @@
-defmodule MelodicaInventory.ReturnLoanTest do
+defmodule MelodicaInventory.Loans.ReturnLoanTest do
   use MelodicaInventory.ModelCase
 
-  alias MelodicaInventory.Item
-  alias MelodicaInventory.Return
-  alias MelodicaInventory.ReturnLoan
+  alias MelodicaInventory.Goods.Item
+  alias MelodicaInventory.Loans.Return
+  alias MelodicaInventory.Loans.ReturnLoan
 
   import MelodicaInventory.Factory
 

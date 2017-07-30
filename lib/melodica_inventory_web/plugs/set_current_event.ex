@@ -1,6 +1,6 @@
 defmodule MelodicaInventoryWeb.Plugs.SetCurrentEvent do
   import Plug.Conn
-  alias MelodicaInventory.Event
+  alias MelodicaInventory.Goods.Event
   alias MelodicaInventory.Repo
 
   def init(default), do: default

@@ -1,8 +1,8 @@
 defmodule MelodicaInventoryWeb.Admin.LoanReturnController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.Loan
-  alias MelodicaInventory.Return
-  alias MelodicaInventory.ReturnLoan
+  alias MelodicaInventory.Loans.Loan
+  alias MelodicaInventory.Loans.Return
+  alias MelodicaInventory.Loans.ReturnLoan
 
   def create(conn, %{"loan_id" => loan_id, "return" => %{"quantity" => quantity, "type" => return_type}}) do
     loan = Repo.get!(Loan, loan_id)

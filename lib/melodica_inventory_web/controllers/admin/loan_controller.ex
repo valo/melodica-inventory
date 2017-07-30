@@ -1,6 +1,7 @@
 defmodule MelodicaInventoryWeb.Admin.LoanController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.{Loan, User}
+  alias MelodicaInventory.Loans.Loan
+  alias MelodicaInventory.Accounts.User
 
   def index(conn, params) do
     users = Repo.all(User)

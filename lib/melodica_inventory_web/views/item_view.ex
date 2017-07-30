@@ -1,6 +1,6 @@
 defmodule MelodicaInventoryWeb.ItemView do
   use MelodicaInventoryWeb, :view
-  alias MelodicaInventory.Item
+  alias MelodicaInventory.Goods.Item
   import MelodicaInventoryWeb.ItemReservationView, only: [event_name: 1]
   import MelodicaInventoryWeb.EventView, only: [event_user: 1]
 

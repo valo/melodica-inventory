@@ -1,6 +1,6 @@
-defmodule MelodicaInventory.CreateLoan do
-  alias MelodicaInventory.Loan
-  alias MelodicaInventory.Item
+defmodule MelodicaInventory.Loans.Loans.CreateLoan do
+  alias MelodicaInventory.Loans.Loan
+  alias MelodicaInventory.Goods.Item
   alias MelodicaInventory.Repo
 
   alias Ecto.Multi

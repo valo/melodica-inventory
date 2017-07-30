@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.Goods.ItemReservation do
+defmodule MelodicaInventory.Loans.ItemReservation do
   use MelodicaInventoryWeb, :model
   alias MelodicaInventory.Goods.Item
   alias MelodicaInventory.Goods.Event

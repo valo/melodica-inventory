@@ -1,7 +1,7 @@
 defmodule MelodicaInventoryWeb.ItemReservationController do
   use MelodicaInventoryWeb, :controller
 
-  alias MelodicaInventory.Goods.ItemReservation
+  alias MelodicaInventory.Loans.ItemReservation
   alias MelodicaInventory.Goods.Item
   alias MelodicaInventory.Goods.Event
 

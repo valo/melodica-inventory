@@ -65,7 +65,7 @@ defmodule MelodicaInventory.Factory do
  end
 
  def item_reservation_factory do
-   %MelodicaInventory.Goods.ItemReservation{
+   %MelodicaInventory.Loans.ItemReservation{
      quantity: 10,
      item: build(:item),
      event: build(:event)

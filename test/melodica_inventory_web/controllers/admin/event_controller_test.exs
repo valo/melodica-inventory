@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.Admin.EventControllerTest do
+defmodule MelodicaInventoryWeb.Admin.EventControllerTest do
   use MelodicaInventoryWeb.ConnCase, async: false
 
   alias MelodicaInventory.Goods.Event

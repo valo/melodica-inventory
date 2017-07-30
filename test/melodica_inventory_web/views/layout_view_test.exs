@@ -1,3 +1,3 @@
-defmodule MelodicaInventory.LayoutViewTest do
+defmodule MelodicaInventoryWeb.LayoutViewTest do
   use MelodicaInventoryWeb.ConnCase, async: true
 end

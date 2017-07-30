@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.Admin.LoanControllerTest do
+defmodule MelodicaInventoryWeb.Admin.LoanControllerTest do
   use MelodicaInventoryWeb.ConnCase, async: false
 
   import MelodicaInventory.Factory

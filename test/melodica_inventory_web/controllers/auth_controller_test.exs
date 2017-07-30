@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.AuthControllerTest do
+defmodule MelodicaInventoryWeb.AuthControllerTest do
   use MelodicaInventoryWeb.ConnCase, async: true
 
   test "index renders index.html", %{conn: conn} do

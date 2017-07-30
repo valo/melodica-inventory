@@ -1,4 +1,4 @@
-defmodule MelodicaInventory do
+defmodule MelodicaInventory.Application do
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html

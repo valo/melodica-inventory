@@ -2,7 +2,7 @@ defmodule MelodicaInventoryWeb.CategoryController do
   use MelodicaInventoryWeb, :controller
   alias MelodicaInventory.Variation
   alias MelodicaInventory.Category
-  alias MelodicaInventory.TrelloCard
+  alias MelodicaInventory.Trello.Card
 
   def index(conn, _params) do
     render conn, "index.html", categories: Repo.all(Category)
@@ -18,6 +18,6 @@ defmodule MelodicaInventoryWeb.CategoryController do
   end
 
   def fetch_cards(list) do
-    Task.async(fn -> TrelloCard.all(list.id) end)
+    Task.async(fn -> Card.all(list.id) end)
   end
 end

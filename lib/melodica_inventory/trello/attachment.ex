@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.TrelloAttachment do
+defmodule MelodicaInventory.Trello.Attachment do
   @fields [:id, :url, :previews]
   defstruct @fields
 
@@ -22,7 +22,7 @@ defmodule MelodicaInventory.TrelloAttachment do
   end
 
   defp decode_response(%HTTPoison.Response{body: body, status_code: 200}) do
-    Poison.decode!(body, as: %MelodicaInventory.TrelloAttachment{previews: [%Preview{}]})
+    Poison.decode!(body, as: %MelodicaInventory.Trello.Attachment{previews: [%Preview{}]})
   end
 
   defp trello_url do

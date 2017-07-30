@@ -3,6 +3,6 @@ defmodule Mix.Tasks.Sync do
 
   def run(_args) do
     Application.ensure_all_started(:melodica_inventory)
-    MelodicaInventory.SyncInventory.sync()
+    MelodicaInventory.Trello.SyncInventory.sync()
   end
 end

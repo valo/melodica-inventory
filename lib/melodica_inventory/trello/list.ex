@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.TrelloList do
+defmodule MelodicaInventory.Trello.List do
   defstruct [:id, :name, :board_id]
 
   def all(board_id) do
@@ -17,7 +17,7 @@ defmodule MelodicaInventory.TrelloList do
   end
 
   defp decode_response(%HTTPoison.Response{body: body, status_code: 200}) do
-    Poison.decode!(body, as: [%MelodicaInventory.TrelloList{}])
+    Poison.decode!(body, as: [%MelodicaInventory.Trello.List{}])
   end
 
   defp set_board_id(trello_list, board_id) do

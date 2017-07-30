@@ -2,7 +2,7 @@ defmodule MelodicaInventoryWeb.LoanController do
   use MelodicaInventoryWeb, :controller
   alias MelodicaInventory.Goods.Item
   alias MelodicaInventory.Loans.Loan
-  alias MelodicaInventory.Loans.Loans.CreateLoan
+  alias MelodicaInventory.Loans.CreateLoan
 
   def new(conn, %{"item_id" => item_id}) do
     item = Repo.get!(Item, item_id)

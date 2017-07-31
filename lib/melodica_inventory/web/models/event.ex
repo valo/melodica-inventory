@@ -21,5 +21,17 @@ defmodule MelodicaInventory.Event do
     struct
     |> cast(params, [:user_id, :name, :start_date, :end_date, :place, :confirmed])
     |> validate_required([:user_id, :name, :start_date, :end_date, :place, :confirmed])
+    |> validate_start_end_dates
+  end
+
+  defp validate_start_end_dates(changeset) do
+    with {:ok, start_date} <- get_field(changeset, :start_date) |> Ecto.Date.cast,
+         {:ok, end_date} <- get_field(changeset, :end_date) |> Ecto.Date.cast,
+         :gt <- Ecto.Date.compare(start_date, end_date)
+    do
+      add_error(changeset, :date, "End date can't be before the start date")
+    else
+      _ -> changeset
+    end
   end
 end

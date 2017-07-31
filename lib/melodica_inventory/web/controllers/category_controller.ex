@@ -13,8 +13,8 @@ defmodule MelodicaInventory.Web.CategoryController do
     variations =
       Variation
       |> where([v], v.category_id == ^category_id)
-      |> Repo.preload(items: [:attachments, :images])
       |> Repo.all
+      |> Repo.preload(items: [:attachments, :images])
 
     render conn, "show.html", variations: variations, category: category
   end

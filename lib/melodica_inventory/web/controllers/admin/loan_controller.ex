@@ -1,15 +1,21 @@
 defmodule MelodicaInventory.Web.Admin.LoanController do
+  @moduledoc false
+
   use MelodicaInventory.Web, :controller
   alias MelodicaInventory.{Loan, User}
 
   def index(conn, params) do
-    users = Repo.all(User)
-    |> Enum.map(&user_for_select/1)
+    users =
+      User
+      |> Repo.all()
+      |> Enum.map(&user_for_select/1)
 
-    loans = (from l in Loan, where: not l.fulfilled)
-    |> Repo.all
-    |> Repo.preload([:item, :user])
-    |> apply_filters(params["filters"])
+    loans =
+      Loan
+      |> where([l], not l.fulfilled)
+      |> Repo.all
+      |> Repo.preload([:item, :user])
+      |> apply_filters(params["filters"])
 
     render conn, "index.html", loans: loans, users: users
   end
@@ -19,7 +25,9 @@ defmodule MelodicaInventory.Web.Admin.LoanController do
   defp apply_filters(loans, %{"name" => name, "user_id" => user_id}) do
     loans
     |> Enum.filter(fn loan ->
-      (name == "" || String.contains?(loan.item.name, name)) && (user_id == "" || loan.user_id == String.to_integer(user_id))
+      (name == "" ||
+      String.contains?(loan.item.name, name)) &&
+      (user_id == "" || loan.user_id == String.to_integer(user_id))
     end)
   end
 

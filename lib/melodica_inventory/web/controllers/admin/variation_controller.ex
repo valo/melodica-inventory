@@ -1,6 +1,9 @@
 defmodule MelodicaInventory.Web.Admin.VariationController do
+  @moduledoc false
+
   use MelodicaInventory.Web, :controller
   alias MelodicaInventory.{Variation, VariationDestroy}
+  alias Ecto.UUID
 
   def edit(conn, %{"id" => id}) do
     variation = Repo.get!(Variation, id)
@@ -31,7 +34,7 @@ defmodule MelodicaInventory.Web.Admin.VariationController do
   end
 
   def create(conn, %{"variation" => variation_params}) do
-    changeset = Variation.changeset(%Variation{uuid: Ecto.UUID.generate()}, variation_params)
+    changeset = Variation.changeset(%Variation{uuid: UUID.generate()}, variation_params)
 
     case Repo.insert(changeset) do
       {:ok, variation} ->
@@ -44,10 +47,13 @@ defmodule MelodicaInventory.Web.Admin.VariationController do
   end
 
   def delete(conn, %{"id" => id}) do
-    variation = Repo.get!(Variation, id)
-    |> Repo.preload(items: [:loans, :images])
+    variation =
+      Variation
+      |> Repo.get!(id)
+      |> Repo.preload(items: [:loans, :images])
 
-    VariationDestroy.build_destroy_action(variation)
+    variation
+    |> VariationDestroy.build_destroy_action()
     |> Repo.transaction
     |> case do
       {:ok, _} ->

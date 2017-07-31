@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Event do
+  @moduledoc false
+
   use MelodicaInventory.Web, :model
   alias MelodicaInventory.User
   alias MelodicaInventory.ItemReservation

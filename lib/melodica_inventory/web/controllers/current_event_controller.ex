@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Web.CurrentEventController do
+  @moduledoc false
+
   use MelodicaInventory.Web, :controller
 
   def create(conn, %{"current_event_id" => event_id}) do

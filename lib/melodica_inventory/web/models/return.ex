@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Return do
+  @moduledoc false
+
   use MelodicaInventory.Web, :model
   alias MelodicaInventory.Loan
 

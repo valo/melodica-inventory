@@ -63,6 +63,7 @@ defmodule MelodicaInventory.Mixfile do
       {:cloudex, "~> 0.1.10"},
       {:scout_apm, "~> 0.0"},
       {:mock, "~> 0.2.0", only: :test},
+      {:credo, "~> 0.8.4", only: [:dev, :test], runtime: false}
    ]
   end
 

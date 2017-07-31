@@ -1,6 +1,7 @@
 defmodule MelodicaInventory.UserAuth do
-  alias MelodicaInventory.Repo
-  alias MelodicaInventory.User
+  @moduledoc false
+
+  alias MelodicaInventory.{Repo, User}
 
   def find_or_create(
     %Ueberauth.Auth{
@@ -8,7 +9,7 @@ defmodule MelodicaInventory.UserAuth do
         email: email, first_name: first_name, last_name: last_name, image: image_url
       }}) do
     if email_allowed?(email) do
-      {:ok, find_or_create_db_user(%{email: email, first_name: first_name, last_name: last_name, image_url: image_url}) }
+      {:ok, find_or_create_db_user(%{email: email, first_name: first_name, last_name: last_name, image_url: image_url})}
     else
       {:error, "Authentication failed"}
     end
@@ -17,10 +18,12 @@ defmodule MelodicaInventory.UserAuth do
   defp find_or_create_db_user(%{email: email} = user_attrs) do
     case Repo.get_by(User, email: email) do
       nil ->
-        User.changeset(%User{admin: false}, user_attrs)
+        %User{admin: false}
+        |> User.changeset(user_attrs)
         |> Repo.insert!
       db_user ->
-        User.changeset(db_user, user_attrs)
+        db_user
+        |> User.changeset(user_attrs)
         |> Repo.update!
     end
   end

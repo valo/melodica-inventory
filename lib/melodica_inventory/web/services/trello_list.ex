@@ -1,8 +1,12 @@
 defmodule MelodicaInventory.TrelloList do
+  @moduledoc false
+
   defstruct [:id, :name, :board_id]
 
   def all(board_id) do
-    HTTPoison.get!(lists_url(board_id), %{}, [
+    board_id
+    |> lists_url()
+    |> HTTPoison.get!(%{}, [
       params: %{
         key: Application.fetch_env!(:melodica_inventory, :api_key),
         token: Application.fetch_env!(:melodica_inventory, :token)

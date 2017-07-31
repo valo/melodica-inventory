@@ -1,14 +1,17 @@
 defmodule MelodicaInventory.Web.LoanFromItemReservationController do
+  @moduledoc false
   use MelodicaInventory.Web, :controller
 
-  alias MelodicaInventory.ItemReservation
-  alias MelodicaInventory.CreateLoan
+  alias MelodicaInventory.{ItemReservation, CreateLoan}
 
   def create(%Plug.Conn{assigns: %{current_user: current_user}} = conn, %{"item_reservation_id" => item_reservation_id}) do
-    reservation = Repo.get(ItemReservation, item_reservation_id)
-    |> Repo.preload(:item)
+    reservation =
+      ItemReservation
+      |> Repo.get(item_reservation_id)
+      |> Repo.preload(:item)
 
-    CreateLoan.build_from_reservation(reservation, current_user)
+    reservation
+    |> CreateLoan.build_from_reservation(current_user)
     |> Repo.transaction
     |> case do
       {:ok, _} ->

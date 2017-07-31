@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Web.Plugs.SetCurrentEvent do
+  @moduledoc false
+
   import Plug.Conn
   alias MelodicaInventory.Event
   alias MelodicaInventory.Repo

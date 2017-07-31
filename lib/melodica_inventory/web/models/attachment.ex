@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Attachment do
+  @moduledoc false
+
   use MelodicaInventory.Web, :model
   alias MelodicaInventory.Item
 

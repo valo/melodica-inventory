@@ -1,6 +1,7 @@
 defmodule MelodicaInventory.Web.ItemView do
   use MelodicaInventory.Web, :view
   alias MelodicaInventory.Item
+  alias Cloudex.Url
   import MelodicaInventory.Web.ItemReservationView, only: [event_name: 1]
   import MelodicaInventory.Web.EventView, only: [event_user: 1]
 
@@ -13,6 +14,6 @@ defmodule MelodicaInventory.Web.ItemView do
   end
 
   def cover_url(%Item{images: images}) do
-    Cloudex.Url.for(hd(images).public_id, %{width: 600, height: 600, crop: "limit"})
+    Url.for(hd(images).public_id, %{width: 600, height: 600, crop: "limit"})
   end
 end

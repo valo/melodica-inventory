@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Item do
+  @moduledoc false
+
   use MelodicaInventory.Web, :model
   alias MelodicaInventory.{Variation, Attachment, Image, ItemReservation, Loan}
 

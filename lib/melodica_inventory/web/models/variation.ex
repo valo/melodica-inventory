@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Variation do
+  @moduledoc false
+
   use MelodicaInventory.Web, :model
   alias MelodicaInventory.Category
   alias MelodicaInventory.Item

@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Event do
+  @moduledoc false
+
   use MelodicaInventory.Web, :model
   alias MelodicaInventory.User
   alias MelodicaInventory.ItemReservation
@@ -25,8 +27,8 @@ defmodule MelodicaInventory.Event do
   end
 
   defp validate_start_end_dates(changeset) do
-    with {:ok, start_date} <- get_field(changeset, :start_date) |> Ecto.Date.cast,
-         {:ok, end_date} <- get_field(changeset, :end_date) |> Ecto.Date.cast,
+    with {:ok, start_date} <- changeset |> get_field(:start_date) |> Ecto.Date.cast,
+         {:ok, end_date} <- changeset |> get_field(:end_date) |> Ecto.Date.cast,
          :gt <- Ecto.Date.compare(start_date, end_date)
     do
       add_error(changeset, :date, "End date can't be before the start date")

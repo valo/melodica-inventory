@@ -1,18 +1,27 @@
 defmodule MelodicaInventory.Web.ItemController do
+  @moduledoc false
+
   use MelodicaInventory.Web, :controller
   alias MelodicaInventory.{Item, Variation, Image, Loan, ItemReservation}
+  alias Ecto.{Multi, Changeset}
 
   def show(conn, %{"id" => id}) do
-    item = Repo.get!(Item, id)
-    |> Repo.preload([:attachments, :images, :loans, :variation])
+    item =
+      Item
+      |> Repo.get!(id)
+      |> Repo.preload([:attachments, :images, :loans, :variation])
 
-    loans = (from l in Loan, where: l.item_id == ^id and not l.fulfilled)
-    |> Repo.all
-    |> Repo.preload([:item, :user])
+    loans =
+      Loan
+      |> where([l], l.item_id == ^id and not l.fulfilled)
+      |> Repo.all
+      |> Repo.preload([:item, :user])
 
-    item_reservations = (from r in ItemReservation, where: r.item_id == ^id)
-    |> Repo.all
-    |> Repo.preload([event: :user])
+    item_reservations =
+      ItemReservation
+      |> where([r], r.item_id == ^id)
+      |> Repo.all
+      |> Repo.preload([event: :user])
 
     changeset = ItemReservation.changeset(%ItemReservation{item_id: id, quantity: item.quantity}, %{})
 
@@ -37,15 +46,15 @@ defmodule MelodicaInventory.Web.ItemController do
       {:error, :image, error, changes_so_far} ->
         changeset = changes_so_far[:item]
         |> Item.changeset
-        |> Ecto.Changeset.add_error(:image, "cannot be uploaded! #{ error }")
+        |> Changeset.add_error(:image, "cannot be uploaded! #{ error }")
         render(conn, "new.html", variation: variation, changeset: %{changeset | action: :insert})
     end
   end
 
   defp add_new_item(item_params) do
-    Ecto.Multi.new
-    |> Ecto.Multi.insert(:item, Item.changeset(%Item{}, item_params))
-    |> Ecto.Multi.run(:image, fn state -> upload_image(state, item_params["image"]) end)
+    Multi.new()
+    |> Multi.insert(:item, Item.changeset(%Item{}, item_params))
+    |> Multi.run(:image, fn state -> upload_image(state, item_params["image"]) end)
   end
 
   defp upload_image(%{item: %Item{}}, nil), do: {:error, "You need to upload an image"}

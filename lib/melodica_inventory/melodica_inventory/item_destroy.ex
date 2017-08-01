@@ -1,8 +1,12 @@
 defmodule MelodicaInventory.ItemDestroy do
+  @moduledoc false
+
+  alias Ecto.Multi
+
   def build_item_destroy(item) do
-    Ecto.Multi.new
-    |> Ecto.Multi.run(:delete_images, fn _ -> delete_images(item.images) end)
-    |> Ecto.Multi.delete(:delete_item, item)
+    Multi.new()
+    |> Multi.run(:delete_images, fn _ -> delete_images(item.images) end)
+    |> Multi.delete(:delete_item, item)
   end
 
   def delete_images([]), do: {:ok, true}

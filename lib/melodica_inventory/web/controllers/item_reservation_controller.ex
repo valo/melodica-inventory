@@ -1,13 +1,16 @@
 defmodule MelodicaInventory.Web.ItemReservationController do
+  @moduledoc false
+
   use MelodicaInventory.Web, :controller
 
-  alias MelodicaInventory.ItemReservation
-  alias MelodicaInventory.Item
-  alias MelodicaInventory.Event
+  alias MelodicaInventory.{ItemReservation, Item, Event}
 
   def new(conn, %{"item_id" => item_id}) do
-    item = Repo.get!(Item, item_id)
-    |> Repo.preload(:variation)
+    item =
+      Item
+      |> Repo.get!(item_id)
+      |> Repo.preload(:variation)
+
     events = Repo.all(Event)
 
     changeset = ItemReservation.changeset(%ItemReservation{item_id: item_id, quantity: item.quantity}, %{})
@@ -18,8 +21,10 @@ defmodule MelodicaInventory.Web.ItemReservationController do
   def create(%Plug.Conn{assigns: %{current_event: current_event}} = conn, %{"item_reservation" => item_reservation_params}) do
     changeset = ItemReservation.changeset(%ItemReservation{event_id: current_event.id}, item_reservation_params)
 
-    item = Repo.get!(Item, item_reservation_params["item_id"])
-    |> Repo.preload(:variation)
+    item =
+      Item
+      |> Repo.get!(item_reservation_params["item_id"])
+      |> Repo.preload(:variation)
 
     case Repo.insert(changeset) do
       {:ok, _} ->

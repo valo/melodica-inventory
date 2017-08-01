@@ -1,18 +1,23 @@
 defmodule MelodicaInventory.Web.Admin.EventController do
+  @moduledoc false
+
   use MelodicaInventory.Web, :controller
-  alias MelodicaInventory.Event
-  alias MelodicaInventory.User
+  alias MelodicaInventory.{Event, User}
 
   def edit(conn, %{"id" => id}) do
-    changeset = Repo.get!(Event, id)
+    changeset =
+    Event
+    |> Repo.get!(id)
     |> Event.changeset
 
     render conn, "edit.html", changeset: changeset, users: Repo.all(User)
   end
 
   def update(conn, %{"id" => id, "event" => event_params}) do
-    changeset = Repo.get!(Event, id)
-    |> Event.changeset(event_params)
+    changeset =
+      Event
+      |> Repo.get!(id)
+      |> Event.changeset(event_params)
 
     case Repo.update(changeset) do
       {:ok, _} ->

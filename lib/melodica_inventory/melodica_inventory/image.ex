@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Image do
+  @moduledoc false
+
   use MelodicaInventory.Web, :model
 
   alias MelodicaInventory.Item

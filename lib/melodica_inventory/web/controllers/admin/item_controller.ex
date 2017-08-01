@@ -1,19 +1,25 @@
 defmodule MelodicaInventory.Web.Admin.ItemController do
+  @moduledoc false
+
   use MelodicaInventory.Web, :controller
   alias MelodicaInventory.{Item, ItemDestroy}
 
   def edit(conn, %{"id" => id}) do
-    changeset = Repo.get!(Item, id, preload: [:variation])
-    |> Repo.preload(:variation)
-    |> Item.changeset
+    changeset =
+      Item
+      |> Repo.get!(id, preload: [:variation])
+      |> Repo.preload(:variation)
+      |> Item.changeset
 
     render conn, "edit.html", changeset: changeset
   end
 
   def update(conn, %{"id" => id, "item" => item_params}) do
-    changeset = Repo.get!(Item, id)
-    |> Repo.preload(:variation)
-    |> Item.changeset(item_params)
+    changeset =
+      Item
+      |> Repo.get!(id)
+      |> Repo.preload(:variation)
+      |> Item.changeset(item_params)
 
     case Repo.update(changeset) do
       {:ok, item} ->
@@ -26,10 +32,13 @@ defmodule MelodicaInventory.Web.Admin.ItemController do
   end
 
   def delete(conn, %{"id" => id}) do
-    item = Repo.get!(Item, id)
-    |> Repo.preload([:attachments, :images, :variation])
+    item =
+      Item
+      |> Repo.get!(id)
+      |> Repo.preload([:attachments, :images, :variation])
 
-    ItemDestroy.build_item_destroy(item)
+    item
+    |> ItemDestroy.build_item_destroy()
     |> Repo.transaction
     |> case do
       {:ok, _} ->

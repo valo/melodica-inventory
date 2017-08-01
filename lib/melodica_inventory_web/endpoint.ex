@@ -36,7 +36,9 @@ defmodule MelodicaInventoryWeb.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_melodica_inventory_key",
-    signing_salt: "dF+/eMtR"
+    signing_salt: "dF+/eMtR",
+    max_age: 60 * 60 * 24 * 14, # 2 weeks
+    secure: Mix.env == :prod
 
   plug MelodicaInventoryWeb.Router
 end

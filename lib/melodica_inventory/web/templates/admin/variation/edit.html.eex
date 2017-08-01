@@ -1,6 +1,0 @@
-<h1>Edit <%= @changeset.data.name %></h1>
-<%= form_for @changeset, admin_variation_path(@conn, :update, @changeset.data.id), fn f -> %>
-  <%= render MelodicaInventory.Web.Admin.VariationView, "_variation_form.html", changeset: @changeset, f: f %>
-  <%= submit "Save", class: "btn btn-primary" %>
-  <a href="<%= category_path(@conn, :show, Ecto.Changeset.get_field(@changeset, :category_id)) %>" class="btn btn-secondary">Back</a>
-<% end %>

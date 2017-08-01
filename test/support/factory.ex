@@ -3,7 +3,7 @@ defmodule MelodicaInventory.Factory do
  use ExMachina.Ecto, repo: MelodicaInventory.Repo
 
  def user_factory do
-   %MelodicaInventory.User{
+   %MelodicaInventory.Accounts.User{
      first_name: "Jane",
      last_name: "Smith",
      email: sequence(:email, &"email-#{&1}@example.com"),
@@ -13,7 +13,7 @@ defmodule MelodicaInventory.Factory do
  end
 
  def item_factory do
-   %MelodicaInventory.Item{
+   %MelodicaInventory.Goods.Item{
      uuid: sequence(:uuid, &"123456#{&1}"),
      name: "Red table cloths",
      quantity: 10,
@@ -24,14 +24,14 @@ defmodule MelodicaInventory.Factory do
  end
 
  def image_factory do
-   %MelodicaInventory.Image{
+   %MelodicaInventory.Goods.Image{
      item: build(:item),
      public_id: sequence(:pubic_id, &"123456#{&1}"),
    }
  end
 
  def variation_factory do
-   %MelodicaInventory.Variation{
+   %MelodicaInventory.Goods.Variation{
      uuid: sequence(:uuid, &"123456#{&1}"),
      name: "Table Cloths",
      category: build(:category)
@@ -39,14 +39,14 @@ defmodule MelodicaInventory.Factory do
  end
 
  def category_factory do
-   %MelodicaInventory.Category{
+   %MelodicaInventory.Goods.Category{
      uuid: sequence(:uuid, &"123456#{&1}"),
      name: "Cloths"
    }
  end
 
  def loan_factory do
-   %MelodicaInventory.Loan{
+   %MelodicaInventory.Loans.Loan{
      item: build(:item, quantity: 10),
      user: build(:user),
      quantity: 5
@@ -54,7 +54,7 @@ defmodule MelodicaInventory.Factory do
  end
 
  def event_factory do
-   %MelodicaInventory.Event{
+   %MelodicaInventory.Goods.Event{
      name: "Rob Stark Wedding",
      place: "Winterfell",
      user: build(:user),
@@ -65,7 +65,7 @@ defmodule MelodicaInventory.Factory do
  end
 
  def item_reservation_factory do
-   %MelodicaInventory.ItemReservation{
+   %MelodicaInventory.Loans.ItemReservation{
      quantity: 10,
      item: build(:item),
      event: build(:event)

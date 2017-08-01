@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.Repo.Migrations.CreateMelodicaInventory.MelodicaInventory.Image do
+defmodule MelodicaInventory.Repo.Migrations.CreateMelodicaInventory.MelodicaInventory.Goods.Image do
   use Ecto.Migration
 
   def change do

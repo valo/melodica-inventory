@@ -11,8 +11,16 @@ jobs:
       MIX_ENV: test
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-mix-deps
       - run: mix local.hex --force
       - run: mix local.rebar --force
       - run: mix deps.get
       - run: mix deps.compile
+      - save_cache:
+          key: v1-mix-deps
+          paths:
+            - _build
+            - deps
       - run: mix test

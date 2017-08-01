@@ -1,0 +1,6 @@
+<h1>Edit <%= @changeset.data.name %></h1>
+<%= form_for @changeset, admin_event_path(@conn, :update, @changeset.data.id), fn f -> %>
+  <%= render MelodicaInventoryWeb.Admin.EventView, "_event_form.html", changeset: @changeset, users: @users, f: f %>
+  <%= submit "Edit", class: "btn btn-primary" %>
+  <a href="<%= event_path(@conn, :index) %>" class="btn btn-secondary">Back</a>
+<% end %>

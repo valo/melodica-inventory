@@ -4,8 +4,6 @@ defmodule MelodicaInventory.Web.ItemReservationController do
   use MelodicaInventory.Web, :controller
 
   alias MelodicaInventory.{ItemReservation, Item, Event}
-  alias MelodicaInventory.Item
-  alias MelodicaInventory.Event
 
   def new(conn, %{"item_id" => item_id}) do
     item =

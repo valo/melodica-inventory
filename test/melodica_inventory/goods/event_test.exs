@@ -1,8 +1,7 @@
-defmodule MelodicaInventory.EventTest do
+defmodule MelodicaInventory.Goods.EventTest do
   use MelodicaInventory.ModelCase
 
-  alias MelodicaInventory.Event
-  import MelodicaInventory.Factory
+  alias MelodicaInventory.Goods.Event
 
   @valid_attrs %{user_id: 1, name: "Test event", start_date: "2017-07-25", end_date: "2017-07-26", place: "Test place", confirmed: true}
   @invalid_attrs %{}

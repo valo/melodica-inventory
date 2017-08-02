@@ -12,30 +12,39 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-dark bg-inverse">
-      <ul class="nav navbar-nav">
-        <%= if @current_user do %>
-          <li class="nav-item active"><a class="nav-link" href="/">Categories</a></li>
-          <li class="nav-item active"><a class="nav-link" href="/loans">My loans</a></li>
-          <%= if @current_user.admin do %>
-            <li class="nav-item active"><%= link "All loans", to: admin_loan_path(@conn, :index), class: "nav-link" %></li>
-          <% end %>
-          <li class="nav-item active"><%= link "Events", to: event_path(@conn, :index), class: "nav-link" %></li>
-          <li class="nav-item float-xs-right"><a class="nav-link" href="/auth/logout">Logout <%= @current_user.email %></a></li>
-          <%= if @current_user do %>
-            <%= form_tag current_event_path(@conn, :create), class: "form-inline current_event" %>
-              <select class="form-control-sm mr-sm-2" id="currentEvent" name="current_event_id">
-                <option value="">Select current event</option>
-                <%= for event <- @events do %>
-                  <option value="<%= event.id %>" <%= selected_event_attr(@current_event, event) %>>
-                    <%= event_name(event) %>
-                  </option>
-                <% end %>
-              </select>
-            </form>
-          <% end %>
-        <% end %>
-      </ul>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+      <%= if @current_user do %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active"><a class="nav-link" href="/">Categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="/loans">My loans</a></li>
+            <%= if @current_user.admin do %>
+              <li class="nav-item"><%= link "All loans", to: admin_loan_path(@conn, :index), class: "nav-link" %></li>
+            <% end %>
+            <li class="nav-item"><%= link "Events", to: event_path(@conn, :index), class: "nav-link" %></li>
+            <%= if @current_user do %>
+              <%= form_tag current_event_path(@conn, :create), class: "form-inline current_event" %>
+                <select class="form-control-sm mr-sm-2" id="currentEvent" name="current_event_id">
+                  <option value="">Select current event</option>
+                  <%= for event <- @events do %>
+                    <option value="<%= event.id %>" <%= selected_event_attr(@current_event, event) %>>
+                      <%= event_name(event) %>
+                    </option>
+                  <% end %>
+                </select>
+              </form>
+            <% end %>
+          </ul>
+
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/auth/logout">Logout <%= @current_user.email %></a></li>
+          </ul>
+        </div>
+      <% end %>
     </nav>
 
     <%= if get_flash(@conn, :info) do %>

@@ -1,8 +1,9 @@
 defmodule MelodicaInventoryWeb.ItemController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.Loans.Loan
-  alias MelodicaInventory.Loans.ItemReservation
+  alias MelodicaInventory.Loans.{Loan, ItemReservation}
   alias MelodicaInventory.Goods.{Item, Variation, Image}
+
+  alias Ecto.{Multi, Changeset}
 
   def show(conn, %{"id" => id}) do
     item = Repo.get!(Item, id)
@@ -39,15 +40,15 @@ defmodule MelodicaInventoryWeb.ItemController do
       {:error, :image, error, changes_so_far} ->
         changeset = changes_so_far[:item]
         |> Item.changeset
-        |> Ecto.Changeset.add_error(:image, "cannot be uploaded! #{ error }")
+        |> Changeset.add_error(:image, "cannot be uploaded! #{ error }")
         render(conn, "new.html", variation: variation, changeset: %{changeset | action: :insert})
     end
   end
 
   defp add_new_item(item_params) do
-    Ecto.Multi.new
-    |> Ecto.Multi.insert(:item, Item.changeset(%Item{}, item_params))
-    |> Ecto.Multi.run(:image, fn state -> upload_image(state, item_params["image"]) end)
+    Multi.new()
+    |> Multi.insert(:item, Item.changeset(%Item{}, item_params))
+    |> Multi.run(:image, fn state -> upload_image(state, item_params["image"]) end)
   end
 
   defp upload_image(%{item: %Item{}}, nil), do: {:error, "You need to upload an image"}

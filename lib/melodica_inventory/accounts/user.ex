@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Accounts.User do
+  @moduledoc false
+
   use MelodicaInventoryWeb, :model
 
   schema "users" do

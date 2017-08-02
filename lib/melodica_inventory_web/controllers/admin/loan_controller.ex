@@ -20,7 +20,9 @@ defmodule MelodicaInventoryWeb.Admin.LoanController do
   defp apply_filters(loans, %{"name" => name, "user_id" => user_id}) do
     loans
     |> Enum.filter(fn loan ->
-      (name == "" || String.contains?(loan.item.name, name)) && (user_id == "" || loan.user_id == String.to_integer(user_id))
+      (name == "" ||
+      String.contains?(loan.item.name, name)) &&
+      (user_id == "" || loan.user_id == String.to_integer(user_id))
     end)
   end
 

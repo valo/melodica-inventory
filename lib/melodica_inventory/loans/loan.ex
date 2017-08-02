@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Loans.Loan do
+  @moduledoc false
+
   use MelodicaInventoryWeb, :model
   alias MelodicaInventory.Accounts.User
   alias MelodicaInventory.Goods.Item

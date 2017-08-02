@@ -1,7 +1,8 @@
 defmodule MelodicaInventory.Goods.Variation do
+  @moduledoc false
+
   use MelodicaInventoryWeb, :model
-  alias MelodicaInventory.Goods.Category
-  alias MelodicaInventory.Goods.Item
+  alias MelodicaInventory.Goods.{Category, Item}
 
   schema "variations" do
     belongs_to :category, Category

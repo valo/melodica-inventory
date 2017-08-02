@@ -1,4 +1,6 @@
 defmodule MelodicaInventory.Trello.List do
+  @moduledoc false
+
   defstruct [:id, :name, :board_id]
 
   def all(board_id) do

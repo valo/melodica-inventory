@@ -1,4 +1,6 @@
 defmodule MelodicaInventoryWeb.Plugs.Authenticate do
+  @moduledoc false
+
   import Plug.Conn
   import Phoenix.Controller
   alias MelodicaInventoryWeb.Router.Helpers, as: RouterHelpers
@@ -6,7 +8,7 @@ defmodule MelodicaInventoryWeb.Plugs.Authenticate do
   def init(default), do: default
 
   def call(%Plug.Conn{assigns: %{current_user: current_user}} = conn, :admin) do
-    case !!current_user and current_user.admin do
+    case present?(current_user) and current_user.admin do
       false ->
         conn
         |> put_flash(:info, "Access denied!")
@@ -28,4 +30,8 @@ defmodule MelodicaInventoryWeb.Plugs.Authenticate do
         conn
     end
   end
+
+  defp present?(nil), do: false
+  defp present?(false), do: false
+  defp present?(_), do: true
 end

@@ -2,6 +2,8 @@ defmodule MelodicaInventoryWeb.Admin.CategoryController do
   use MelodicaInventoryWeb, :controller
   alias MelodicaInventory.Goods.Category
 
+  alias Ecto.UUID
+
   def edit(conn, %{"id" => id}) do
     changeset = Repo.get!(Category, id)
     |> Category.changeset
@@ -37,7 +39,7 @@ defmodule MelodicaInventoryWeb.Admin.CategoryController do
   end
 
   def create(conn, %{"category" => category_params}) do
-    changeset = Category.changeset(%Category{uuid: Ecto.UUID.generate()}, category_params)
+    changeset = Category.changeset(%Category{uuid: UUID.generate()}, category_params)
 
     case Repo.insert(changeset) do
       {:ok, _} ->

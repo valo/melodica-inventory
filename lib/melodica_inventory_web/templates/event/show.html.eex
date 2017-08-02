@@ -31,7 +31,7 @@
                 class: "btn btn-sm btn-secondary"
               %>
             <% else %>
-              <span class="tag tag-warning">Can't borrow</span>
+              <span class="badge badge-warning">Can't borrow</span>
             <% end %>
             <%= link "Delete",
               to: item_reservation_path(@conn, :delete, item_reservation.id),

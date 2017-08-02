@@ -6,7 +6,7 @@
     "watch": "brunch watch --stdin"
   },
   "dependencies": {
-    "bootstrap": "4.0.0-alpha.5",
+    "bootstrap": "4.0.0-alpha.6",
     "bootstrap-datepicker": "1.6.4",
     "bootstrap-year-calendar": "1.1.1",
     "font-awesome": "^4.7.0",

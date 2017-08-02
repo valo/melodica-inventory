@@ -1,6 +1,6 @@
 defmodule MelodicaInventoryWeb.Admin.ItemController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.Goods.{Item, ItemDestroy}
+  alias MelodicaInventory.Goods.{Item, ItemOperations}
 
   def edit(conn, %{"id" => id}) do
     changeset = Repo.get!(Item, id, preload: [:variation])
@@ -29,7 +29,7 @@ defmodule MelodicaInventoryWeb.Admin.ItemController do
     item = Repo.get!(Item, id)
     |> Repo.preload([:attachments, :images, :variation])
 
-    ItemDestroy.build_item_destroy(item)
+    ItemOperations.destroy_item(item)
     |> Repo.transaction
     |> case do
       {:ok, _} ->

@@ -3,7 +3,7 @@ defmodule MelodicaInventory.Goods.ItemDestroyTest do
 
   import Mock
 
-  alias MelodicaInventory.Goods.ItemDestroy
+  alias MelodicaInventory.Goods.ItemOperations
   alias MelodicaInventory.Goods.Item
   import MelodicaInventory.Factory
 
@@ -11,7 +11,7 @@ defmodule MelodicaInventory.Goods.ItemDestroyTest do
     item = insert(:item)
     |> Repo.preload([:attachments, :images])
 
-    item_destroy = ItemDestroy.build_item_destroy(item)
+    item_destroy = ItemOperations.destroy_item(item)
 
     {:ok, _} = Repo.transaction(item_destroy)
 
@@ -23,7 +23,7 @@ defmodule MelodicaInventory.Goods.ItemDestroyTest do
     item = Repo.get(Item, image.item_id)
     |> Repo.preload([:attachments, :images])
 
-    item_destroy = ItemDestroy.build_item_destroy(item)
+    item_destroy = ItemOperations.destroy_item(item)
 
     with_mock Cloudex, [], [delete: fn _ -> [ok: true] end] do
       {:ok, _} = Repo.transaction(item_destroy)

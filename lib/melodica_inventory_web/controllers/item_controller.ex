@@ -2,7 +2,7 @@ defmodule MelodicaInventoryWeb.ItemController do
   use MelodicaInventoryWeb, :controller
   alias MelodicaInventory.Loans.Loan
   alias MelodicaInventory.Loans.ItemReservation
-  alias MelodicaInventory.Goods.{Item, Variation, Image}
+  alias MelodicaInventory.Goods.{Item, Variation, Image, ItemOperations}
 
   def show(conn, %{"id" => id}) do
     item = Repo.get!(Item, id)
@@ -31,7 +31,10 @@ defmodule MelodicaInventoryWeb.ItemController do
   def create(conn, %{"item" => item_params}) do
     variation = Repo.get(Variation, item_params["variation_id"])
 
-    case Repo.transaction(add_new_item(item_params)) do
+    item_params
+    |> ItemOperations.create_item
+    |> Repo.transaction
+    |> case do
       {:ok, %{item: item}} ->
         redirect(conn, to: item_path(conn, :show, item.id))
       {:error, :item, failed_changeset, _changes_so_far} ->
@@ -41,23 +44,6 @@ defmodule MelodicaInventoryWeb.ItemController do
         |> Item.changeset
         |> Ecto.Changeset.add_error(:image, "cannot be uploaded! #{ error }")
         render(conn, "new.html", variation: variation, changeset: %{changeset | action: :insert})
-    end
-  end
-
-  defp add_new_item(item_params) do
-    Ecto.Multi.new
-    |> Ecto.Multi.insert(:item, Item.changeset(%Item{}, item_params))
-    |> Ecto.Multi.run(:image, fn state -> upload_image(state, item_params["image"]) end)
-  end
-
-  defp upload_image(%{item: %Item{}}, nil), do: {:error, "You need to upload an image"}
-
-  defp upload_image(%{item: %Item{id: item_id}}, %Plug.Upload{path: filename}) do
-    case Cloudex.upload(filename) do
-      [error: error] ->
-        {:error, inspect(error)}
-      [ok: %Cloudex.UploadedImage{public_id: public_id}] ->
-        {:ok, Repo.insert(%Image{public_id: public_id, item_id: item_id})}
     end
   end
 end

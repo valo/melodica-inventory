@@ -4,7 +4,7 @@ defmodule MelodicaInventory.Trello.Card do
   defstruct [:id, :name, :idAttachmentCover, :attachmentCover, :url, :list_id]
 
   require Logger
-  alias MelodicaInventory.Trello.Attachment
+  alias MelodicaInventory.Trello.{Attachment, Card}
 
   def all(list_id) do
     HTTPoison.get!(cards_url(list_id), %{}, [
@@ -23,17 +23,17 @@ defmodule MelodicaInventory.Trello.Card do
   end
 
   defp decode_response(%HTTPoison.Response{body: body, status_code: 200}) do
-    Poison.decode!(body, as: [%MelodicaInventory.Trello.Card{}])
+    Poison.decode!(body, as: [%Card{}])
   end
 
   defp update_list_id(card, list_id) do
     %{card | list_id: list_id}
   end
 
-  defp fetch_cover(%MelodicaInventory.Trello.Card{idAttachmentCover: nil} = trello_card), do: trello_card
-  defp fetch_cover(%MelodicaInventory.Trello.Card{idAttachmentCover: ""} = trello_card), do: trello_card
+  defp fetch_cover(%Card{idAttachmentCover: nil} = trello_card), do: trello_card
+  defp fetch_cover(%Card{idAttachmentCover: ""} = trello_card), do: trello_card
 
-  defp fetch_cover(%MelodicaInventory.Trello.Card{id: card_id, idAttachmentCover: attachment_id} = trello_card) do
+  defp fetch_cover(%Card{id: card_id, idAttachmentCover: attachment_id} = trello_card) do
     Logger.info("Fetching the cover of #{card_id}: #{attachment_id}")
     %{trello_card | attachmentCover: Attachment.get(card_id, attachment_id)}
   end

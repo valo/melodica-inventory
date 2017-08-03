@@ -14,6 +14,9 @@ defmodule MelodicaInventoryWeb.ItemView do
   end
 
   def cover_url(%Item{images: images}) do
-    Url.for(hd(images).public_id, %{width: 600, height: 600, crop: "limit"})
+    Enum.map(images, fn(image)  ->
+      Url.for(image.public_id, %{width: 400, height: 300, crop: "limit"})
+    end)
+    |> Enum.with_index
   end
 end

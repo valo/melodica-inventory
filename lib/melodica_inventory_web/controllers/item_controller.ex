@@ -48,17 +48,28 @@ defmodule MelodicaInventoryWeb.ItemController do
   defp add_new_item(item_params) do
     Multi.new()
     |> Multi.insert(:item, Item.changeset(%Item{}, item_params))
-    |> Multi.run(:image, fn state -> upload_image(state, item_params["image"]) end)
+    |> Multi.run(:image, fn state -> upload_images(state, item_params["image"]) end)
   end
 
-  defp upload_image(%{item: %Item{}}, nil), do: {:error, "You need to upload an image"}
+  defp upload_images(%{item: %Item{}}, nil), do: {:error, "You need to upload an image"}
 
-  defp upload_image(%{item: %Item{id: item_id}}, %Plug.Upload{path: filename}) do
-    case Cloudex.upload(filename) do
-      [error: error] ->
-        {:error, inspect(error)}
-      [ok: %Cloudex.UploadedImage{public_id: public_id}] ->
-        {:ok, Repo.insert(%Image{public_id: public_id, item_id: item_id})}
+  defp upload_images(%{item: %Item{id: item_id}}, uploaded_files) do
+    Enum.map(uploaded_files, fn(%Plug.Upload{path: filename}) ->
+      case Cloudex.upload(filename) do
+        [error: error] ->
+           :error
+        [ok: %Cloudex.UploadedImage{public_id: public_id}] ->
+          {:ok, Repo.insert(%Image{public_id: public_id, item_id: item_id})}
+      end
+    end)
+    |> format_response
+  end
+
+  defp format_response(upload_images) do
+    if :error in upload_images do
+      {:error, "Cannot save image!"}
+    else
+      {:ok, true}
     end
   end
 end

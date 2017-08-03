@@ -1,4 +1,6 @@
 defmodule MelodicaInventoryWeb.Plugs.SetCurrentUser do
+  @moduledoc false
+
   import Plug.Conn
   alias MelodicaInventory.Accounts.User
   alias MelodicaInventory.Repo

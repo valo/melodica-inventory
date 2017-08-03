@@ -1,7 +1,8 @@
 defmodule MelodicaInventory.Goods.Item do
+  @moduledoc false
+
   use MelodicaInventoryWeb, :model
-  alias MelodicaInventory.Loans.Loan
-  alias MelodicaInventory.Loans.ItemReservation
+  alias MelodicaInventory.Loans.{Loan, ItemReservation}
   alias MelodicaInventory.Goods.{Variation, Attachment, Image}
 
   schema "items" do

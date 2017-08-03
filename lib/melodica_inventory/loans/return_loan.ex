@@ -1,13 +1,14 @@
 defmodule MelodicaInventory.Loans.ReturnLoan do
-  alias MelodicaInventory.Loans.Loan
+  @moduledoc false
+
+  alias MelodicaInventory.Loans.{Loan, Return}
   alias MelodicaInventory.Goods.Item
-  alias MelodicaInventory.Loans.Return
   alias MelodicaInventory.Repo
 
   alias Ecto.Multi
 
   def call(loan, quantity, return_type) do
-    changes = Ecto.Multi.new
+    changes = Multi.new()
     |> loan_update(loan, quantity)
     |> create_return(loan, quantity, return_type)
     |> update_item(loan, quantity, return_type)

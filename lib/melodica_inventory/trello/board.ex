@@ -1,8 +1,12 @@
 defmodule MelodicaInventory.Trello.Board do
+  @moduledoc false
+
+  alias MelodicaInventory.Trello.Board
+
   defstruct [:id, :name, :desc]
 
   def all do
-    HTTPoison.get!(get_boards_url, %{}, [
+    HTTPoison.get!(get_boards_url(), %{}, [
       params: %{
         key: Application.fetch_env!(:melodica_inventory, :api_key),
         token: Application.fetch_env!(:melodica_inventory, :token)
@@ -11,7 +15,7 @@ defmodule MelodicaInventory.Trello.Board do
   end
 
   defp get_boards_url do
-    trello_url <> "/organizations/" <> inventory_org_id <> "/boards"
+    trello_url() <> "/organizations/" <> inventory_org_id <> "/boards"
   end
 
   defp inventory_org_id do
@@ -19,7 +23,7 @@ defmodule MelodicaInventory.Trello.Board do
   end
 
   defp decode_response(%HTTPoison.Response{body: body}) do
-    Poison.decode!(body, as: [%MelodicaInventory.Trello.Board{}])
+    Poison.decode!(body, as: [%Board{}])
   end
 
   defp trello_url do

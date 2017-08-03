@@ -1,8 +1,13 @@
 defmodule MelodicaInventory.Trello.Attachment do
+  @moduledoc false
+
+  alias MelodicaInventory.Trello.Attachment
+
   @fields [:id, :url, :previews]
   defstruct @fields
 
   defmodule Preview do
+    @moduledoc false
     @fields [:url, :width, :height]
     defstruct @fields
   end
@@ -18,11 +23,11 @@ defmodule MelodicaInventory.Trello.Attachment do
   end
 
   defp get_attachment_url(card_id, attachment_id) do
-    trello_url <> "/cards/" <> card_id <> "/attachments/" <> attachment_id
+    trello_url() <> "/cards/" <> card_id <> "/attachments/" <> attachment_id
   end
 
   defp decode_response(%HTTPoison.Response{body: body, status_code: 200}) do
-    Poison.decode!(body, as: %MelodicaInventory.Trello.Attachment{previews: [%Preview{}]})
+    Poison.decode!(body, as: %Attachment{previews: [%Preview{}]})
   end
 
   defp trello_url do

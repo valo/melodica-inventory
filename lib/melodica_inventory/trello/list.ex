@@ -1,7 +1,7 @@
 defmodule MelodicaInventory.Trello.List do
   @moduledoc false
 
-  alias MelodicaInventory.Trello.Board
+  alias MelodicaInventory.Trello.List
 
   defstruct [:id, :name, :board_id]
 

@@ -36,8 +36,8 @@
                 <% end %>
               </select>
             </form>
-            <form class="form-inline">
-              <input type="text" name="q" class="form-control-sm mr-sm-2" id="search" placeholder="Search">
+            <form class="form-inline" id="search">
+              <input type="text" name="q" class="form-control-sm mr-sm-2" placeholder="Search">
             </form>
           </ul>
 

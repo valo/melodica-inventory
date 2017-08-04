@@ -62,7 +62,12 @@ function setup_calendar() {
 function setupSearchField() {
   var searchViewDisplayed = false;
   var currentPageHtml = null;
-  $('#search').on('input', function(event) {
+  $('#search').on('submit', function(event) {
+    event.preventDefault();
+    return false;
+  });
+
+  $('#search input').on('input', function(event) {
     if (event.target.value.length > 1) {
       $.get("/search", { q: event.target.value }, function(data) {
         if (!searchViewDisplayed) {

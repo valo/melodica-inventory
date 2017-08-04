@@ -21,19 +21,21 @@
   </div>
   <div class="row">
     <%= for item <- variation.items do %>
-      <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="col-xl-2 col-md-3 col-sm-4 col-6">
         <div class="card item">
           <div class="card-block">
             <p>
               <%= link to: item_path(@conn, :show, item.id) do %>
                 <p class="card-title"><%= item.name %></p>
                 <div class="row">
-                  <div class="col-lg-6">
+                  <div class="col-12">
                     <%= if cover_url(item) do %>
                       <img src="<%= cover_url(item) %>" class="img-fluid rounded"/>
                     <% end %>
                   </div>
-                  <div class="col-lg-6">
+                </div>
+                <div class="row">
+                  <div class="col-12">
                     Available: <%= item.quantity %>
                   </div>
                 </div>

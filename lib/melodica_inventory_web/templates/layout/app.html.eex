@@ -26,18 +26,19 @@
               <li class="nav-item"><%= link "All loans", to: admin_loan_path(@conn, :index), class: "nav-link" %></li>
             <% end %>
             <li class="nav-item"><%= link "Events", to: event_path(@conn, :index), class: "nav-link" %></li>
-            <%= if @current_user do %>
-              <%= form_tag current_event_path(@conn, :create), class: "form-inline current_event" %>
-                <select class="form-control-sm mr-sm-2" id="currentEvent" name="current_event_id">
-                  <option value="">Select current event</option>
-                  <%= for event <- @events do %>
-                    <option value="<%= event.id %>" <%= selected_event_attr(@current_event, event) %>>
-                      <%= event_name(event) %>
-                    </option>
-                  <% end %>
-                </select>
-              </form>
-            <% end %>
+            <%= form_tag current_event_path(@conn, :create), class: "form-inline current_event" %>
+              <select class="form-control-sm mr-sm-2" id="currentEvent" name="current_event_id">
+                <option value="">Select current event</option>
+                <%= for event <- @events do %>
+                  <option value="<%= event.id %>" <%= selected_event_attr(@current_event, event) %>>
+                    <%= event_name(event) %>
+                  </option>
+                <% end %>
+              </select>
+            </form>
+            <form class="form-inline">
+              <input type="text" name="q" class="form-control-sm mr-sm-2" id="search" placeholder="Search">
+            </form>
           </ul>
 
           <ul class="navbar-nav ml-auto">

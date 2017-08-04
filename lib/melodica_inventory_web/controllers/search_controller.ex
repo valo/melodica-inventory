@@ -2,7 +2,7 @@ defmodule MelodicaInventoryWeb.SearchController do
   use MelodicaInventoryWeb, :controller
   alias MelodicaInventory.Goods.Item
 
-  def index(conn, %{ "q" => query }) do
+  def index(conn, %{"q" => query}) do
     query_with_wildcards = "%#{query}%"
 
     items = (from i in Item, where: ilike(i.name, ^query_with_wildcards), limit: 10)

@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "bootstrap": "4.0.0-alpha.6",
-    "bootstrap-datepicker": "1.6.4",
+    "bootstrap-datepicker": "1.7.1",
     "bootstrap-year-calendar": "1.1.1",
     "font-awesome": "^4.7.0",
     "phoenix": "file:../deps/phoenix",

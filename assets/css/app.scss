@@ -94,3 +94,50 @@ table form.link {
 form.link {
   display: inline;
 }
+
+// This is a hack to fix the deprication of col-xs class in Bootstrap alpha 6
+// -- 04.08.2017 Lyudmil Lesinski
+
+.col-xs-1 {
+  @extend .col-1;
+}
+.col-xs-2 {
+  @extend .col-2;
+}
+.col-xs-3 {
+  @extend .col-3;
+}
+.col-xs-4 {
+  @extend .col-4;
+}
+.col-xs-5 {
+  @extend .col-5;
+}
+.col-xs-6 {
+  @extend .col-6;
+}
+.col-xs-7 {
+  @extend .col-7;
+}
+.col-xs-8 {
+  @extend .col-8;
+}
+.col-xs-9 {
+  @extend .col-9;
+}
+.col-xs-10 {
+  @extend .col-10;
+}
+.col-xs-11 {
+  @extend .col-11;
+}
+.col-xs-12 {
+  @extend .col-12;
+}
+
+// This is a hack for the bootstrap-datepicker package to work properly with Bootstrap alpha 6
+// -- 04.08.2017 Lyudmil Lesinski
+
+[class^="month-container col-xs-"] {
+  display: inline-block;
+}

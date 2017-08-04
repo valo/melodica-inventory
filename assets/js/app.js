@@ -59,6 +59,32 @@ function setup_calendar() {
   });
 }
 
+function setupSearchField() {
+  var searchViewDisplayed = false;
+  var currentPageHtml = null;
+  $('#search').on('submit', function(event) {
+    event.preventDefault();
+    return false;
+  });
+
+  $('#search input').on('input', function(event) {
+    if (event.target.value.length > 1) {
+      $.get("/search", { q: event.target.value }, function(data) {
+        if (!searchViewDisplayed) {
+          searchViewDisplayed = true;
+          currentPageHtml = $('.container-fluid').html();
+        }
+        $('.container-fluid').html(data);
+      });
+    } else {
+      if (searchViewDisplayed) {
+        searchViewDisplayed = false;
+        $('.container-fluid').html(currentPageHtml);
+      }
+    }
+  });
+}
+
 $(document).ready(function() {
   $("#returnLessModal").on("show.bs.modal", function(event) {
     var button = $(event.relatedTarget);
@@ -88,4 +114,6 @@ $(document).ready(function() {
   $('.loan_filtering #filters_name').on('blur', function(event) {
     $('.loan_filtering').submit();
   })
+
+  setupSearchField();
 });

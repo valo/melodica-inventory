@@ -1,0 +1,11 @@
+<%= if length(@items) == 0 do %>
+  <h1>No items found</h1>
+<% else %>
+  <div class="row">
+    <%= for item <- @items do %>
+      <div class="col-xl-2 col-md-3 col-sm-4 col-6">
+        <%= render MelodicaInventoryWeb.CategoryView, "_item_card.html", item: item, conn: @conn, current_user: @current_user, current_event: @current_event %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

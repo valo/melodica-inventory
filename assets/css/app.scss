@@ -45,32 +45,55 @@ h2 {
   }
 }
 
+.variation-name {
+  display: inline-block;
+}
+
 .category {
   height: 150px;
 }
 
 .item {
-  height: 300px;
+  height: 235px;
+  margin-bottom: 5px;
+
   .card-block {
     padding: 5px;
   }
 
   img {
-    max-width: 150px;
+    max-width: 140px;
     max-height: 90px;
   }
 
   a {
     font-size: 13px;
   }
+
+  .second-row-buttons {
+    margin-top: 3px;
+  }
+
+  .item-card-button {
+    width: 68px;
+  }
+
+  .item-card-buttons {
+    position: absolute;
+    bottom: 10px;
+  }
 }
 
-@include media-breakpoint-up(lg) {
+@include media-breakpoint-up(md) {
   .item {
     height: 250px;
 
     a {
       font-size: 16px;
+    }
+
+    .item-card-button {
+      width: 75px;
     }
   }
 }
@@ -97,6 +120,14 @@ table form.link {
 
 form.link {
   display: inline;
+}
+
+.truncate {
+  width: 145px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 }
 
 // This is a hack to fix the deprication of col-xs class in Bootstrap alpha 6

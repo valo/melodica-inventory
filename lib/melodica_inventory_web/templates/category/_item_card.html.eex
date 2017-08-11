@@ -2,7 +2,7 @@
   <div class="card-block">
     <p>
       <%= link to: item_path(@conn, :show, @item.id) do %>
-        <p class="card-title"><%= @item.name %></p>
+        <span class="card-title truncate"><%= @item.name %></span>
         <div class="row">
           <div class="col-12">
             <%= if cover_url(@item) do %>
@@ -17,22 +17,37 @@
         </div>
       <% end %>
     </p>
-    <%= if @current_user.admin do %>
-      <%= link "Edit", to: admin_item_path(@conn, :edit, @item.id), class: "btn btn-secondary btn-sm" %>
-    <% end %>
-    <%= link "Borrow", to: loan_path(@conn, :new, @item.id), class: "btn btn-secondary btn-sm" %>
-    <%= if @current_event do %>
-      <%= link "Reserve", to: item_reservation_path(@conn, :new, item_id: @item.id), class: "btn btn-secondary btn-sm" %>
-    <% end %>
-    <%= if @current_user.admin do %>
-      <%= link "Delete",
-        to: admin_item_path(@conn, :delete, @item.id),
-        method: :delete,
-        data: [
-          confirm: "Are you sure you want to delete #{@item.name}?"
-        ],
-        class: "btn btn-danger btn-sm"
-      %>
-    <% end %>
+
+    <div class="item-card-buttons">
+      <div class="row">
+        <div class="col-5">
+          <%= if @current_user.admin do %>
+            <%= link "Edit", to: admin_item_path(@conn, :edit, @item.id), class: "btn btn-secondary btn-sm item-card-button" %>
+          <% end %>
+        </div>
+        <div class="col-5">
+          <%= link "Borrow", to: loan_path(@conn, :new, @item.id), class: "btn btn-secondary btn-sm item-card-button" %>
+        </div>
+      </div>
+      <div class="row second-row-buttons">
+        <div class="col-5">
+          <%= if @current_event do %>
+            <%= link "Reserve", to: item_reservation_path(@conn, :new, item_id: @item.id), class: "btn btn-secondary btn-sm item-card-button" %>
+          <% end %>
+        </div>
+        <div class="col-5">
+          <%= if @current_user.admin do %>
+            <%= link "Delete",
+              to: admin_item_path(@conn, :delete, @item.id),
+              method: :delete,
+              data: [
+                confirm: "Are you sure you want to delete #{@item.name}?"
+              ],
+              class: "btn btn-danger btn-sm item-card-button"
+            %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

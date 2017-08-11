@@ -4,19 +4,21 @@
     <div class="col-md-12">
       <h2>
         <%= variation.name %>
-        <%= if @current_user.admin do %>
-          <%= link "Edit", to: admin_variation_path(@conn, :edit, variation.id), class: "btn btn-secondary btn-sm" %>
-          <%= link "Delete",
-            to: admin_variation_path(@conn, :delete, variation.id),
-            method: :delete,
-            data: [
-              confirm: "Are you sure you want to delete the #{ variation.name } variation?"
-            ],
-            class: "btn btn-danger btn-sm"
-          %>
-        <% end %>
-        <%= link "Add item", to: item_path(@conn, :new, variation_id: variation.id), class: "btn btn-secondary btn-sm" %>
-      </h1>
+        <div class="variation-name">
+          <%= if @current_user.admin do %>
+            <%= link "Edit", to: admin_variation_path(@conn, :edit, variation.id), class: "btn btn-secondary btn-sm" %>
+            <%= link "Delete",
+              to: admin_variation_path(@conn, :delete, variation.id),
+              method: :delete,
+              data: [
+                confirm: "Are you sure you want to delete the #{ variation.name } variation?"
+              ],
+              class: "btn btn-danger btn-sm"
+            %>
+          <% end %>
+          <%= link "Add item", to: item_path(@conn, :new, variation_id: variation.id), class: "btn btn-secondary btn-sm" %>
+        </div>
+      </h2>
     </div>
   </div>
   <div class="row">

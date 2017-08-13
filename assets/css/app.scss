@@ -130,8 +130,14 @@ form.link {
   background: #333333;
 }
 
-#carousel-controls img {
+#carousel-controls, .image-box img {
   width: 400px;
   height: 300px;
+}
+
+.images-container {
+  margin-left: 50px;
+  margin-bottom: 20px;
+  padding-right: 50px;
 }
 /* End carousel */

@@ -19,4 +19,13 @@ defmodule MelodicaInventoryWeb.ItemView do
     end)
     |> Enum.with_index
   end
+
+  def cover_url_first_image(%Item{images: []}) do
+    nil
+  end
+
+  def cover_url_first_image(%Item{images: images}) do
+    image = List.first(images)
+    Url.for(image.public_id, %{width: 400, height: 300, crop: "limit"})
+  end
 end

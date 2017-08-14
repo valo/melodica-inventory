@@ -29,9 +29,7 @@
                 <p class="card-title"><%= item.name %></p>
                 <div class="row">
                   <div class="col-lg-6">
-                    <%= if cover_url(item) do %>
-                      <img src="<%= cover_url(item) %>" class="img-fluid rounded"/>
-                    <% end %>
+                    <img src="<%= cover_url_first_image(item) %>" class="img-fluid rounded"/>
                   </div>
                   <div class="col-lg-6">
                     Available: <%= item.quantity %>

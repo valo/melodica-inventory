@@ -54,15 +54,17 @@ defmodule MelodicaInventoryWeb.ItemController do
   defp upload_images(%{item: %Item{}}, nil), do: {:error, "You need to upload an image"}
 
   defp upload_images(%{item: %Item{id: item_id}}, uploaded_files) do
-    Enum.map(uploaded_files, fn(%Plug.Upload{path: filename}) ->
-      case Cloudex.upload(filename) do
-        [error: error] ->
-           :error
-        [ok: %Cloudex.UploadedImage{public_id: public_id}] ->
-          {:ok, Repo.insert(%Image{public_id: public_id, item_id: item_id})}
-      end
-    end)
+    Enum.map(uploaded_files, &upload_to_cloudex_and_save(&1, item_id))
     |> format_response
+  end
+
+  defp upload_to_cloudex_and_save(%Plug.Upload{path: filename}, item_id) do
+    case Cloudex.upload(filename) do
+      [error: error] ->
+         :error
+      [ok: %Cloudex.UploadedImage{public_id: public_id}] ->
+        {:ok, Repo.insert(%Image{public_id: public_id, item_id: item_id})}
+    end
   end
 
   defp format_response(upload_images) do

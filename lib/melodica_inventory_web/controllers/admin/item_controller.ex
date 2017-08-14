@@ -1,11 +1,11 @@
 defmodule MelodicaInventoryWeb.Admin.ItemController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.Goods.{Item, ItemDestroy, Image, Variation}
+  alias MelodicaInventory.Goods.{Item, ItemDestroy, Image, Variation, ImageOperations}
 
   alias Ecto.{Multi, Changeset}
 
   def delete_images(conn, %{"images" => images, "id" => id} = params) do
-    delete_images(images)
+    ImageOperations.delete_images(images)
     redirect(conn, to: item_path(conn, :show, id))
   end
 
@@ -59,17 +59,6 @@ defmodule MelodicaInventoryWeb.Admin.ItemController do
     Multi.new()
     |> Multi.update(:item, Item.changeset(item, item_params))
     |> Multi.run(:image, fn state -> upload_images(state, item_params["image"]) end)
-  end
-
-  defp delete_images(images) do
-    if delete_by_public_id(images) == length(images) do
-      Image |> where([i], i.public_id in ^images) |> Repo.delete_all
-    end
-  end
-
-  defp delete_by_public_id(images) do
-    Cloudex.delete(images)
-    |> Enum.reduce(0, fn({:ok, _}, acc) -> 1 + acc end)
   end
 
   defp upload_images(%{item: %Item{}}, nil), do: {:ok, true}

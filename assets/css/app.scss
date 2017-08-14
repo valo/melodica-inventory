@@ -164,6 +164,15 @@ form.link {
     width: 200px;
     height: 150px;
   }
+
+  #carousel-controls .carousel-control-prev {
+    left: -20px;
+  }
+
+  #carousel-controls .carousel-control-next {
+    right: -20px;
+  }
+
 }
 
 .images-container {

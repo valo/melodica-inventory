@@ -15,7 +15,7 @@
 </ul>
 <%= if length(@item.images) > 0 do %>
   <div class="row">
-    <div class="col-md-4 offset-md-4">
+    <div class="col-8 offset-2 d-flex justify-content-center">
       <div id="carousel-controls" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <%= for {url, idx} <- cover_url(@item) do %>
@@ -24,7 +24,7 @@
         </ol>
         <div class="carousel-inner" role="listbox">
           <%= for {url, idx} <- cover_url(@item) do %>
-            <div class="carousel-item justify-content-center <%= if idx == 0, do: "active" %>">
+            <div class="image-box carousel-item justify-content-center <%= if idx == 0, do: "active" %>">
               <img class="d-block img-fluid" src="<%= url %>" alt="First slide">
             </div>
           <% end %>

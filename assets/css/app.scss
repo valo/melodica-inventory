@@ -162,6 +162,13 @@ form.link {
   height: 300px;
 }
 
+@include media-breakpoint-down(sm) {
+  #carousel-controls, .image-box img {
+    width: 200px;
+    height: 150px;
+  }
+}
+
 .images-container {
   margin-left: 50px;
   margin-bottom: 20px;

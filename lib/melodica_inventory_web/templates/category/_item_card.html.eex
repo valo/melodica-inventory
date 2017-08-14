@@ -20,23 +20,21 @@
 
     <div class="item-card-buttons">
       <div class="row">
-        <div class="col-5">
-          <%= if @current_user.admin do %>
+        <%= if @current_user.admin do %>
+          <div class="col-5">
             <%= link "Edit", to: admin_item_path(@conn, :edit, @item.id), class: "btn btn-secondary btn-sm item-card-button" %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
         <div class="col-5">
           <%= link "Borrow", to: loan_path(@conn, :new, @item.id), class: "btn btn-secondary btn-sm item-card-button" %>
         </div>
-      </div>
-      <div class="row second-row-buttons">
-        <div class="col-5">
-          <%= if @current_event do %>
+        <%= if @current_event do %>
+          <div class="col-5">
             <%= link "Reserve", to: item_reservation_path(@conn, :new, item_id: @item.id), class: "btn btn-secondary btn-sm item-card-button" %>
-          <% end %>
-        </div>
-        <div class="col-5">
-          <%= if @current_user.admin do %>
+          </div>
+        <% end %>
+        <%= if @current_user.admin do %>
+          <div class="col-5">
             <%= link "Delete",
               to: admin_item_path(@conn, :delete, @item.id),
               method: :delete,
@@ -45,8 +43,8 @@
               ],
               class: "btn btn-danger btn-sm item-card-button"
             %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

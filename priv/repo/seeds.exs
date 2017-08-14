@@ -14,4 +14,5 @@ alias MelodicaInventory.Repo
 alias MelodicaInventory.Accounts.User
 
 Repo.insert!(%User{email: "valentin.mihov@gmail.com", admin: true, first_name: "Valentin", last_name: "Mihov", image_url: "http://test.jpg"})
+Repo.insert!(%User{email: "lyudmilles@gmail.com", admin: true, first_name: "Lyudmil", last_name: "Lesinski", image_url: "http://test.jpg"})
 Repo.insert!(%User{email: "john.dow@gmail.com", admin: false, first_name: "John", last_name: "Dow", image_url: "http://test.jpg"})

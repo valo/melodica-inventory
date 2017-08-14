@@ -39,6 +39,7 @@ defmodule MelodicaInventoryWeb.Router do
 
     resources "/events", EventController, only: [:new, :create, :show, :index]
     resources "/current_event", CurrentEventController, only: [:create]
+    resources "/search", SearchController, only: [:index]
   end
 
   scope "/admin", as: :admin, alias: MelodicaInventoryWeb.Admin do

@@ -45,32 +45,55 @@ h2 {
   }
 }
 
+.variation-name {
+  display: inline-block;
+}
+
 .category {
   height: 150px;
 }
 
 .item {
-  height: 300px;
+  height: 235px;
+  margin-bottom: 5px;
+
   .card-block {
     padding: 5px;
   }
 
   img {
-    max-width: 150px;
+    max-width: 140px;
     max-height: 90px;
   }
 
   a {
     font-size: 13px;
   }
+
+  .second-row-buttons {
+    margin-top: 3px;
+  }
+
+  .item-card-button {
+    width: 68px;
+  }
+
+  .item-card-buttons {
+    position: absolute;
+    bottom: 10px;
+  }
 }
 
-@include media-breakpoint-up(lg) {
+@include media-breakpoint-up(md) {
   .item {
     height: 250px;
 
     a {
       font-size: 16px;
+    }
+
+    .item-card-button {
+      width: 75px;
     }
   }
 }
@@ -89,6 +112,10 @@ table form.link {
 .current_event select {
   margin-left: 10px;
   max-width: 350px;
+}
+
+#search input {
+  width: 200px;
 }
 
 form.link {
@@ -141,3 +168,58 @@ form.link {
   padding-right: 50px;
 }
 /* End carousel */
+
+.truncate {
+  width: 145px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+// This is a hack to fix the deprication of col-xs class in Bootstrap alpha 6
+// -- 04.08.2017 Lyudmil Lesinski
+
+.col-xs-1 {
+  @extend .col-1;
+}
+.col-xs-2 {
+  @extend .col-2;
+}
+.col-xs-3 {
+  @extend .col-3;
+}
+.col-xs-4 {
+  @extend .col-4;
+}
+.col-xs-5 {
+  @extend .col-5;
+}
+.col-xs-6 {
+  @extend .col-6;
+}
+.col-xs-7 {
+  @extend .col-7;
+}
+.col-xs-8 {
+  @extend .col-8;
+}
+.col-xs-9 {
+  @extend .col-9;
+}
+.col-xs-10 {
+  @extend .col-10;
+}
+.col-xs-11 {
+  @extend .col-11;
+}
+.col-xs-12 {
+  @extend .col-12;
+}
+
+// This is a hack for the bootstrap-datepicker package to work properly with Bootstrap alpha 6
+// -- 04.08.2017 Lyudmil Lesinski
+
+[class^="month-container col-xs-"] {
+  display: inline-block;
+}

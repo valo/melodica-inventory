@@ -63,7 +63,7 @@ defmodule MelodicaInventoryWeb.ItemControllerTest do
             "name" => "Test item",
             "quantity" => 1,
             "price" => 1,
-            "image" => %Plug.Upload{path: "test.png"}
+            "image" => [%Plug.Upload{path: "test.png"}]
           }
         })
 

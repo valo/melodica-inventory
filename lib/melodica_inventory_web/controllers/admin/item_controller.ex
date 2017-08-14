@@ -24,7 +24,9 @@ defmodule MelodicaInventoryWeb.Admin.ItemController do
 
     case Repo.transaction(update_item(item, item_params)) do
       {:ok, %{item: item}} ->
-        redirect(conn, to: item_path(conn, :show, item.id))
+        conn
+        |> put_flash(:info, "Item updated successfully.")
+        |> redirect(to: category_path(conn, :show, item.variation.category_id))
       {:error, :item, failed_changeset, _changes_so_far} ->
         render(conn, "edit.html", item: item, changeset: failed_changeset)
       {:error, :image, error, changes_so_far} ->
@@ -70,7 +72,7 @@ defmodule MelodicaInventoryWeb.Admin.ItemController do
     |> Enum.reduce(0, fn({:ok, _}, acc) -> 1 + acc end)
   end
 
-  defp upload_images(%{item: %Item{}}, nil), do: {:error, "You need to upload an image"}
+  defp upload_images(%{item: %Item{}}, nil), do: {:ok, true}
 
   defp upload_images(%{item: %Item{id: item_id}}, uploaded_files) do
     Enum.map(uploaded_files, fn(%Plug.Upload{path: filename}) ->

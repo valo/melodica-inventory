@@ -31,23 +31,14 @@ defmodule MelodicaInventoryWeb.ItemController do
 
   def create(conn, %{"item" => item_params}) do
     variation = Repo.get(Variation, item_params["variation_id"])
+    changeset = Item.changeset(%Item{}, item_params)
 
-    case Repo.transaction(add_new_item(item_params)) do
-      {:ok, %{item: item}} ->
+    case Repo.insert(changeset) do
+      {:ok, item} ->
+        ImageOperations.upload_images(item.id, item_params["image"])
         redirect(conn, to: item_path(conn, :show, item.id))
-      {:error, :item, failed_changeset, _changes_so_far} ->
-        render(conn, "new.html", variation: variation, changeset: failed_changeset)
-      {:error, :image, error, changes_so_far} ->
-        changeset = changes_so_far[:item]
-        |> Item.changeset
-        |> Changeset.add_error(:image, "cannot be uploaded! #{ error }")
-        render(conn, "new.html", variation: variation, changeset: %{changeset | action: :insert})
+      {:error, changeset} ->
+         render(conn, "new.html", variation: variation, changeset: changeset)
     end
-  end
-
-  defp add_new_item(item_params) do
-    Multi.new()
-    |> Multi.insert(:item, Item.changeset(%Item{}, item_params))
-    |> Multi.run(:image, fn state -> ImageOperations.upload_images(state, item_params["image"], [required: true]) end)
   end
 end

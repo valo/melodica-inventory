@@ -26,8 +26,8 @@ defmodule MelodicaInventory.Goods.ImageOperations do
     |> Enum.reduce(fn ({:ok, _}), _ -> {:ok, true} end)
   end
 
-  def delete_images(images) do
-    images
+  def delete_images(image_public_ids) do
+    image_public_ids
     |> Enum.each(fn(image) ->
       case Cloudex.delete(image) do
         {:ok, _} -> delete_image_from_db(image)

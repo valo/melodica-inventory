@@ -155,14 +155,14 @@ form.link {
 }
 
 #carousel-controls, .image-box img {
-  width: 400px;
-  height: 300px;
+  max-width: 400px;
+  max-height: 300px;
 }
 
 @include media-breakpoint-down(sm) {
   #carousel-controls, .image-box img {
-    width: 240px;
-    height: 180px;
+    max-width: 240px;
+    max-height: 180px;
   }
 
   #carousel-controls .carousel-control-prev {

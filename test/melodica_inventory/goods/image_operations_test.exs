@@ -8,6 +8,17 @@ defmodule MelodicaInventory.Goods.ItemOperationsTest do
   alias MelodicaInventory.Goods.{Item, ImageOperations}
   import MelodicaInventory.Factory
 
+  test "upload images" do
+    item = insert(:item)
+
+    with_mock Cloudex, [], [upload: fn _ -> [ok: %Cloudex.UploadedImage{public_id: "12345"}] end] do
+      ImageOperations.upload_images(%{item: item}, [%Plug.Upload{path: "test.png"}])
+    end
+
+    updated_item = Repo.get(Item, item.id) |> Repo.preload([:attachments, :images])
+    assert List.first(updated_item.images).public_id == "12345"
+  end
+
   test "deleting images" do
     image = insert(:image)
     item = Repo.get(Item, image.item_id)

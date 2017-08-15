@@ -15,15 +15,15 @@
 </ul>
 <%= if length(@item.images) > 0 do %>
   <div class="row">
-    <div class="col-8 offset-2 d-flex justify-content-center">
+    <div class="col-10 offset-1 d-flex justify-content-center">
       <div id="carousel-controls" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-          <%= for {url, idx} <- cover_url(@item) do %>
+          <%= for {{url, _}, idx} <- cover_urls(@item) do %>
             <li data-target="#carousel-control" data-slide-to="<%= idx %>" class="<%= if idx == 0, do: "active" %>"></li>
           <% end %>
         </ol>
         <div class="carousel-inner" role="listbox">
-          <%= for {url, idx} <- cover_url(@item) do %>
+          <%= for {{url, _}, idx} <- cover_urls(@item) do %>
             <div class="image-box carousel-item justify-content-center <%= if idx == 0, do: "active" %>">
               <img class="d-block img-fluid" src="<%= url %>" alt="First slide">
             </div>

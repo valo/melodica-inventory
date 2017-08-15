@@ -3,10 +3,10 @@
 <%= if length(@item.images) > 0 do %>
   <%= form_for @changeset, admin_item_path(@conn, :delete_images, @changeset.data.id), fn f -> %>
   <div class="d-flex flex-wrap">
-    <%= for {url, idx} <- cover_url(@item) do %>
+    <%= for {{url, public_id}, _} <- cover_urls(@item) do %>
       <div class="d-flex justify-content-center images-container">
         <div class="form-group">
-          <%= tag(:input, type: "checkbox", class: "form-check-input", name: "images[]", value: idx) %>
+          <%= tag(:input, type: "checkbox", class: "form-check-input", name: "images[]", value: public_id) %>
         </div>
         <div class="image-box">
           <%= img_tag(url) %>

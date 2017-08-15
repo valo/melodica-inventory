@@ -4,11 +4,6 @@ defmodule MelodicaInventoryWeb.Admin.ItemController do
 
   alias Ecto.{Multi, Changeset}
 
-  def delete_images(conn, %{"images" => images, "id" => id} = params) do
-    ImageOperations.delete_images(images)
-    redirect(conn, to: item_path(conn, :show, id))
-  end
-
   def edit(conn, %{"id" => id}) do
     item = Repo.get!(Item, id)
     |> Repo.preload([:variation, :images])

@@ -1,4 +1,4 @@
-defmodule MelodicaInventory.Goods.ItemOperationsTest do
+defmodule MelodicaInventory.Goods.ImageOperationsTest do
   @moduledoc false
 
   use MelodicaInventory.ModelCase

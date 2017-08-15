@@ -13,7 +13,7 @@
   <li>Обща бройка: <%= Item.total_quantity(@item) %></li>
   <li>Текущо налични: <%= @item.quantity %></li>
 </ul>
-<%= if length(@item.images) > 0 do %>
+<%= if cover_urls(@item) do %>
   <div class="row">
     <div class="col-10 offset-1 d-flex justify-content-center">
       <div id="carousel-controls" class="carousel slide" data-ride="carousel">

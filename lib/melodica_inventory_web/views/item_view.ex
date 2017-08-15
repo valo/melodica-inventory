@@ -10,7 +10,9 @@ defmodule MelodicaInventoryWeb.ItemView do
   end
 
   def cover_urls(%Item{images: [], attachments: attachments}) do
-    List.first(attachments).url
+    attachments
+    |> Enum.map(&{&1.url, nil})
+    |> Enum.with_index
   end
 
   def cover_urls(%Item{images: images}) do
@@ -20,8 +22,10 @@ defmodule MelodicaInventoryWeb.ItemView do
     |> Enum.with_index
   end
 
-  def cover_url_first_image(%Item{images: []}) do
-    nil
+  def cover_url_first_image(%Item{images: [], attachments: []}), do: nil
+
+  def cover_url_first_image(%Item{images: [], attachments: attachments}) do
+    List.first(attachments).url
   end
 
   def cover_url_first_image(%Item{images: images}) do

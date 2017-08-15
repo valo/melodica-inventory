@@ -5,8 +5,8 @@
         <span class="card-title truncate"><%= @item.name %></span>
         <div class="row">
           <div class="col-12">
-            <%= if cover_url(@item) do %>
-              <img src="<%= cover_url(@item) %>" class="img-fluid rounded"/>
+            <%= if cover_url_first_image(@item) do %>
+              <img src="<%= cover_url_first_image(@item) %>" class="img-fluid rounded"/>
             <% end %>
           </div>
         </div>

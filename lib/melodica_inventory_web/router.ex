@@ -48,6 +48,7 @@ defmodule MelodicaInventoryWeb.Router do
     resources "/categories", CategoryController, only: [:edit, :update, :delete, :new, :create]
     resources "/variations", VariationController, only: [:edit, :update, :delete, :new, :create]
     resources "/items", ItemController, only: [:edit, :update, :delete]
+    resources "/item_images/:item_id", ItemImagesController, only: [:delete], singleton: true
     resources "/loans", LoanController, only: [:index]
     resources "/loan_returns/:loan_id", LoanReturnController, only: [:create]
     resources "/events", EventController, only: [:edit, :update, :delete]

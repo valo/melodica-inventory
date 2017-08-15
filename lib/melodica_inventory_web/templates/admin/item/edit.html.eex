@@ -1,5 +1,27 @@
 <h1><%= @changeset.data.name %></h1>
-<%= form_for @changeset, admin_item_path(@conn, :update, @changeset.data.id), fn f -> %>
+
+<%= if length(@item.images) > 0 do %>
+  <%= form_for @changeset, admin_item_images_path(@conn, :delete, @changeset.data.id), [method: :delete], fn f -> %>
+  <div class="d-flex flex-wrap">
+    <%= for {{url, public_id}, _} <- cover_urls(@item) do %>
+      <div class="d-flex justify-content-center images-container">
+        <div class="form-group">
+          <%= tag(:input, type: "checkbox", class: "form-check-input", name: "images[]", value: public_id) %>
+        </div>
+        <div class="image-box">
+          <%= img_tag(url) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div >
+    <%= submit "Delete selected images", class: "btn btn-danger" %>
+  </div>
+  <% end %>
+  <hr>
+<% end %>
+
+<%= form_for @changeset, admin_item_path(@conn, :update, @changeset.data.id), [multipart: true], fn f -> %>
   <div class="form-group">
     <%= label f, :name %>
     <%= text_input f, :name, type: :text, class: "form-control" %>
@@ -14,6 +36,11 @@
     <%= label f, :price %>
     <%= text_input f, :price, type: :number, class: "form-control", "aria-describedby": "priceHelp", step: "0.01", pattern: "\d*" %>
     <small id="priceHelp" class="form-text text-muted">The price of a single <%= @changeset.data.name %></small>
+  </div>
+  <div class="form-group">
+    <%= label f, "Add images" %>
+    <%= file_input f, :image, class: "form-control", multiple: true %>
+    <%= error_tag f, :image %>
   </div>
   <%= submit "Submit", class: "btn btn-primary" %>
   <a href="<%= category_path(@conn, :show, @changeset.data.variation.category_id) %>" class="btn btn-secondary">Back</a>

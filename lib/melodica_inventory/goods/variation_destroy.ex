@@ -1,7 +1,7 @@
 defmodule MelodicaInventory.Goods.VariationDestroy do
   @moduledoc false
 
-  alias MelodicaInventory.Goods.ItemDestroy
+  alias MelodicaInventory.Goods.ImageOperations
   alias Ecto.Multi
 
   def build_destroy_action(variation) do
@@ -13,6 +13,6 @@ defmodule MelodicaInventory.Goods.VariationDestroy do
   defp delete_images(items) do
     items
     |> Enum.flat_map(&(&1.images))
-    |> ItemDestroy.delete_images()
+    |> ImageOperations.delete_images_from_cloudex()
   end
 end

@@ -1,27 +1,32 @@
 defmodule MelodicaInventoryWeb.Admin.ItemController do
   use MelodicaInventoryWeb, :controller
-  alias MelodicaInventory.Goods.{Item, ItemDestroy}
+  alias MelodicaInventory.Goods.{Item, ItemDestroy, Image, Variation, ImageOperations}
+
+  alias Ecto.{Multi, Changeset}
 
   def edit(conn, %{"id" => id}) do
-    changeset = Repo.get!(Item, id, preload: [:variation])
-    |> Repo.preload(:variation)
-    |> Item.changeset
+    item = Repo.get!(Item, id)
+    |> Repo.preload([:variation, :images])
 
-    render conn, "edit.html", changeset: changeset
+    changeset = item |> Item.changeset
+
+    render conn, "edit.html", item: item, changeset: changeset
   end
 
   def update(conn, %{"id" => id, "item" => item_params}) do
-    changeset = Repo.get!(Item, id)
-    |> Repo.preload(:variation)
-    |> Item.changeset(item_params)
+    item = Repo.get!(Item, id)
+    |> Repo.preload([:variation, :images])
+
+    changeset = Item.changeset(item, item_params)
 
     case Repo.update(changeset) do
       {:ok, item} ->
+        ImageOperations.upload_images(item.id, item_params["image"])
         conn
         |> put_flash(:info, "Item updated successfully.")
         |> redirect(to: category_path(conn, :show, item.variation.category_id))
       {:error, changeset} ->
-        render(conn, "edit.html", changeset: changeset)
+        render(conn, "edit.html", item: item, changeset: changeset)
     end
   end
 

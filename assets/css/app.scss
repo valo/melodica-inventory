@@ -119,6 +119,69 @@ form.link {
   display: inline;
 }
 
+/* Start carousel */
+
+#carousel-controls {
+  padding: 0 10px 30px 10px;
+  margin-top: 30px;
+}
+
+#carousel-controls .carousel-control {
+  background: none;
+  color: #222;
+  font-size: 2.3em;
+  text-shadow: none;
+  margin-top: 30px;
+}
+
+#carousel-controls .carousel-control-prev {
+  left: -50px;
+}
+
+#carousel-controls .carousel-control-next {
+  right: -50px;
+}
+
+#carousel-controls .carousel-indicators {
+  top: auto;
+  bottom: 0px;
+}
+
+#carousel-controls .carousel-indicators li {
+  background: #c0c0c0;
+}
+#carousel-controls .carousel-indicators .active {
+  background: #333333;
+}
+
+#carousel-controls, .image-box img {
+  width: 400px;
+  height: 300px;
+}
+
+@include media-breakpoint-down(sm) {
+  #carousel-controls, .image-box img {
+    width: 240px;
+    height: 180px;
+  }
+
+  #carousel-controls .carousel-control-prev {
+    left: -20px;
+  }
+
+  #carousel-controls .carousel-control-next {
+    right: -20px;
+  }
+
+}
+
+.images-container {
+  margin-left: 50px;
+  margin-bottom: 20px;
+  padding-right: 50px;
+}
+/* End carousel */
+
 .truncate {
   width: 145px;
   white-space: nowrap;

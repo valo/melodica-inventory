@@ -1,7 +1,7 @@
 <h1><%= @changeset.data.name %></h1>
 
 <%= if length(@item.images) > 0 do %>
-  <%= form_for @changeset, admin_item_path(@conn, :delete_images, @changeset.data.id), fn f -> %>
+  <%= form_for @changeset, admin_item_images_path(@conn, :delete, @changeset.data.id), [method: :delete], fn f -> %>
   <div class="d-flex flex-wrap">
     <%= for {{url, public_id}, _} <- cover_urls(@item) do %>
       <div class="d-flex justify-content-center images-container">

@@ -16,11 +16,23 @@
   <%= select @f, :user_id, @users |> Enum.map(&{event_user(&1), &1.id}), class: "form-control" %>
   <%= error_tag @f, :user_id %>
 </div>
-<%= label @f, :start_date, "From" %>
-<div class="input-group input-daterange <%= error_class_for(@f, :start_date) %> <%= error_class_for(@f, :end_date) %>">
-  <%= text_input @f, :start_date, class: "form-control", type: "date" %>
-  <span class="input-group-addon">to</span>
-  <%= text_input @f, :end_date, class: "form-control", type: "date" %>
+
+<div class="form-inline row <%= error_class_for(@f, :start_date) %> <%= error_class_for(@f, :end_date) %>">
+  <div class="col-xs-12 col-md-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        <%= label @f, :start_date, "From" %>
+      </span>
+      <%= text_input @f, :start_date, class: "form-control flex-row datepicker", type: "date", id: "start_date" %>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        <%= label @f, :end_date, "To" %>
+      </span>
+      <%= text_input @f, :end_date, class: "form-control flex-row datepicker", type: "date", id: "end_date" %>
+    </div>
   </div>
 </div>
 <div class="form-check">

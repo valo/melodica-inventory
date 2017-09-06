@@ -3,4 +3,8 @@
     <i class="fa fa-google" aria-hidden="true"></i>
     Login with Google
   <% end %>
+  <%= link to: "/auth/facebook", class: "btn login-facebook", role: "button" do %>
+    <i class="fa fa-facebook" aria-hidden="true"></i>
+    Login with Facebook
+  <% end %>
 </div>

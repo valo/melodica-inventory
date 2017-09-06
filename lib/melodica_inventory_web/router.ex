@@ -8,11 +8,23 @@ defmodule MelodicaInventoryWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug MelodicaInventoryWeb.Plugs.SetCurrentUser
+    plug MelodicaInventoryWeb.Plugs.SetCurrentCustomer
     plug MelodicaInventoryWeb.Plugs.SetCurrentEvent
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug Plug.Parsers,
+      parsers: [:urlencoded, :multipart, :json, Absinthe.Plug.Parser],
+      pass: ["*/*"],
+      json_decoder: Poison
+    plug Absinthe.Plug,
+      schema: MelodicaInventory.Schema
+    forward "/api", Absinthe.Plug,
+      schema: MelodicaInventory.Schema
+    forward "/graphiql",
+      Absinthe.Plug.GraphiQL,
+      schema: MelodicaInventory.Schema,
+      interface: :simple
   end
 
   pipeline :authenticate do
@@ -21,6 +33,10 @@ defmodule MelodicaInventoryWeb.Router do
 
   pipeline :authenticate_admin do
     plug MelodicaInventoryWeb.Plugs.Authenticate, :admin
+  end
+
+  pipeline :authenticate_customer do
+    plug MelodicaInventoryWeb.Plugs.Authenticate, :customer
   end
 
   scope "/", MelodicaInventoryWeb do
@@ -40,6 +56,12 @@ defmodule MelodicaInventoryWeb.Router do
     resources "/events", EventController, only: [:new, :create, :show, :index]
     resources "/current_event", CurrentEventController, only: [:create]
     resources "/search", SearchController, only: [:index]
+  end
+
+  scope "/melodicagram", MelodicaInventoryWeb do
+    pipe_through [:browser, :authenticate_customer]
+
+    get "/", MelodicagramController, :index
   end
 
   scope "/admin", as: :admin, alias: MelodicaInventoryWeb.Admin do

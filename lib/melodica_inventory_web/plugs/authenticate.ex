@@ -7,6 +7,19 @@ defmodule MelodicaInventoryWeb.Plugs.Authenticate do
 
   def init(default), do: default
 
+  def call(%Plug.Conn{assigns: %{current_customer: current_customer}} = conn, :customer) do
+    case current_customer do
+      nil ->
+        conn
+        |> put_flash(:info, "Access denied!")
+        |> configure_session(drop: true)
+        |> redirect(to: RouterHelpers.login_path(conn, :index))
+        |> halt
+      _ ->
+        conn
+    end
+  end
+
   def call(%Plug.Conn{assigns: %{current_user: current_user}} = conn, :admin) do
     case current_user && current_user.admin do
       true ->

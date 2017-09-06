@@ -7,6 +7,7 @@ defmodule MelodicaInventoryWeb.AuthController do
   plug Ueberauth
 
   alias MelodicaInventory.Accounts.UserAuth
+  alias MelodicaInventory.Accounts.CustomerAuth
 
   def index(conn, _params) do
     conn
@@ -26,7 +27,7 @@ defmodule MelodicaInventoryWeb.AuthController do
     |> redirect(to: "/")
   end
 
-  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, %{"provider" => "google"}) do
     case UserAuth.find_or_create(auth) do
       {:ok, user} ->
         conn
@@ -38,5 +39,13 @@ defmodule MelodicaInventoryWeb.AuthController do
         |> put_flash(:error, reason)
         |> redirect(to: "/")
     end
+  end
+
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, %{"provider" => "facebook"}) do
+    customer = CustomerAuth.find_or_create!(auth)
+
+    conn
+    |> put_session(:current_customer, customer.id)
+    |> redirect(to: "/melodicagram")
   end
 end

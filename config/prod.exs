@@ -32,6 +32,10 @@ config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: System.get_env("GOOGLE_OAUTH_CLIENT_ID"),
   client_secret: System.get_env("GOOGLE_OAUTH_CLIENT_SECRET")
 
+config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
+  client_id: System.get_env("FACEBOOK_CLIENT_ID"),
+  client_secret: System.get_env("FACEBOOK_CLIENT_SECRET")
+
 config :melodica_inventory, :api_key, System.get_env("TRELLO_API_KEY")
 config :melodica_inventory, :token, System.get_env("TRELLO_TOKEN")
 config :melodica_inventory, :inventory_org_id, System.get_env("TRELLO_ORGANIZATION_ID")

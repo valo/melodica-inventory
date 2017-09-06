@@ -6,7 +6,7 @@ defmodule MelodicaInventoryWeb.ItemView do
   import MelodicaInventoryWeb.EventView, only: [event_user: 1]
 
   def cover_urls(%Item{images: [], attachments: []}) do
-    nil
+    []
   end
 
   def cover_urls(%Item{images: [], attachments: attachments}) do

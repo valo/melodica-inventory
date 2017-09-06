@@ -21,7 +21,7 @@ defmodule MelodicaInventory.Mixfile do
      applications: [
        :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
        :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto,
-       :httpoison
+       :httpoison, :ueberauth_facebook
      ] ++ applications(Mix.env)]
   end
 
@@ -55,6 +55,7 @@ defmodule MelodicaInventory.Mixfile do
       {:gettext, "~> 0.11.0"},
       {:cowboy, "~> 1.0"},
       {:ueberauth_google, "~> 0.4"},
+      {:ueberauth_facebook, "~> 0.7"},
       {:ex_machina, "~> 1.0", only: :test},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:ex_unit_notifier, "~> 0.1", only: :test},
@@ -64,6 +65,8 @@ defmodule MelodicaInventory.Mixfile do
       {:scout_apm, "~> 0.0"},
       {:mock, "~> 0.2.0", only: :test},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:absinthe, "~> 1.3.2"},
+      {:absinthe_plug, "~> 1.3.0"},
    ]
   end
 

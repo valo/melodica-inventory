@@ -21,7 +21,7 @@ defmodule MelodicaInventory.Mixfile do
      applications: [
        :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
        :phoenix_ecto, :postgrex, :ueberauth_google, :timex, :timex_ecto,
-       :httpoison
+       :httpoison, :ex_debug_toolbar
      ] ++ applications(Mix.env)]
   end
 
@@ -64,6 +64,7 @@ defmodule MelodicaInventory.Mixfile do
       {:scout_apm, "~> 0.0"},
       {:mock, "~> 0.2.0", only: :test},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:ex_debug_toolbar, "~> 0.3.0"}
    ]
   end
 

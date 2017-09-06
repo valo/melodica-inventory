@@ -1,5 +1,6 @@
 defmodule MelodicaInventoryWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :melodica_inventory
+  use ExDebugToolbar.Phoenix
 
   socket "/socket", MelodicaInventoryWeb.UserSocket
 

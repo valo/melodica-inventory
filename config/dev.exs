@@ -6,13 +6,17 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
+config :ex_debug_toolbar,
+  enable: true
+
 config :melodica_inventory, MelodicaInventoryWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
+                    cd: Path.expand("../assets", __DIR__)]],
+  instrumenters: [ExDebugToolbar.Collector.InstrumentationCollector]
 
 
 # Watch static and templates for browser reloading.
@@ -40,7 +44,12 @@ config :melodica_inventory, MelodicaInventory.Repo,
   password: "",
   database: "melodica_inventory_dev",
   hostname: "localhost",
-  pool_size: 10
+  pool_size: 10,
+  loggers: [ExDebugToolbar.Collector.EctoCollector, Ecto.LogEntry]
+
+config :phoenix, :template_engines,
+  eex: ExDebugToolbar.Template.EExEngine,
+  exs: ExDebugToolbar.Template.ExsEngine
 
 if File.exists?("config/dev.secret.exs") do
   import_config "dev.secret.exs"

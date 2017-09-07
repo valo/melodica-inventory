@@ -22,3 +22,5 @@ assets/node_modules
 # secrets file as long as you replace its contents by environment
 # variables.
 /config/*.secret.exs
+/frontend/node_modules/
+/frontend/.next

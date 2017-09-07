@@ -67,6 +67,7 @@ defmodule MelodicaInventory.Mixfile do
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
       {:absinthe, "~> 1.3.2"},
       {:absinthe_plug, "~> 1.3.0"},
+      {:reverse_proxy, "~> 0.3"}
    ]
   end
 

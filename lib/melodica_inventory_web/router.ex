@@ -58,10 +58,10 @@ defmodule MelodicaInventoryWeb.Router do
     resources "/search", SearchController, only: [:index]
   end
 
-  scope "/melodicagram", MelodicaInventoryWeb do
+  scope "/melodicagram" do
     pipe_through [:browser, :authenticate_customer]
 
-    get "/", MelodicagramController, :index
+    forward "/", ReverseProxy, upstream: ["localhost:3000"]
   end
 
   scope "/admin", as: :admin, alias: MelodicaInventoryWeb.Admin do

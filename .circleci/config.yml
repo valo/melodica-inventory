@@ -24,4 +24,3 @@ jobs:
             - _build
             - deps
       - run: mix test
-      - run: mix credo --strict

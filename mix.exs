@@ -74,7 +74,6 @@ defmodule MelodicaInventory.Mixfile do
       {:timex, "~> 3.0"},
       {:cloudex, "~> 0.1.10"},
       {:scout_apm, "~> 0.0"},
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.7"},
       {:jason, "~> 1.0"}

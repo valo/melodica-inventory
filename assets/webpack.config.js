@@ -51,7 +51,7 @@ module.exports = (env, options) => ({
           options: {
             name: '[name].[ext]',
             outputPath: 'fonts/',    // where the fonts will go
-            publicPath: '../'       // override the default path
+            publicPath: 'fonts/'       // override the default path
           }
         }]
       }

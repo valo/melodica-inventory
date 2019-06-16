@@ -4,17 +4,21 @@ defmodule MelodicaInventoryWeb.EventController do
   alias MelodicaInventory.Accounts.User
 
   def show(conn, %{"id" => id}) do
-    event = Repo.get!(Event, id)
-    |> Repo.preload(item_reservations: :item)
+    event =
+      Repo.get!(Event, id)
+      |> Repo.preload(item_reservations: :item)
 
-    render conn, "show.html", event: event
+    render(conn, "show.html", event: event)
   end
 
   def index(conn, _) do
-    events = Repo.all(Event)
-    |> Repo.preload([:user])
+    events =
+      Event
+      |> where([e], is_nil(e.archived_at))
+      |> Repo.all()
+      |> Repo.preload([:user])
 
-    render conn, "index.html", events: events
+    render(conn, "index.html", events: events)
   end
 
   def new(%Plug.Conn{assigns: %{current_user: current_user}} = conn, _) do
@@ -31,6 +35,7 @@ defmodule MelodicaInventoryWeb.EventController do
         conn
         |> put_flash(:info, "Event created successfully.")
         |> redirect(to: event_path(conn, :index))
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset, users: Repo.all(User))
     end

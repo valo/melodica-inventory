@@ -19,7 +19,6 @@ defmodule MelodicaInventoryWeb do
   def model do
     quote do
       use Ecto.Schema
-      use Timex.Ecto.Timestamps
 
       import Ecto
       import Ecto.Changeset
@@ -30,7 +29,7 @@ defmodule MelodicaInventoryWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: MelodicaInventoryWeb
-      if Mix.env == :prod, do: use ScoutApm.Instrumentation
+      if Mix.env() == :prod, do: use(ScoutApm.Instrumentation)
 
       alias MelodicaInventory.Repo
       import Ecto
@@ -43,7 +42,9 @@ defmodule MelodicaInventoryWeb do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/melodica_inventory_web/templates", namespace: MelodicaInventoryWeb
+      use Phoenix.View,
+        root: "lib/melodica_inventory_web/templates",
+        namespace: MelodicaInventoryWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]

@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/cci-demo-phoenix
     docker:
-      - image: elixir:1.4.2
+      - image: elixir:1.8.0
       - image: postgres:9.6.2
         environment:
           POSTGRES_USER: ubuntu
@@ -24,4 +24,3 @@ jobs:
             - _build
             - deps
       - run: mix test
-      - run: mix credo --strict

@@ -7,6 +7,7 @@ defmodule MelodicaInventoryWeb.Admin.EventArchiveController do
     events =
       Event
       |> where([e], not is_nil(e.archived_at))
+      |> order_by([e], desc: e.start_date)
       |> Repo.all()
       |> Repo.preload([:user])
 

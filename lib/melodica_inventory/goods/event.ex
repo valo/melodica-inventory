@@ -28,8 +28,9 @@ defmodule MelodicaInventory.Goods.Event do
   end
 
   defp validate_start_end_dates(changeset) do
-    with {:ok, start_date} <- get_field(changeset, :start_date) |> Timex.parse("{YYYY}-{0M}-{D}"),
-         {:ok, end_date} <- get_field(changeset, :end_date) |> Timex.parse("{YYYY}-{0M}-{D}"),
+    with start_date <- get_field(changeset, :start_date),
+         end_date <- get_field(changeset, :end_date),
+         true <- start_date != nil and end_date != nil,
          :gt <- Date.compare(start_date, end_date) do
       add_error(changeset, :date, "End date can't be before the start date")
     else

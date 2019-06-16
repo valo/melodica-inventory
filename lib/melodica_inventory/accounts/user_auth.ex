@@ -4,15 +4,22 @@ defmodule MelodicaInventory.Accounts.UserAuth do
   alias MelodicaInventory.Repo
   alias MelodicaInventory.Accounts.User
 
-  def find_or_create(
-    %Ueberauth.Auth{
-      info: %Ueberauth.Auth.Info{
-        email: email, first_name: first_name, last_name: last_name, image: image_url
-      }}) do
+  def find_or_create(%Ueberauth.Auth{
+        info: %Ueberauth.Auth.Info{
+          email: email,
+          first_name: first_name,
+          last_name: last_name,
+          image: image_url
+        }
+      }) do
     if email_allowed?(email) do
-      {:ok, find_or_create_db_user(%{
-        email: email, first_name: first_name, last_name: last_name, image_url: image_url
-      })}
+      {:ok,
+       find_or_create_db_user(%{
+         email: email,
+         first_name: first_name,
+         last_name: last_name,
+         image_url: image_url
+       })}
     else
       {:error, "Authentication failed"}
     end
@@ -22,15 +29,16 @@ defmodule MelodicaInventory.Accounts.UserAuth do
     case Repo.get_by(User, email: email) do
       nil ->
         User.changeset(%User{admin: false}, user_attrs)
-        |> Repo.insert!
+        |> Repo.insert!()
+
       db_user ->
         User.changeset(db_user, user_attrs)
-        |> Repo.update!
+        |> Repo.update!()
     end
   end
 
   defp email_allowed?(email) do
-    true
-    # String.ends_with?(email, "@melodica-events.com") or String.ends_with?(email, "@melodica-corporate.com")
+    String.ends_with?(email, "@melodica-events.com") or
+      String.ends_with?(email, "@melodica-corporate.com") or email == "valentin.mihov@gmail.com"
   end
 end

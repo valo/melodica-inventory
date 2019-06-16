@@ -13,6 +13,7 @@ defmodule MelodicaInventory.Goods.Event do
     field(:start_date, :date, null: false)
     field(:end_date, :date, null: false)
     field(:confirmed, :boolean, null: false, default: false)
+    field(:archived_at, :utc_datetime, default: nil)
     timestamps()
   end
 

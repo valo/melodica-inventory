@@ -2,33 +2,19 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 11.3
+-- Dumped by pg_dump version 11.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
-SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
 
@@ -38,7 +24,7 @@ SET default_with_oids = false;
 -- Name: attachments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE attachments (
+CREATE TABLE public.attachments (
     id integer NOT NULL,
     uuid character varying(255) NOT NULL,
     item_id integer NOT NULL,
@@ -53,7 +39,7 @@ CREATE TABLE attachments (
 -- Name: attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE attachments_id_seq
+CREATE SEQUENCE public.attachments_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -65,14 +51,14 @@ CREATE SEQUENCE attachments_id_seq
 -- Name: attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE attachments_id_seq OWNED BY attachments.id;
+ALTER SEQUENCE public.attachments_id_seq OWNED BY public.attachments.id;
 
 
 --
 -- Name: categories; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE categories (
+CREATE TABLE public.categories (
     id integer NOT NULL,
     uuid character varying(255) NOT NULL,
     name character varying(255) NOT NULL,
@@ -86,7 +72,7 @@ CREATE TABLE categories (
 -- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE categories_id_seq
+CREATE SEQUENCE public.categories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -98,14 +84,14 @@ CREATE SEQUENCE categories_id_seq
 -- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
 
 
 --
 -- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE events (
+CREATE TABLE public.events (
     id integer NOT NULL,
     user_id integer NOT NULL,
     name character varying(255) NOT NULL,
@@ -114,7 +100,8 @@ CREATE TABLE events (
     end_date date NOT NULL,
     confirmed boolean DEFAULT false NOT NULL,
     inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    archived_at timestamp(0) without time zone DEFAULT NULL::timestamp without time zone
 );
 
 
@@ -122,7 +109,7 @@ CREATE TABLE events (
 -- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE events_id_seq
+CREATE SEQUENCE public.events_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -134,14 +121,14 @@ CREATE SEQUENCE events_id_seq
 -- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE events_id_seq OWNED BY events.id;
+ALTER SEQUENCE public.events_id_seq OWNED BY public.events.id;
 
 
 --
 -- Name: images; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE images (
+CREATE TABLE public.images (
     id integer NOT NULL,
     item_id integer,
     public_id character varying(255),
@@ -154,7 +141,7 @@ CREATE TABLE images (
 -- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE images_id_seq
+CREATE SEQUENCE public.images_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -166,14 +153,14 @@ CREATE SEQUENCE images_id_seq
 -- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE images_id_seq OWNED BY images.id;
+ALTER SEQUENCE public.images_id_seq OWNED BY public.images.id;
 
 
 --
 -- Name: item_reservations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE item_reservations (
+CREATE TABLE public.item_reservations (
     id integer NOT NULL,
     event_id integer NOT NULL,
     item_id integer NOT NULL,
@@ -187,7 +174,7 @@ CREATE TABLE item_reservations (
 -- Name: item_reservations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE item_reservations_id_seq
+CREATE SEQUENCE public.item_reservations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -199,14 +186,14 @@ CREATE SEQUENCE item_reservations_id_seq
 -- Name: item_reservations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE item_reservations_id_seq OWNED BY item_reservations.id;
+ALTER SEQUENCE public.item_reservations_id_seq OWNED BY public.item_reservations.id;
 
 
 --
 -- Name: items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE items (
+CREATE TABLE public.items (
     id integer NOT NULL,
     uuid character varying(255),
     variation_id integer NOT NULL,
@@ -224,7 +211,7 @@ CREATE TABLE items (
 -- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE items_id_seq
+CREATE SEQUENCE public.items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -236,14 +223,14 @@ CREATE SEQUENCE items_id_seq
 -- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE items_id_seq OWNED BY items.id;
+ALTER SEQUENCE public.items_id_seq OWNED BY public.items.id;
 
 
 --
 -- Name: loans; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE loans (
+CREATE TABLE public.loans (
     id integer NOT NULL,
     user_id integer NOT NULL,
     item_id integer NOT NULL,
@@ -259,7 +246,7 @@ CREATE TABLE loans (
 -- Name: loans_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE loans_id_seq
+CREATE SEQUENCE public.loans_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -271,14 +258,14 @@ CREATE SEQUENCE loans_id_seq
 -- Name: loans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE loans_id_seq OWNED BY loans.id;
+ALTER SEQUENCE public.loans_id_seq OWNED BY public.loans.id;
 
 
 --
 -- Name: returns; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE returns (
+CREATE TABLE public.returns (
     id integer NOT NULL,
     loan_id integer NOT NULL,
     quantity integer NOT NULL,
@@ -293,7 +280,7 @@ CREATE TABLE returns (
 -- Name: returns_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE returns_id_seq
+CREATE SEQUENCE public.returns_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -305,14 +292,14 @@ CREATE SEQUENCE returns_id_seq
 -- Name: returns_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE returns_id_seq OWNED BY returns.id;
+ALTER SEQUENCE public.returns_id_seq OWNED BY public.returns.id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version bigint NOT NULL,
     inserted_at timestamp without time zone
 );
@@ -322,7 +309,7 @@ CREATE TABLE schema_migrations (
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     id integer NOT NULL,
     email character varying(255) NOT NULL,
     first_name character varying(255) NOT NULL,
@@ -338,7 +325,7 @@ CREATE TABLE users (
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE users_id_seq
+CREATE SEQUENCE public.users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -350,14 +337,14 @@ CREATE SEQUENCE users_id_seq
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
 -- Name: variations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE variations (
+CREATE TABLE public.variations (
     id integer NOT NULL,
     uuid character varying(255) NOT NULL,
     category_id integer NOT NULL,
@@ -371,7 +358,7 @@ CREATE TABLE variations (
 -- Name: variations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE variations_id_seq
+CREATE SEQUENCE public.variations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -383,84 +370,84 @@ CREATE SEQUENCE variations_id_seq
 -- Name: variations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE variations_id_seq OWNED BY variations.id;
+ALTER SEQUENCE public.variations_id_seq OWNED BY public.variations.id;
 
 
 --
 -- Name: attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY attachments ALTER COLUMN id SET DEFAULT nextval('attachments_id_seq'::regclass);
+ALTER TABLE ONLY public.attachments ALTER COLUMN id SET DEFAULT nextval('public.attachments_id_seq'::regclass);
 
 
 --
 -- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
 
 
 --
 -- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
+ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
 
 
 --
 -- Name: images id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::regclass);
+ALTER TABLE ONLY public.images ALTER COLUMN id SET DEFAULT nextval('public.images_id_seq'::regclass);
 
 
 --
 -- Name: item_reservations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY item_reservations ALTER COLUMN id SET DEFAULT nextval('item_reservations_id_seq'::regclass);
+ALTER TABLE ONLY public.item_reservations ALTER COLUMN id SET DEFAULT nextval('public.item_reservations_id_seq'::regclass);
 
 
 --
 -- Name: items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY items ALTER COLUMN id SET DEFAULT nextval('items_id_seq'::regclass);
+ALTER TABLE ONLY public.items ALTER COLUMN id SET DEFAULT nextval('public.items_id_seq'::regclass);
 
 
 --
 -- Name: loans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY loans ALTER COLUMN id SET DEFAULT nextval('loans_id_seq'::regclass);
+ALTER TABLE ONLY public.loans ALTER COLUMN id SET DEFAULT nextval('public.loans_id_seq'::regclass);
 
 
 --
 -- Name: returns id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY returns ALTER COLUMN id SET DEFAULT nextval('returns_id_seq'::regclass);
+ALTER TABLE ONLY public.returns ALTER COLUMN id SET DEFAULT nextval('public.returns_id_seq'::regclass);
 
 
 --
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
 -- Name: variations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY variations ALTER COLUMN id SET DEFAULT nextval('variations_id_seq'::regclass);
+ALTER TABLE ONLY public.variations ALTER COLUMN id SET DEFAULT nextval('public.variations_id_seq'::regclass);
 
 
 --
 -- Name: attachments attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY attachments
+ALTER TABLE ONLY public.attachments
     ADD CONSTRAINT attachments_pkey PRIMARY KEY (id);
 
 
@@ -468,7 +455,7 @@ ALTER TABLE ONLY attachments
 -- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY categories
+ALTER TABLE ONLY public.categories
     ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
 
 
@@ -476,7 +463,7 @@ ALTER TABLE ONLY categories
 -- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY events
+ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
 
 
@@ -484,7 +471,7 @@ ALTER TABLE ONLY events
 -- Name: images images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY images
+ALTER TABLE ONLY public.images
     ADD CONSTRAINT images_pkey PRIMARY KEY (id);
 
 
@@ -492,7 +479,7 @@ ALTER TABLE ONLY images
 -- Name: item_reservations item_reservations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY item_reservations
+ALTER TABLE ONLY public.item_reservations
     ADD CONSTRAINT item_reservations_pkey PRIMARY KEY (id);
 
 
@@ -500,7 +487,7 @@ ALTER TABLE ONLY item_reservations
 -- Name: items items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY items
+ALTER TABLE ONLY public.items
     ADD CONSTRAINT items_pkey PRIMARY KEY (id);
 
 
@@ -508,7 +495,7 @@ ALTER TABLE ONLY items
 -- Name: loans loans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY loans
+ALTER TABLE ONLY public.loans
     ADD CONSTRAINT loans_pkey PRIMARY KEY (id);
 
 
@@ -516,7 +503,7 @@ ALTER TABLE ONLY loans
 -- Name: returns returns_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY returns
+ALTER TABLE ONLY public.returns
     ADD CONSTRAINT returns_pkey PRIMARY KEY (id);
 
 
@@ -524,7 +511,7 @@ ALTER TABLE ONLY returns
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY schema_migrations
+ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
@@ -532,7 +519,7 @@ ALTER TABLE ONLY schema_migrations
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
@@ -540,7 +527,7 @@ ALTER TABLE ONLY users
 -- Name: variations variations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY variations
+ALTER TABLE ONLY public.variations
     ADD CONSTRAINT variations_pkey PRIMARY KEY (id);
 
 
@@ -548,120 +535,120 @@ ALTER TABLE ONLY variations
 -- Name: categories_uuid_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX categories_uuid_index ON categories USING btree (uuid);
+CREATE UNIQUE INDEX categories_uuid_index ON public.categories USING btree (uuid);
 
 
 --
 -- Name: events_user_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX events_user_id_index ON events USING btree (user_id);
+CREATE INDEX events_user_id_index ON public.events USING btree (user_id);
 
 
 --
 -- Name: item_reservations_event_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX item_reservations_event_id_index ON item_reservations USING btree (event_id);
+CREATE INDEX item_reservations_event_id_index ON public.item_reservations USING btree (event_id);
 
 
 --
 -- Name: item_reservations_item_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX item_reservations_item_id_index ON item_reservations USING btree (item_id);
+CREATE INDEX item_reservations_item_id_index ON public.item_reservations USING btree (item_id);
 
 
 --
 -- Name: users_email_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX users_email_index ON users USING btree (email);
+CREATE UNIQUE INDEX users_email_index ON public.users USING btree (email);
 
 
 --
 -- Name: attachments attachments_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY attachments
-    ADD CONSTRAINT attachments_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.attachments
+    ADD CONSTRAINT attachments_item_id_fkey FOREIGN KEY (item_id) REFERENCES public.items(id) ON DELETE CASCADE;
 
 
 --
 -- Name: events events_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY events
-    ADD CONSTRAINT events_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
 -- Name: images images_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY images
-    ADD CONSTRAINT images_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.images
+    ADD CONSTRAINT images_item_id_fkey FOREIGN KEY (item_id) REFERENCES public.items(id) ON DELETE CASCADE;
 
 
 --
 -- Name: item_reservations item_reservations_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY item_reservations
-    ADD CONSTRAINT item_reservations_event_id_fkey FOREIGN KEY (event_id) REFERENCES events(id);
+ALTER TABLE ONLY public.item_reservations
+    ADD CONSTRAINT item_reservations_event_id_fkey FOREIGN KEY (event_id) REFERENCES public.events(id);
 
 
 --
 -- Name: item_reservations item_reservations_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY item_reservations
-    ADD CONSTRAINT item_reservations_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.item_reservations
+    ADD CONSTRAINT item_reservations_item_id_fkey FOREIGN KEY (item_id) REFERENCES public.items(id) ON DELETE CASCADE;
 
 
 --
 -- Name: items items_variation_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY items
-    ADD CONSTRAINT items_variation_id_fkey FOREIGN KEY (variation_id) REFERENCES variations(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.items
+    ADD CONSTRAINT items_variation_id_fkey FOREIGN KEY (variation_id) REFERENCES public.variations(id) ON DELETE CASCADE;
 
 
 --
 -- Name: loans loans_item_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY loans
-    ADD CONSTRAINT loans_item_id_fkey FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.loans
+    ADD CONSTRAINT loans_item_id_fkey FOREIGN KEY (item_id) REFERENCES public.items(id) ON DELETE CASCADE;
 
 
 --
 -- Name: loans loans_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY loans
-    ADD CONSTRAINT loans_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY public.loans
+    ADD CONSTRAINT loans_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
 -- Name: returns returns_loan_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY returns
-    ADD CONSTRAINT returns_loan_id_fkey FOREIGN KEY (loan_id) REFERENCES loans(id);
+ALTER TABLE ONLY public.returns
+    ADD CONSTRAINT returns_loan_id_fkey FOREIGN KEY (loan_id) REFERENCES public.loans(id);
 
 
 --
 -- Name: variations variations_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY variations
-    ADD CONSTRAINT variations_category_id_fkey FOREIGN KEY (category_id) REFERENCES categories(id);
+ALTER TABLE ONLY public.variations
+    ADD CONSTRAINT variations_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.categories(id);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO "schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240), (20170416213841), (20170417092444), (20170504211926), (20170504215324), (20170527133428);
+INSERT INTO public."schema_migrations" (version) VALUES (20161120230958), (20161127095807), (20161127101448), (20161127101945), (20161127102144), (20161225222450), (20161225224044), (20161229165155), (20161229170026), (20161230221240), (20170416213841), (20170417092444), (20170504211926), (20170504215324), (20170527133428), (20190616152804);
 

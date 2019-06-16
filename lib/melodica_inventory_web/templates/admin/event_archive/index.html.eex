@@ -1,10 +1,4 @@
-<h1>
-  Events
-  <%= link "Add event", to: event_path(@conn, :new), class: "btn btn-secondary btn-sm" %>
-  <%= if @current_user.admin do %>
-    <%= link "Event Archive", to: admin_event_archive_path(@conn, :index), class: "btn btn-secondary btn-sm" %>
-  <% end %>
-</h1>
+<h1>Event Archive</h1>
 <div class="table-responsive">
   <table class="table">
     <thead class="thead-default">
@@ -37,9 +31,7 @@
           </td>
           <%= if @current_user.admin do %>
             <td>
-              <%= link "Edit", to: admin_event_path(@conn, :edit, event), class: "btn btn-sm btn-secondary" %>
-              <%= link "Archive", to: admin_event_archive_path(@conn, :create, id: event.id), method: :post, class: "btn btn-sm btn-secondary" %>
-              <%= link "Delete", to: admin_event_path(@conn, :delete, event), method: :delete, data: [confirm: "Are you sure you want to delete the event?"], class: "btn btn-sm btn-secondary" %>
+              <%= link "Unarchive", to: admin_event_archive_path(@conn, :delete, event), method: :delete, class: "btn btn-sm btn-secondary" %>
             </td>
           <% end %>
         </tr>

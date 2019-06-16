@@ -16,6 +16,7 @@ window.Tether = require("tether/dist/js/tether.min.js");
 
 require("bootstrap/dist/js/bootstrap.js");
 require("bootstrap-year-calendar/js/bootstrap-year-calendar.js");
+require('jquery-ui')
 
 function setup_calendar() {
   $("#calendar").calendar({
@@ -77,15 +78,15 @@ function setupSearchField() {
   });
 }
 
-function setupDatepicker() {
-  if ($('#start_date').prop('type') != 'date') {
-    $('#start_date').datepicker();
-  }
+// function setupDatepicker() {
+//   if ($('#start_date').prop('type') != 'date') {
+//     $('#start_date').datepicker();
+//   }
 
-  if ($('#end_date').prop('type') != 'date') {
-    $('#end_date').datepicker();
-  }
-}
+//   if ($('#end_date').prop('type') != 'date') {
+//     $('#end_date').datepicker();
+//   }
+// }
 
 $(document).ready(function () {
   $("#returnLessModal").on("show.bs.modal", function (event) {
@@ -118,4 +119,5 @@ $(document).ready(function () {
   })
 
   setupSearchField();
+  // setupDatepicker();
 });

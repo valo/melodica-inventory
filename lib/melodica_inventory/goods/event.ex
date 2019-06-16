@@ -6,13 +6,13 @@ defmodule MelodicaInventory.Goods.Event do
   alias MelodicaInventory.Loans.ItemReservation
 
   schema "events" do
-    belongs_to :user, User
-    has_many :item_reservations, ItemReservation, on_delete: :delete_all
-    field :name, :string, null: false
-    field :place, :string, null: false
-    field :start_date, :date, null: false
-    field :end_date, :date, null: false
-    field :confirmed, :boolean, null: false, default: false
+    belongs_to(:user, User)
+    has_many(:item_reservations, ItemReservation, on_delete: :delete_all)
+    field(:name, :string, null: false)
+    field(:place, :string, null: false)
+    field(:start_date, :date, null: false)
+    field(:end_date, :date, null: false)
+    field(:confirmed, :boolean, null: false, default: false)
     timestamps()
   end
 
@@ -27,10 +27,9 @@ defmodule MelodicaInventory.Goods.Event do
   end
 
   defp validate_start_end_dates(changeset) do
-    with {:ok, start_date} <- get_field(changeset, :start_date) |> Ecto.Date.cast,
-         {:ok, end_date} <- get_field(changeset, :end_date) |> Ecto.Date.cast,
-         :gt <- Ecto.Date.compare(start_date, end_date)
-    do
+    with {:ok, start_date} <- get_field(changeset, :start_date) |> Timex.parse("{YYYY}-{0M}-{D}"),
+         {:ok, end_date} <- get_field(changeset, :end_date) |> Timex.parse("{YYYY}-{0M}-{D}"),
+         :gt <- Date.compare(start_date, end_date) do
       add_error(changeset, :date, "End date can't be before the start date")
     else
       _ -> changeset

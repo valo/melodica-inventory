@@ -14,8 +14,7 @@ config :melodica_inventory, MelodicaInventoryWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "TA7wdGLsJXMHMZY3Z+Q6LWGog1jhQbPastd5DlSaDq+LQuhDS6xTKZG5W84Vsbtq",
   render_errors: [view: MelodicaInventoryWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: MelodicaInventory.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: MelodicaInventory.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -29,6 +28,9 @@ config :ueberauth, Ueberauth,
 
 config :melodica_inventory, :trello_url, "https://api.trello.com/1"
 
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

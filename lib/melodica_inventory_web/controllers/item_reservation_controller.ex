@@ -16,7 +16,10 @@ defmodule MelodicaInventoryWeb.ItemReservationController do
   end
 
   def create(%Plug.Conn{assigns: %{current_event: current_event}} = conn, %{"item_reservation" => item_reservation_params}) do
-    changeset = ItemReservation.changeset(%ItemReservation{event_id: current_event.id}, item_reservation_params)
+    changeset = ItemReservation.create_changeset(%ItemReservation{event_id: current_event.id}, item_reservation_params)
+
+    # require IEx
+    # IEx.pry()
 
     item = Repo.get!(Item, item_reservation_params["item_id"])
     |> Repo.preload(:variation)
@@ -27,7 +30,7 @@ defmodule MelodicaInventoryWeb.ItemReservationController do
         |> put_flash(:info, "Reservation created successfully.")
         |> redirect(to: category_path(conn, :show, item.variation.category_id))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, item: item)
     end
   end
 
